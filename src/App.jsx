@@ -459,9 +459,6 @@ function AboutPage() {
               <p style={{ ...h("b", 11, 300, TEXT_MUTED), lineHeight: 1.5 }}>12-month international exchange, 2016</p>
               <p style={{ ...h("b", 12, 400, SILVER_LIGHT), marginTop: 2 }}>4.0 GPA</p>
             </div>
-            <div style={{ borderTop: `1px solid ${NAVY_BORDER}`, paddingTop: 14 }}>
-              <p style={{ ...h("b", 11, 300, TEXT_MUTED) }}>ATAR 97+</p>
-            </div>
           </div></SR>
           <SR delay={0.25}><div className="card-glow" style={{ background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, padding: 36 }}>
             <p style={{ ...h("b", 9, 500, ACCENT, 3, "uppercase"), marginBottom: 18 }}>Approach</p>
