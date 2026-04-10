@@ -348,36 +348,53 @@ function AboutPage() {
       <PhotoSection src={PHOTOS.about} overlay={0.88}>
         <div className="section-pad-top">
           <SR><p style={{ ...s("b", 11, 400, ACCENT, 4, "uppercase"), marginBottom: 16 }}>About</p></SR>
-          <SR delay={0.1}><h2 style={{ ...s("s", 48, 400, TEXT), marginBottom: 6 }}>The Principal</h2></SR>
-          <SR delay={0.2}><p style={{ ...s("s", 20, 400, SILVER), lineHeight: 1.65, maxWidth: 600, marginTop: 20, fontStyle: "italic" }}>
-            I've spent my career on both sides of the table — working with institutions deploying capital and founders raising it.
+          <SR delay={0.1}><h2 style={{ ...s("s", 48, 400, TEXT), marginBottom: 6 }}>Hey, I'm Amar.</h2></SR>
+          <SR delay={0.2}><p style={{ ...s("s", 20, 400, SILVER), lineHeight: 1.65, maxWidth: 640, marginTop: 20, fontStyle: "italic" }}>
+            I started Evara Advisory because I kept seeing the same problem — talented founders and operators with great businesses, but without the financial tools or materials to match.
           </p></SR>
         </div>
       </PhotoSection>
+
+      {/* Personal intro - full width */}
+      <div className="section-pad" style={{ background: NAVY_DEEP, borderBottom: `1px solid ${NAVY_BORDER}` }}>
+        <div style={{ maxWidth: 720 }}>
+          <SR><p style={{ ...s("b", 16, 300, TEXT_MUTED), lineHeight: 1.9, marginBottom: 24 }}>
+            I've spent the past seven years in private markets — starting in institutional banking, then moving through venture capital, corporate development, and family office advisory. Along the way, I've sat in IC meetings, built fund models, led due diligence, and helped founders walk into investor conversations feeling genuinely prepared.
+          </p></SR>
+          <SR delay={0.1}><p style={{ ...s("b", 16, 300, TEXT_MUTED), lineHeight: 1.9, marginBottom: 24 }}>
+            I launched Evara Advisory in early 2026. The firm is new, but the experience behind it isn't. I work with a deliberately small number of clients because I'd rather go deep on a few mandates than spread thin across many. Every engagement gets the same level of rigour I'd bring to a deal at an institutional desk.
+          </p></SR>
+          <SR delay={0.2}><p style={{ ...s("b", 16, 300, TEXT_MUTED), lineHeight: 1.9 }}>
+            I also lean heavily into AI tooling — it lets me deliver work at a speed and depth that traditional advisory firms can't match, and I pass that efficiency on to my clients.
+          </p></SR>
+        </div>
+      </div>
+
+      {/* Two column - career detail + cards */}
       <div className="section-pad" style={{ background: NAVY_DEEP }}>
         <div className="grid-about">
           <div>
-            <SR><p style={{ ...s("b", 15, 300, TEXT_MUTED), lineHeight: 1.85, marginBottom: 22 }}>My career started in one of Australia's largest institutional banks, working across M&A advisory and leveraged finance — structuring debt facilities for private equity sponsors and advising on complex transactions. I transitioned into the bank's venture investment arm, gaining direct exposure to high-growth technology companies from Series A onwards across the fintech ecosystem.</p></SR>
-            <SR delay={0.1}><p style={{ ...s("b", 15, 300, TEXT_MUTED), lineHeight: 1.85, marginBottom: 22 }}>From there I joined a major ASX-listed technology platform, evaluating proptech venture investments and supporting corporate development strategy. I then became the founding hire at an early-stage venture fund — sole-leading due diligence, managing Investment Committee approvals, and driving fund capital raising and operations.</p></SR>
-            <SR delay={0.2}><p style={{ ...s("b", 15, 300, TEXT_MUTED), lineHeight: 1.85, marginBottom: 22 }}>Since launching Evara Advisory in early 2026, I've partnered with family offices on fund structuring and institutional-grade modelling, worked with early-stage founders on investor readiness, and helped established SMBs build the commercial tools and frameworks they need to scale. The firm is new, but the experience behind it isn't — I bring every engagement the same institutional rigour built over seven years in private markets. I also leverage advanced AI tooling to deliver work at a speed and depth that traditional advisory firms can't match.</p></SR>
-            <SR delay={0.3}><p style={{ ...s("b", 15, 300, TEXT_MUTED), lineHeight: 1.85 }}>I'm selective about engagements because depth matters more than volume. Every client gets the same rigour I'd apply to a transaction on an institutional desk.</p></SR>
+            <SR><h3 style={{ ...s("s", 28, 500, TEXT), marginBottom: 24 }}>The Career Path</h3></SR>
+            <SR delay={0.1}><p style={{ ...s("b", 15, 300, TEXT_MUTED), lineHeight: 1.85, marginBottom: 22 }}>
+              I started at one of Australia's top-four banks in the Institutional Division — M&A advisory and leveraged finance, structuring debt facilities for PE sponsors. From there, I moved into the bank's venture arm, working on growth-stage fintech investments from Series A onwards.
+            </p></SR>
+            <SR delay={0.2}><p style={{ ...s("b", 15, 300, TEXT_MUTED), lineHeight: 1.85, marginBottom: 22 }}>
+              Next came a major ASX-listed technology platform, where I evaluated proptech investments and supported corporate development strategy. Then I joined an early-stage venture fund as the founding hire — sole-leading due diligence, running IC approvals, and driving fund capital raising.
+            </p></SR>
+            <SR delay={0.3}><p style={{ ...s("b", 15, 300, TEXT_MUTED), lineHeight: 1.85, marginBottom: 22 }}>
+              Most recently, I was retained by a major Australian family office to lead financial modelling and investment strategy for a new UK-based fund — building the complete fund model, Investment Memorandum, and board-level materials for an institutional equity raise.
+            </p></SR>
+            <SR delay={0.4}>
+              <div style={{ background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, padding: 28, marginTop: 8 }}>
+                <p style={{ ...s("s", 17, 400, TEXT), lineHeight: 1.65, fontStyle: "italic", marginBottom: 12 }}>
+                  "I care about doing good work for good people. If you're building something meaningful and need someone who takes your ambitions as seriously as you do — let's talk."
+                </p>
+                <p style={{ ...s("b", 11, 400, ACCENT, 2, "uppercase") }}>— Amar</p>
+              </div>
+            </SR>
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
             <SR delay={0.1}><div className="card-glow" style={{ background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, padding: 32 }}>
-              <p style={{ ...s("b", 10, 400, ACCENT, 3, "uppercase"), marginBottom: 14 }}>Education</p>
-              <p style={{ ...s("s", 19, 500, TEXT), marginBottom: 3 }}>University of New South Wales</p>
-              <p style={{ ...s("b", 13, 300, TEXT_MUTED) }}>Bachelor of Commerce — Finance & Information Systems</p>
-            </div></SR>
-            <SR delay={0.2}><div className="card-glow" style={{ background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, padding: 32 }}>
-              <p style={{ ...s("b", 10, 400, ACCENT, 3, "uppercase"), marginBottom: 14 }}>Career Heritage</p>
-              {["Major Australian Bank — M&A Advisory & Leveraged Finance", "Bank Venture Arm — Growth-Stage Technology Investments", "ASX-Listed Technology Platform — Corp Dev & Proptech VC", "Early-Stage Venture Fund — Founding Hire & Fund Operations", "Family Office — Fund Structuring & Investment Strategy"].map((item, i) => (
-                <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: 10, marginBottom: i < 4 ? 12 : 0 }}>
-                  <div style={{ width: 3, height: 3, borderRadius: "50%", background: ACCENT, marginTop: 8, flexShrink: 0 }} />
-                  <p style={{ ...s("b", 12.5, 300, TEXT_MUTED), lineHeight: 1.5 }}>{item}</p>
-                </div>
-              ))}
-            </div></SR>
-            <SR delay={0.3}><div className="card-glow" style={{ background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, padding: 32 }}>
               <p style={{ ...s("b", 10, 400, ACCENT, 3, "uppercase"), marginBottom: 14 }}>Who I Work With</p>
               <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
                 {["Family Offices", "PE-Backed Platforms", "Seed & Series A Founders", "Franchise Groups", "SMB Operators", "Established Businesses"].map(item => (
@@ -385,7 +402,16 @@ function AboutPage() {
                 ))}
               </div>
             </div></SR>
-            <SR delay={0.4}><div className="card-glow" style={{ background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, padding: 32 }}>
+            <SR delay={0.2}><div className="card-glow" style={{ background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, padding: 32 }}>
+              <p style={{ ...s("b", 10, 400, ACCENT, 3, "uppercase"), marginBottom: 14 }}>Career Heritage</p>
+              {["Top-4 Australian Bank — M&A & Leveraged Finance", "Bank Venture Arm — Growth-Stage Tech Investments", "ASX-Listed Platform — Corp Dev & Proptech VC", "Venture Fund — Founding Hire & Fund Operations", "Family Office — Fund Structuring & Strategy"].map((item, i) => (
+                <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: 10, marginBottom: i < 4 ? 12 : 0 }}>
+                  <div style={{ width: 3, height: 3, borderRadius: "50%", background: ACCENT, marginTop: 8, flexShrink: 0 }} />
+                  <p style={{ ...s("b", 12.5, 300, TEXT_MUTED), lineHeight: 1.5 }}>{item}</p>
+                </div>
+              ))}
+            </div></SR>
+            <SR delay={0.3}><div className="card-glow" style={{ background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, padding: 32 }}>
               <p style={{ ...s("b", 10, 400, ACCENT, 3, "uppercase"), marginBottom: 14 }}>Sector Exposure</p>
               <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
                 {["Fintech", "Proptech", "Health & Wellness", "Sports Technology", "Franchising", "Legaltech", "Building & Construction", "Beauty & Retail"].map(item => (
@@ -393,27 +419,12 @@ function AboutPage() {
                 ))}
               </div>
             </div></SR>
+            <SR delay={0.4}><div className="card-glow" style={{ background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, padding: 32 }}>
+              <p style={{ ...s("b", 10, 400, ACCENT, 3, "uppercase"), marginBottom: 14 }}>Education</p>
+              <p style={{ ...s("s", 18, 500, TEXT), marginBottom: 3 }}>University of New South Wales</p>
+              <p style={{ ...s("b", 13, 300, TEXT_MUTED) }}>Bachelor of Commerce — Finance & Information Systems</p>
+            </div></SR>
           </div>
-        </div>
-      </div>
-      {/* Client Testimonials */}
-      <div className="section-pad" style={{ background: NAVY, borderTop: `1px solid ${NAVY_BORDER}`, borderBottom: `1px solid ${NAVY_BORDER}` }}>
-        <SR><p style={{ ...s("b", 10, 400, ACCENT, 3, "uppercase"), marginBottom: 40, textAlign: "center" }}>What Clients Say</p></SR>
-        <div className="testimonial-grid" style={{ maxWidth: 900, margin: "0 auto" }}>
-          <SR delay={0.1}><div className="card-glow" style={{ background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, padding: 40, height: "100%" }}>
-            <div style={{ ...s("s", 40, 300, ACCENT), marginBottom: 12, opacity: 0.3 }}>"</div>
-            <p style={{ ...s("s", 19, 400, TEXT), lineHeight: 1.7, fontStyle: "italic", marginBottom: 24 }}>Amar's modelling skills were of a very high quality. He built a powerful set of supporting documents that gave us real confidence going to market.</p>
-            <div style={{ width: 32, height: 1, background: ACCENT, marginBottom: 14, opacity: 0.4 }} />
-            <p style={{ ...s("b", 12, 400, SILVER_LIGHT, 1, "uppercase") }}>Family Office</p>
-            <p style={{ ...s("b", 11, 300, TEXT_MUTED), marginTop: 2 }}>Health & Fitness Sector</p>
-          </div></SR>
-          <SR delay={0.2}><div className="card-glow" style={{ background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, padding: 40, height: "100%" }}>
-            <div style={{ ...s("s", 40, 300, ACCENT), marginBottom: 12, opacity: 0.3 }}>"</div>
-            <p style={{ ...s("s", 19, 400, TEXT), lineHeight: 1.7, fontStyle: "italic", marginBottom: 24 }}>Amar built a robust set of key company agreements, financial model, and investor deck. He was a key part of our team feeling confident approaching investors and being fully prepared.</p>
-            <div style={{ width: 32, height: 1, background: ACCENT, marginBottom: 14, opacity: 0.4 }} />
-            <p style={{ ...s("b", 12, 400, SILVER_LIGHT, 1, "uppercase") }}>Founder & CEO</p>
-            <p style={{ ...s("b", 11, 300, TEXT_MUTED), marginTop: 2 }}>Consumer Business, Medical Sector</p>
-          </div></SR>
         </div>
       </div>
     </>
@@ -562,11 +573,21 @@ function ServicesPage() {
 }
 
 function TrackRecordPage({ setPage }) {
-  const items = [
-    { period: "2026", client: "Major Australian Family Office", type: "Fund Structuring · Financial Modelling · Investor Materials", detail: "Retained by the parent company of a national fitness franchise network to lead financial modelling and investment strategy for a new UK-based fund. Built the complete fund model — multi-jurisdiction vehicle structure with capital deployment logic, distribution waterfall mechanics, and scenario analysis. Produced the full Investment Memorandum, board-level presentation materials, and investor-facing documentation for an institutional equity raise targeting commercial assets." },
-    { period: "2023 — 2025", client: "Early-Stage Venture Capital Fund", type: "Fund Operations · Due Diligence · Capital Raising", detail: "Founding hire alongside the Managing Partner at a Sydney-based venture fund. Sole-led due diligence and Investment Committee approvals. Managed LP communications, fund capital raising, and deal pipeline development. Deployed capital into multiple portfolio companies. End-to-end experience of the full fund lifecycle — from formation and fundraising through to deployment and wind-down." },
-    { period: "2022", client: "ASX-Listed Technology Platform", type: "Corporate Development · Proptech Venture Investments", detail: "Evaluated and executed venture investments from Series A onwards across the proptech ecosystem. Supported corporate development strategy for one of Australia's largest property technology platforms during its time as a publicly listed company." },
-    { period: "2019 — 2022", client: "Top-4 Australian Bank — Institutional Division", type: "M&A Advisory · Leveraged Finance · Venture Investments", detail: "Three years across the Institutional Bank spanning M&A advisory, leveraged finance — structuring and syndicating debt facilities for PE sponsors — and growth-stage venture investing through the bank's innovation arm. Contributed to multiple fintech transactions from Series A onwards." },
+  const recent = [
+    { status: "active", sector: "Health & Fitness", client: "Major Australian Family Office", type: "Fund Structuring · Financial Modelling · Investor Materials",
+      detail: "Leading financial modelling and investment strategy for a new UK-based fund. Complete fund model with multi-jurisdiction vehicle structure, capital deployment logic, and waterfall mechanics. Full Investment Memorandum and board-level materials for an institutional equity raise." },
+    { status: "active", sector: "Beauty & Medical", client: "Consumer Business — Founder & CEO", type: "Commercial Agreements · Financial Model · Investor Deck",
+      detail: "Building a comprehensive set of key commercial agreements, financial model, and investor deck to prepare the founder for capital raising conversations. End-to-end investor readiness support from narrative through to data room." },
+    { status: "active", sector: "Legal Technology", client: "Legaltech Platform — Founder", type: "Strategic Advisory · Financial Modelling · Investor Readiness",
+      detail: "Advising the founder of an early-stage legaltech platform on commercial strategy, financial model architecture, and fundraising preparation. Scoping engagement with potential to expand into full investment memorandum and capital raising support." },
+  ];
+  const career = [
+    { period: "2023 — 2025", client: "Early-Stage Venture Capital Fund", type: "Fund Operations · Due Diligence · Capital Raising",
+      detail: "Founding hire alongside the Managing Partner at a Sydney-based venture fund. Sole-led due diligence and Investment Committee approvals. Managed LP communications, fund capital raising, and deal pipeline. End-to-end experience of the full fund lifecycle." },
+    { period: "2022", client: "ASX-Listed Technology Platform", type: "Corporate Development · Proptech Venture Investments",
+      detail: "Evaluated and executed venture investments from Series A onwards across the proptech ecosystem. Supported corporate development strategy during the company's time as a publicly listed business." },
+    { period: "2019 — 2022", client: "Top-4 Australian Bank — Institutional Division", type: "M&A Advisory · Leveraged Finance · Venture Investments",
+      detail: "Three years across the Institutional Bank spanning M&A advisory, leveraged finance — structuring debt facilities for PE sponsors — and growth-stage venture investing through the bank's innovation arm." },
   ];
   return (
     <>
@@ -575,10 +596,68 @@ function TrackRecordPage({ setPage }) {
           <SR><p style={{ ...s("b", 11, 400, ACCENT, 4, "uppercase"), marginBottom: 16 }}>Track Record</p></SR>
           <SR delay={0.1}><h2 style={{ ...s("s", 48, 400, TEXT), marginBottom: 12 }}>Select Engagements</h2></SR>
           <SR delay={0.15}><Line style={{ marginBottom: 24 }} /></SR>
-          <SR delay={0.2}><p style={{ ...s("b", 15, 300, SILVER), lineHeight: 1.8, maxWidth: 600 }}>A selection of mandates across the capital stack. Details shared with discretion; further information available under NDA.</p></SR>
+          <SR delay={0.2}><p style={{ ...s("b", 15, 300, SILVER), lineHeight: 1.8, maxWidth: 600 }}>A selection of current and past mandates. Details shared with discretion; further information available under NDA.</p></SR>
         </div>
       </PhotoSection>
-      <div className="section-pad" style={{ background: NAVY, borderBottom: `1px solid ${NAVY_BORDER}` }}>
+
+      {/* Current & Recent Engagements */}
+      <div style={{ padding: "64px 24px", background: `linear-gradient(180deg, ${NAVY} 0%, ${NAVY_DEEP} 100%)` }}>
+        <SR><div style={{ textAlign: "center", marginBottom: 48 }}>
+          <p style={{ ...s("b", 11, 400, ACCENT, 3, "uppercase"), marginBottom: 12 }}>2026</p>
+          <h3 style={{ ...s("s", 32, 400, TEXT), marginBottom: 8 }}>Current & Recent Engagements</h3>
+          <p style={{ ...s("b", 13, 300, TEXT_MUTED) }}>Three active mandates in the first quarter — across fund structuring, capital raising, and strategic advisory.</p>
+        </div></SR>
+        <div className="grid-3" style={{ maxWidth: 1000, margin: "0 auto", gap: 20, background: "transparent" }}>
+          {recent.map((r, i) => (
+            <SR key={i} delay={i * 0.12}>
+              <div className="card-glow" style={{ background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, borderTop: `2px solid ${ACCENT}`, padding: 32, height: "100%" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 16 }}>
+                  <div style={{ width: 8, height: 8, borderRadius: "50%", background: "#4ADE80", boxShadow: "0 0 8px rgba(74,222,128,0.4)" }} />
+                  <span style={{ ...s("b", 10, 400, "#4ADE80", 1.5, "uppercase") }}>Active</span>
+                </div>
+                <p style={{ ...s("b", 10, 400, ACCENT, 2, "uppercase"), marginBottom: 8 }}>{r.sector}</p>
+                <h4 style={{ ...s("s", 20, 500, TEXT), marginBottom: 6 }}>{r.client}</h4>
+                <p style={{ ...s("b", 11, 300, ACCENT, 1, "uppercase"), marginBottom: 16 }}>{r.type}</p>
+                <div style={{ width: 32, height: 1, background: NAVY_BORDER, marginBottom: 16 }} />
+                <p style={{ ...s("b", 13, 300, TEXT_MUTED), lineHeight: 1.8 }}>{r.detail}</p>
+              </div>
+            </SR>
+          ))}
+        </div>
+      </div>
+
+      {/* Testimonials */}
+      <div style={{ padding: "64px 24px", background: NAVY, borderTop: `1px solid ${NAVY_BORDER}`, borderBottom: `1px solid ${NAVY_BORDER}` }}>
+        <SR><p style={{ ...s("b", 11, 400, ACCENT, 3, "uppercase"), marginBottom: 12, textAlign: "center" }}>Client Feedback</p></SR>
+        <SR delay={0.05}><h3 style={{ ...s("s", 32, 400, TEXT), textAlign: "center", marginBottom: 48 }}>What Clients Say</h3></SR>
+        <div className="testimonial-grid" style={{ maxWidth: 900, margin: "0 auto" }}>
+          <SR delay={0.1}><div className="card-glow" style={{ background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, padding: 44, height: "100%", borderTop: `2px solid ${ACCENT}` }}>
+            <div style={{ display: "flex", gap: 6, marginBottom: 16 }}>
+              {[1,2,3,4,5].map(i => <span key={i} style={{ color: "#D4AA60", fontSize: 16 }}>★</span>)}
+            </div>
+            <p style={{ ...s("s", 20, 400, TEXT), lineHeight: 1.7, fontStyle: "italic", marginBottom: 28 }}>
+              Amar's modelling skills were of a very high quality. He built a powerful set of supporting documents that gave us real confidence going to market.
+            </p>
+            <div style={{ width: 40, height: 1, background: `linear-gradient(90deg, ${ACCENT}, transparent)`, marginBottom: 16, opacity: 0.5 }} />
+            <p style={{ ...s("b", 13, 500, SILVER_LIGHT, 1, "uppercase") }}>Family Office</p>
+            <p style={{ ...s("b", 12, 300, TEXT_MUTED), marginTop: 4 }}>Health & Fitness Sector</p>
+          </div></SR>
+          <SR delay={0.2}><div className="card-glow" style={{ background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, padding: 44, height: "100%", borderTop: `2px solid ${ACCENT}` }}>
+            <div style={{ display: "flex", gap: 6, marginBottom: 16 }}>
+              {[1,2,3,4,5].map(i => <span key={i} style={{ color: "#D4AA60", fontSize: 16 }}>★</span>)}
+            </div>
+            <p style={{ ...s("s", 20, 400, TEXT), lineHeight: 1.7, fontStyle: "italic", marginBottom: 28 }}>
+              Amar built a robust set of key company agreements, financial model, and investor deck. He was a key part of our team feeling confident approaching investors and being fully prepared.
+            </p>
+            <div style={{ width: 40, height: 1, background: `linear-gradient(90deg, ${ACCENT}, transparent)`, marginBottom: 16, opacity: 0.5 }} />
+            <p style={{ ...s("b", 13, 500, SILVER_LIGHT, 1, "uppercase") }}>Founder & CEO</p>
+            <p style={{ ...s("b", 12, 300, TEXT_MUTED), marginTop: 4 }}>Consumer Business, Medical Sector</p>
+          </div></SR>
+        </div>
+      </div>
+
+      {/* Logo Bar */}
+      <div className="section-pad" style={{ background: NAVY_DEEP, borderBottom: `1px solid ${NAVY_BORDER}` }}>
         <SR><p style={{ ...s("b", 10, 400, TEXT_MUTED, 3, "uppercase"), marginBottom: 28, textAlign: "center" }}>Institutional Heritage</p></SR>
         <SR delay={0.1}><div className="logo-bar">
           <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 6, opacity: 0.7 }}>
@@ -607,9 +686,16 @@ function TrackRecordPage({ setPage }) {
           </div>
         </div></SR>
       </div>
+
+      {/* Career History */}
       <div className="section-pad" style={{ background: NAVY_DEEP }}>
+        <SR><div style={{ marginBottom: 40 }}>
+          <p style={{ ...s("b", 11, 400, ACCENT, 3, "uppercase"), marginBottom: 12 }}>2019 — 2025</p>
+          <h3 style={{ ...s("s", 28, 500, TEXT), marginBottom: 8 }}>Career History</h3>
+          <p style={{ ...s("b", 13, 300, TEXT_MUTED) }}>Prior institutional and fund experience before launching Evara Advisory.</p>
+        </div></SR>
         <div style={{ maxWidth: 800 }}>
-          {items.map((r, i) => (
+          {career.map((r, i) => (
             <SR key={i} delay={i * 0.1}><div className="card-glow" style={{ padding: "36px 24px", borderBottom: `1px solid ${NAVY_BORDER}`, marginLeft: -24, marginRight: -24, borderRadius: 2 }}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 8, flexWrap: "wrap", gap: 8 }}>
                 <div>
@@ -622,11 +708,9 @@ function TrackRecordPage({ setPage }) {
             </div></SR>
           ))}
         </div>
-        <SR delay={0.3}><div className="card-glow" style={{ marginTop: 48, background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, padding: "32px 40px", maxWidth: 800 }}>
-          <p style={{ ...s("b", 10, 400, ACCENT, 3, "uppercase"), marginBottom: 12 }}>Independent Advisory Clients</p>
-          <p style={{ ...s("b", 14, 300, TEXT_MUTED), lineHeight: 1.8 }}>I also work with early-stage founders across legaltech, sports technology, building & construction, and beauty — helping with financial modelling, pitch decks, investor readiness, and operational strategy. Details available on request.</p>
-        </div></SR>
-        <SR delay={0.4}><div className="card-glow" style={{ marginTop: 16, background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, padding: "32px 40px", display: "flex", gap: 36, alignItems: "center", maxWidth: 800, flexWrap: "wrap" }}>
+
+        {/* NDA block */}
+        <SR delay={0.3}><div className="card-glow" style={{ marginTop: 48, background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, padding: "32px 40px", display: "flex", gap: 36, alignItems: "center", maxWidth: 800, flexWrap: "wrap" }}>
           <div style={{ ...s("s", 34, 400, SILVER_LIGHT), flexShrink: 0, opacity: 0.7 }}>NDA</div>
           <div style={{ flex: 1, minWidth: 200 }}>
             <p style={{ ...s("b", 13.5, 300, TEXT), lineHeight: 1.7, marginBottom: 10 }}>Detailed case studies, model samples, and client references available under mutual non-disclosure.</p>
