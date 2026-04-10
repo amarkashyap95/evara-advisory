@@ -9,6 +9,7 @@ const SILVER_LIGHT = "#DAE0E8";
 const TEXT = "#EDF0F4";
 const TEXT_MUTED = "#8494A7";
 const ACCENT = "#96ABBE";
+const GREEN = "#4ADE80";
 const PAGES = ["Home", "About", "Services", "Track Record", "Contact"];
 const FORMSPREE_URL = "https://formspree.io/f/xbdpvgwj";
 
@@ -21,7 +22,7 @@ const PHOTOS = {
 };
 
 const fontLink = document.createElement("link");
-fontLink.href = "https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@200;300;400;500&display=swap";
+fontLink.href = "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Manrope:wght@200;300;400;500&display=swap";
 fontLink.rel = "stylesheet";
 document.head.appendChild(fontLink);
 
@@ -37,10 +38,11 @@ styleEl.textContent = `
   @keyframes lineGrow { from { width: 0; } to { width: 56px; } }
   @keyframes panSlow { 0% { transform: scale(1.06) translate(0,0); } 100% { transform: scale(1.06) translate(-0.8%,-0.5%); } }
   @keyframes slideDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
-  @keyframes pulse { 0%, 100% { opacity: 0.4; } 50% { opacity: 0.8; } }
-  @keyframes preloaderFade { from { opacity: 1; } to { opacity: 0; pointer-events: none; } }
-  @keyframes gradientShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
   @keyframes menuSlide { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+  @keyframes monogramIn { 0% { opacity: 0; transform: scale(0.9); } 50% { opacity: 1; transform: scale(1); } 100% { opacity: 1; transform: scale(1); } }
+  @keyframes preloaderOut { from { opacity: 1; } to { opacity: 0; pointer-events: none; } }
+  @keyframes pulse { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
 
   .fu { animation: fadeUp 0.8s ease forwards; opacity: 0; }
   .d1{animation-delay:.1s}.d2{animation-delay:.2s}.d3{animation-delay:.3s}
@@ -50,18 +52,18 @@ styleEl.textContent = `
   .photo-bg { position: absolute; inset: 0; background-size: cover; background-position: center;
     animation: panSlow 25s ease-in-out infinite alternate; }
 
-  .grain { position: fixed; inset: 0; pointer-events: none; z-index: 9999; opacity: 0.025;
+  .grain { position: fixed; inset: 0; pointer-events: none; z-index: 9999; opacity: 0.02;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     background-repeat: repeat; background-size: 200px; }
 
-  input, textarea, select { font-family: 'DM Sans', sans-serif; }
+  input, textarea, select { font-family: 'Manrope', sans-serif; }
   input:focus, textarea:focus, select:focus { outline: none; border-color: ${ACCENT} !important; }
 
-  .scroll-reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .scroll-reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.8s ease, transform 0.8s ease; }
   .scroll-reveal.visible { opacity: 1; transform: translateY(0); }
 
   .card-glow { transition: all 0.4s ease; position: relative; }
-  .card-glow:hover { box-shadow: 0 0 40px rgba(150,171,190,0.08), 0 8px 32px rgba(0,0,0,0.25); transform: translateY(-2px); }
+  .card-glow:hover { box-shadow: 0 0 40px rgba(150,171,190,0.06), 0 8px 32px rgba(0,0,0,0.2); transform: translateY(-2px); }
 
   .tag { transition: all 0.3s ease; cursor: default; }
   .tag:hover { border-color: ${ACCENT} !important; color: ${TEXT} !important; }
@@ -73,11 +75,9 @@ styleEl.textContent = `
   .nav-link:hover::after { width: 100%; }
   .nav-link.active::after { width: 100%; opacity: 0.6; }
 
-  .preloader { position: fixed; inset: 0; z-index: 10000; background: ${NAVY_DEEP}; display: flex; align-items: center; justify-content: center; }
-  .preloader.done { animation: preloaderFade 0.6s ease forwards; animation-delay: 0.3s; }
-
-  .gradient-text { background: linear-gradient(135deg, ${SILVER_LIGHT} 0%, ${ACCENT} 50%, ${SILVER_LIGHT} 100%);
-    background-size: 200% 200%; animation: gradientShift 6s ease infinite; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .preloader { position: fixed; inset: 0; z-index: 10000; background: ${NAVY_DEEP}; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 20px; }
+  .preloader.done { animation: preloaderOut 0.8s ease forwards; animation-delay: 0.2s; }
+  .preloader .mono { animation: monogramIn 1.2s ease forwards; }
 
   .back-to-top { position: fixed; bottom: 24px; right: 24px; z-index: 90; width: 44px; height: 44px;
     border-radius: 50%; border: 1px solid ${NAVY_BORDER}; background: rgba(18,29,46,0.9);
@@ -86,16 +86,21 @@ styleEl.textContent = `
   .back-to-top.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
   .back-to-top:hover { border-color: ${ACCENT}; transform: translateY(-2px); }
 
+  .nav-mono { transition: all 0.4s ease; }
+  .nav-mono:hover { box-shadow: 0 0 20px rgba(150,171,190,0.15); border-color: ${SILVER_LIGHT} !important; }
+
+  .marquee-wrap { overflow: hidden; white-space: nowrap; }
+  .marquee-inner { display: inline-block; animation: marquee 35s linear infinite; }
+
   a { color: inherit; }
 
-  /* Responsive */
   .desktop-only { display: flex; }
   .mobile-only { display: none; }
   .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; }
   .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; }
-  .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 0; }
-  .grid-about { display: grid; grid-template-columns: 1.2fr 1fr; gap: 72px; }
-  .grid-contact { display: grid; grid-template-columns: 1fr 1.3fr; gap: 72px; }
+  .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 1px; }
+  .grid-about { display: grid; grid-template-columns: 1.2fr 1fr; gap: 80px; }
+  .grid-contact { display: grid; grid-template-columns: 1fr 1.3fr; gap: 80px; }
   .grid-footer { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 48px; }
   .grid-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
   .stats-bar { display: flex; }
@@ -103,10 +108,10 @@ styleEl.textContent = `
   .social-proof { display: flex; gap: 40px; align-items: center; justify-content: center; }
   .tabs-row { display: flex; gap: 0; overflow-x: auto; }
   .tabs-row::-webkit-scrollbar { display: none; }
-  .section-pad { padding: 64px 80px; }
-  .section-pad-top { padding: 150px 80px 80px; }
-  .hero-pad { padding: 160px 80px 0; }
-  .hero-title { font-size: 80px; }
+  .section-pad { padding: 80px 100px; }
+  .section-pad-top { padding: 170px 100px 100px; }
+  .hero-pad { padding: 180px 100px 0; }
+  .hero-title { font-size: 84px; }
   .logo-bar { display: flex; align-items: center; justify-content: center; gap: 64px; flex-wrap: wrap; }
   .process-grid { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 0; max-width: 900px; margin: 0 auto; }
 
@@ -114,7 +119,9 @@ styleEl.textContent = `
     .grid-3 { grid-template-columns: 1fr 1fr; }
     .grid-4 { grid-template-columns: 1fr 1fr; }
     .process-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
-    .logo-bar { gap: 40px; }
+    .section-pad { padding: 64px 60px; }
+    .section-pad-top { padding: 150px 60px 80px; }
+    .hero-pad { padding: 150px 60px 0; }
   }
 
   @media (max-width: 768px) {
@@ -131,11 +138,10 @@ styleEl.textContent = `
     .testimonial-grid { grid-template-columns: 1fr; }
     .social-proof { flex-direction: column; gap: 20px; }
     .social-proof > div[style*="width: 1px"] { width: 40px !important; height: 1px !important; }
-    .section-pad { padding: 40px 24px; }
-    .section-pad-top { padding: 110px 24px 48px; }
-    .hero-pad { padding: 110px 24px 0; }
+    .section-pad { padding: 48px 24px; }
+    .section-pad-top { padding: 120px 24px 56px; }
+    .hero-pad { padding: 120px 24px 0; }
     .hero-title { font-size: 48px; }
-    .tabs-row { gap: 0; }
     .logo-bar { gap: 24px; }
     .logo-bar > div[style*="width: 1px"] { display: none; }
     .process-grid { grid-template-columns: 1fr; gap: 32px; }
@@ -144,27 +150,24 @@ styleEl.textContent = `
 `;
 document.head.appendChild(styleEl);
 
-const s = (fam, sz, wt, col, ls, tt) => ({
-  fontFamily: fam === "s" ? "'EB Garamond', serif" : "'DM Sans', sans-serif",
+const h = (fam, sz, wt, col, ls, tt) => ({
+  fontFamily: fam === "s" ? "'Cormorant Garamond', serif" : "'Manrope', sans-serif",
   fontSize: sz, fontWeight: wt, color: col, letterSpacing: ls || 0, textTransform: tt || "none",
 });
 
 function useIsMobile() {
   const [m, setM] = useState(window.innerWidth <= 768);
-  useEffect(() => { const h = () => setM(window.innerWidth <= 768); window.addEventListener("resize", h); return () => window.removeEventListener("resize", h); }, []);
+  useEffect(() => { const fn = () => setM(window.innerWidth <= 768); window.addEventListener("resize", fn); return () => window.removeEventListener("resize", fn); }, []);
   return m;
 }
 
 function useScrollReveal() {
   const ref = useRef(null);
   useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
+    const el = ref.current; if (!el) return;
     const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) { el.classList.add("visible"); obs.unobserve(el); } }, { threshold: 0.1 });
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, []);
-  return ref;
+    obs.observe(el); return () => obs.disconnect();
+  }, []); return ref;
 }
 
 function SR({ children, delay = 0, style }) {
@@ -173,24 +176,15 @@ function SR({ children, delay = 0, style }) {
 }
 
 function Counter({ end, suffix = "", duration = 2000 }) {
-  const [count, setCount] = useState(0);
-  const ref = useRef(null);
-  const started = useRef(false);
+  const [count, setCount] = useState(0); const ref = useRef(null); const started = useRef(false);
   useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
+    const el = ref.current; if (!el) return;
     const obs = new IntersectionObserver(([e]) => {
-      if (e.isIntersecting && !started.current) {
-        started.current = true;
-        const start = Date.now();
-        const tick = () => { const p = Math.min((Date.now() - start) / duration, 1); setCount(Math.floor((1 - Math.pow(1 - p, 3)) * end)); if (p < 1) requestAnimationFrame(tick); };
-        requestAnimationFrame(tick);
-      }
-    }, { threshold: 0.5 });
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, [end, duration]);
-  return <span ref={ref}>{count}{suffix}</span>;
+      if (e.isIntersecting && !started.current) { started.current = true; const st = Date.now();
+        const tick = () => { const p = Math.min((Date.now() - st) / duration, 1); setCount(Math.floor((1 - Math.pow(1 - p, 3)) * end)); if (p < 1) requestAnimationFrame(tick); };
+        requestAnimationFrame(tick); }
+    }, { threshold: 0.5 }); obs.observe(el); return () => obs.disconnect();
+  }, [end, duration]); return <span ref={ref}>{count}{suffix}</span>;
 }
 
 function PhotoSection({ src, overlay = 0.82, children, style: sx }) {
@@ -203,18 +197,16 @@ function PhotoSection({ src, overlay = 0.82, children, style: sx }) {
   );
 }
 
-function Line({ style }) {
-  return <div style={{ height: 1, background: `linear-gradient(90deg, ${SILVER}, transparent)`, animation: "lineGrow 1s ease forwards", width: 56, opacity: 0.5, ...style }} />;
-}
+function Line({ style }) { return <div style={{ height: 1, background: `linear-gradient(90deg, ${SILVER}, transparent)`, animation: "lineGrow 1s ease forwards", width: 56, opacity: 0.4, ...style }} />; }
 
 function Btn({ children, primary, onClick, style: bsx, type, disabled }) {
-  const [h, setH] = useState(false);
+  const [hv, setHv] = useState(false);
   const base = primary
-    ? { background: h && !disabled ? SILVER_LIGHT : SILVER, border: `1px solid ${SILVER}`, color: NAVY_DEEP, boxShadow: h ? "0 4px 20px rgba(180,188,200,0.25)" : "none" }
-    : { background: h ? "rgba(255,255,255,0.15)" : "rgba(255,255,255,0.08)", border: `1px solid ${h ? SILVER : "rgba(255,255,255,0.35)"}`, color: SILVER_LIGHT };
+    ? { background: hv && !disabled ? SILVER_LIGHT : SILVER, border: `1px solid ${SILVER}`, color: NAVY_DEEP, boxShadow: hv ? "0 4px 20px rgba(180,188,200,0.2)" : "none" }
+    : { background: hv ? "rgba(255,255,255,0.12)" : "rgba(255,255,255,0.06)", border: `1px solid ${hv ? SILVER : "rgba(255,255,255,0.3)"}`, color: SILVER_LIGHT };
   return (
-    <button type={type} disabled={disabled} onClick={onClick} onMouseEnter={() => setH(true)} onMouseLeave={() => setH(false)}
-      style={{ ...base, padding: "14px 34px", ...s("b", 11, 400, null, 2.5, "uppercase"), cursor: disabled ? "not-allowed" : "pointer", transition: "all 0.35s ease", backdropFilter: "blur(4px)", opacity: disabled ? 0.5 : 1, ...bsx }}>
+    <button type={type} disabled={disabled} onClick={onClick} onMouseEnter={() => setHv(true)} onMouseLeave={() => setHv(false)}
+      style={{ ...base, padding: "15px 36px", ...h("b", 10.5, 500, null, 3, "uppercase"), cursor: disabled ? "not-allowed" : "pointer", transition: "all 0.35s", backdropFilter: "blur(4px)", opacity: disabled ? 0.5 : 1, ...bsx }}>
       {children}
     </button>
   );
@@ -223,10 +215,28 @@ function Btn({ children, primary, onClick, style: bsx, type, disabled }) {
 function Preloader({ done }) {
   return (
     <div className={`preloader ${done ? "done" : ""}`}>
-      <div style={{ textAlign: "center" }}>
-        <div style={{ ...s("s", 28, 500, SILVER, 2), marginBottom: 12 }}>Evara Advisory</div>
-        <div style={{ width: 40, height: 1, background: `linear-gradient(90deg, transparent, ${SILVER}, transparent)`, margin: "0 auto", animation: "pulse 1.5s ease infinite" }} />
+      <div className="mono" style={{ width: 64, height: 64, border: `1px solid ${SILVER}`, display: "flex", alignItems: "center", justifyContent: "center", ...h("s", 32, 400, SILVER, 2) }}>E</div>
+      <div style={{ ...h("b", 10, 400, TEXT_MUTED, 4, "uppercase"), animation: "pulse 2s ease infinite" }}>Evara Advisory</div>
+    </div>
+  );
+}
+
+function Marquee() {
+  const items = "Financial Modelling · Fund Structuring · Capital Strategy · Investor Materials · Due Diligence · Commercial Agreements · Board Reporting · AI-Enhanced Delivery · ";
+  return (
+    <div className="marquee-wrap" style={{ padding: "16px 0", borderTop: `1px solid rgba(255,255,255,0.04)`, borderBottom: `1px solid rgba(255,255,255,0.04)` }}>
+      <div className="marquee-inner">
+        <span style={{ ...h("b", 11, 300, TEXT_MUTED, 3, "uppercase"), opacity: 0.35 }}>{items}{items}{items}{items}</span>
       </div>
+    </div>
+  );
+}
+
+function AvailabilityBadge() {
+  return (
+    <div style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 16px", border: `1px solid rgba(74,222,128,0.2)`, borderRadius: 20, background: "rgba(74,222,128,0.04)" }}>
+      <div style={{ width: 6, height: 6, borderRadius: "50%", background: GREEN, boxShadow: `0 0 8px rgba(74,222,128,0.4)`, animation: "pulse 2s ease infinite" }} />
+      <span style={{ ...h("b", 10, 400, GREEN, 2, "uppercase"), opacity: 0.8 }}>Accepting select engagements</span>
     </div>
   );
 }
@@ -235,37 +245,34 @@ function Nav({ page, setPage }) {
   const [sc, setSc] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const mob = useIsMobile();
-  useEffect(() => { const h = () => setSc(window.scrollY > 40); window.addEventListener("scroll", h); return () => window.removeEventListener("scroll", h); }, []);
+  useEffect(() => { const fn = () => setSc(window.scrollY > 40); window.addEventListener("scroll", fn); return () => window.removeEventListener("scroll", fn); }, []);
   useEffect(() => { setMenuOpen(false); }, [page]);
-
   return (
     <>
       <nav style={{
-        position: "fixed", top: 0, left: 0, right: 0, zIndex: 100, padding: mob ? "0 20px" : "0 48px", height: 72,
+        position: "fixed", top: 0, left: 0, right: 0, zIndex: 100, padding: mob ? "0 20px" : "0 48px", height: 74,
         display: "flex", alignItems: "center", justifyContent: "space-between",
         background: sc || menuOpen ? "rgba(13,21,32,0.95)" : "transparent",
         backdropFilter: sc || menuOpen ? "blur(24px) saturate(1.2)" : "none",
         borderBottom: `1px solid ${sc || menuOpen ? NAVY_BORDER : "transparent"}`,
         transition: "all 0.4s", animation: "slideDown 0.8s ease forwards",
       }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 14, cursor: "pointer" }} onClick={() => setPage("Home")}>
-          <div style={{ width: 36, height: 36, border: `1px solid ${SILVER}`, display: "flex", alignItems: "center", justifyContent: "center", ...s("s", 17, 500, SILVER, 1) }}>E</div>
+        <div style={{ display: "flex", alignItems: "center", gap: 16, cursor: "pointer" }} onClick={() => setPage("Home")}>
+          <div className="nav-mono" style={{ width: 38, height: 38, border: `1px solid ${SILVER}`, display: "flex", alignItems: "center", justifyContent: "center", ...h("s", 18, 400, SILVER, 1) }}>E</div>
           <div style={{ display: "flex", flexDirection: "column" }}>
-            <span style={{ ...s("b", 11, 500, TEXT, 3.5, "uppercase") }}>Evara</span>
-            <span style={{ ...s("b", 8.5, 300, TEXT_MUTED, 2.5, "uppercase") }}>Advisory</span>
+            <span style={{ ...h("b", 10.5, 500, TEXT, 4, "uppercase") }}>Evara</span>
+            <span style={{ ...h("b", 8, 300, TEXT_MUTED, 3, "uppercase") }}>Advisory</span>
           </div>
         </div>
-        {/* Desktop nav */}
-        <div className="desktop-only" style={{ gap: 32 }}>
+        <div className="desktop-only" style={{ gap: 36 }}>
           {PAGES.map(p => (
             <button key={p} onClick={() => setPage(p)} className={`nav-link ${page === p ? "active" : ""}`} style={{
               background: "none", border: "none", cursor: "pointer",
-              ...s("b", 10.5, 400, page === p ? SILVER_LIGHT : TEXT_MUTED, 2.5, "uppercase"),
+              ...h("b", 10, 500, page === p ? SILVER_LIGHT : TEXT_MUTED, 3, "uppercase"),
               transition: "color 0.3s", padding: "4px 0",
             }}>{p}</button>
           ))}
         </div>
-        {/* Mobile hamburger */}
         <button className="mobile-only" onClick={() => setMenuOpen(!menuOpen)} style={{
           background: "none", border: "none", cursor: "pointer", padding: 8, display: "flex", flexDirection: "column", gap: 5,
         }}>
@@ -274,21 +281,10 @@ function Nav({ page, setPage }) {
           <div style={{ width: 22, height: 1.5, background: SILVER, transition: "all 0.3s", transform: menuOpen ? "rotate(-45deg) translate(4px, -4px)" : "none" }} />
         </button>
       </nav>
-      {/* Mobile menu dropdown */}
       {mob && menuOpen && (
-        <div style={{
-          position: "fixed", top: 72, left: 0, right: 0, zIndex: 99,
-          background: "rgba(13,21,32,0.98)", backdropFilter: "blur(24px)",
-          borderBottom: `1px solid ${NAVY_BORDER}`, padding: "16px 24px",
-          animation: "menuSlide 0.3s ease forwards",
-        }}>
+        <div style={{ position: "fixed", top: 74, left: 0, right: 0, zIndex: 99, background: "rgba(13,21,32,0.98)", backdropFilter: "blur(24px)", borderBottom: `1px solid ${NAVY_BORDER}`, padding: "16px 24px", animation: "menuSlide 0.3s ease forwards" }}>
           {PAGES.map(p => (
-            <button key={p} onClick={() => setPage(p)} style={{
-              display: "block", width: "100%", textAlign: "left",
-              background: "none", border: "none", cursor: "pointer",
-              ...s("b", 13, 400, page === p ? SILVER_LIGHT : TEXT_MUTED, 2, "uppercase"),
-              padding: "14px 0", borderBottom: `1px solid ${NAVY_BORDER}`,
-            }}>{p}</button>
+            <button key={p} onClick={() => setPage(p)} style={{ display: "block", width: "100%", textAlign: "left", background: "none", border: "none", cursor: "pointer", ...h("b", 13, 400, page === p ? SILVER_LIGHT : TEXT_MUTED, 2, "uppercase"), padding: "14px 0", borderBottom: `1px solid ${NAVY_BORDER}` }}>{p}</button>
           ))}
         </div>
       )}
@@ -300,42 +296,43 @@ function HomePage({ setPage }) {
   return (
     <PhotoSection src={PHOTOS.hero} overlay={0.76}>
       <div className="hero-pad" style={{ maxWidth: 780 }}>
-        <p className="fu d1" style={{ ...s("b", 11, 400, ACCENT, 4, "uppercase"), marginBottom: 28 }}>Advisory · Modelling · Capital Strategy</p>
-        <h1 className="fu d2 hero-title" style={{ ...s("s", 80, 400, TEXT), lineHeight: 1.02, marginBottom: 8 }}>
-          <span className="gradient-text">Evara</span><br />Advisory
+        <p className="fu d1" style={{ ...h("b", 11, 400, ACCENT, 4, "uppercase"), marginBottom: 28 }}>Advisory · Modelling · Capital Strategy</p>
+        <h1 className="fu d3 hero-title" style={{ ...h("s", 84, 300, TEXT), lineHeight: 1.0, marginBottom: 10 }}>
+          Evara<br />Advisory
         </h1>
-        <p className="fu d3" style={{ ...s("b", 13, 300, TEXT_MUTED, 0.5), marginTop: 8, marginBottom: 12 }}>Founded by Amar Kashyap</p>
-        <Line style={{ marginBottom: 32 }} />
-        <p className="fu d4" style={{ ...s("b", 17, 300, SILVER), lineHeight: 1.8, maxWidth: 520, marginBottom: 18 }}>
+        <p className="fu d3" style={{ ...h("b", 12, 300, TEXT_MUTED, 0.5), marginTop: 10, marginBottom: 14 }}>Founded by Amar Kashyap</p>
+        <Line style={{ marginBottom: 36 }} />
+        <p className="fu d4" style={{ ...h("b", 16, 300, SILVER), lineHeight: 1.85, maxWidth: 520, marginBottom: 20 }}>
           Strategic advisory, financial modelling, and capital raising support for businesses at every stage — from founders preparing for their first raise to established groups navigating complex growth.
         </p>
-        <p className="fu d5" style={{ ...s("s", 15, 400, TEXT_MUTED), lineHeight: 1.75, maxWidth: 540, marginBottom: 48, fontStyle: "italic", opacity: 0.55 }}>
+        <p className="fu d5" style={{ ...h("s", 16, 400, TEXT_MUTED), lineHeight: 1.75, maxWidth: 540, marginBottom: 52, fontStyle: "italic", opacity: 0.5 }}>
           Background in institutional banking, venture capital, and private equity.
         </p>
-        <div className="fu d6" style={{ display: "flex", gap: 14, marginBottom: 64, flexWrap: "wrap" }}>
+        <div className="fu d6" style={{ display: "flex", gap: 16, marginBottom: 80, flexWrap: "wrap" }}>
           <Btn primary onClick={() => setPage("Contact")}>Get in Touch</Btn>
           <Btn primary onClick={() => setPage("Services")}>View Services</Btn>
         </div>
       </div>
-      <div className="fu d7 stats-bar" style={{ padding: "36px 80px 32px", borderTop: "1px solid rgba(255,255,255,0.08)" }}>
+      <div className="fu d7 stats-bar" style={{ padding: "40px 100px 36px", borderTop: "1px solid rgba(255,255,255,0.06)" }}>
         {[[7, "+", "Years in Private Markets"], [null, "Early Stage → Enterprise", "Across the Business Lifecycle"], [null, "Modelling · Strategy · Capital", "Core Competencies"], [null, "Sydney", "Australia"]].map(([num, big, small], i) => (
-          <div key={i} style={{ flex: 1, borderRight: i < 3 ? "1px solid rgba(255,255,255,0.06)" : "none", paddingRight: 24 }}>
-            <div style={{ ...s("s", 24, 400, SILVER_LIGHT), marginBottom: 6 }}>{num !== null ? <Counter end={num} suffix={big} /> : big}</div>
-            <div style={{ ...s("b", 10, 300, TEXT_MUTED, 1.5, "uppercase") }}>{small}</div>
+          <div key={i} style={{ flex: 1, borderRight: i < 3 ? "1px solid rgba(255,255,255,0.05)" : "none", paddingRight: 28 }}>
+            <div style={{ ...h("s", 24, 300, SILVER_LIGHT), marginBottom: 8 }}>{num !== null ? <Counter end={num} suffix={big} /> : big}</div>
+            <div style={{ ...h("b", 9, 300, TEXT_MUTED, 2, "uppercase") }}>{small}</div>
           </div>
         ))}
       </div>
-      <div className="fu d8 social-proof" style={{ padding: "24px 80px 48px" }}>
+      <Marquee />
+      <div className="fu d8 social-proof" style={{ padding: "28px 100px 56px" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-          <div style={{ ...s("s", 24, 300, ACCENT), opacity: 0.4 }}>"</div>
-          <p style={{ ...s("s", 15, 400, TEXT_MUTED), fontStyle: "italic", maxWidth: 340 }}>A key part of our team feeling confident approaching investors.</p>
-          <span style={{ ...s("b", 10, 300, ACCENT, 1.5, "uppercase"), opacity: 0.6 }}>— Founder & CEO</span>
+          <div style={{ ...h("s", 28, 300, ACCENT), opacity: 0.3 }}>"</div>
+          <p style={{ ...h("s", 15, 400, TEXT_MUTED), fontStyle: "italic", maxWidth: 340 }}>A key part of our team feeling confident approaching investors.</p>
+          <span style={{ ...h("b", 9, 300, ACCENT, 2, "uppercase"), opacity: 0.5 }}>— Founder & CEO</span>
         </div>
         <div style={{ width: 1, height: 24, background: NAVY_BORDER }} />
         <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-          <div style={{ ...s("s", 24, 300, ACCENT), opacity: 0.4 }}>"</div>
-          <p style={{ ...s("s", 15, 400, TEXT_MUTED), fontStyle: "italic", maxWidth: 340 }}>Modelling skills of a very high quality with powerful supporting documents.</p>
-          <span style={{ ...s("b", 10, 300, ACCENT, 1.5, "uppercase"), opacity: 0.6 }}>— Family Office</span>
+          <div style={{ ...h("s", 28, 300, ACCENT), opacity: 0.3 }}>"</div>
+          <p style={{ ...h("s", 15, 400, TEXT_MUTED), fontStyle: "italic", maxWidth: 340 }}>Modelling skills of a very high quality with powerful supporting documents.</p>
+          <span style={{ ...h("b", 9, 300, ACCENT, 2, "uppercase"), opacity: 0.5 }}>— Family Office</span>
         </div>
       </div>
     </PhotoSection>
@@ -347,82 +344,68 @@ function AboutPage() {
     <>
       <PhotoSection src={PHOTOS.about} overlay={0.88}>
         <div className="section-pad-top">
-          <SR><p style={{ ...s("b", 11, 400, ACCENT, 4, "uppercase"), marginBottom: 16 }}>About</p></SR>
-          <SR delay={0.1}><h2 style={{ ...s("s", 48, 400, TEXT), marginBottom: 6 }}>Hey, I'm Amar.</h2></SR>
-          <SR delay={0.2}><p style={{ ...s("s", 20, 400, SILVER), lineHeight: 1.65, maxWidth: 640, marginTop: 20, fontStyle: "italic" }}>
+          <SR><p style={{ ...h("b", 11, 400, ACCENT, 4, "uppercase"), marginBottom: 16 }}>About</p></SR>
+          <SR delay={0.1}><h2 style={{ ...h("s", 52, 300, TEXT), marginBottom: 8 }}>Hey, I'm Amar.</h2></SR>
+          <SR delay={0.2}><p style={{ ...h("s", 21, 400, SILVER), lineHeight: 1.65, maxWidth: 640, marginTop: 20, fontStyle: "italic" }}>
             I started Evara Advisory because I kept seeing the same problem — talented founders and operators with great businesses, but without the financial tools or materials to match.
           </p></SR>
         </div>
       </PhotoSection>
-
-      {/* Personal intro - full width */}
       <div className="section-pad" style={{ background: NAVY_DEEP, borderBottom: `1px solid ${NAVY_BORDER}` }}>
         <div style={{ maxWidth: 720 }}>
-          <SR><p style={{ ...s("b", 16, 300, TEXT_MUTED), lineHeight: 1.9, marginBottom: 24 }}>
+          <SR><p style={{ ...h("b", 15, 300, TEXT_MUTED), lineHeight: 1.95, marginBottom: 28 }}>
             I've spent the past seven years in private markets — starting in institutional banking, then moving through venture capital, corporate development, and family office advisory. Along the way, I've sat in IC meetings, built fund models, led due diligence, and helped founders walk into investor conversations feeling genuinely prepared.
           </p></SR>
-          <SR delay={0.1}><p style={{ ...s("b", 16, 300, TEXT_MUTED), lineHeight: 1.9, marginBottom: 24 }}>
+          <SR delay={0.1}><p style={{ ...h("b", 15, 300, TEXT_MUTED), lineHeight: 1.95, marginBottom: 28 }}>
             I launched Evara Advisory in early 2026. The firm is new, but the experience behind it isn't. I work with a deliberately small number of clients because I'd rather go deep on a few mandates than spread thin across many. Every engagement gets the same level of rigour I'd bring to a deal at an institutional desk.
           </p></SR>
-          <SR delay={0.2}><p style={{ ...s("b", 16, 300, TEXT_MUTED), lineHeight: 1.9 }}>
+          <SR delay={0.2}><p style={{ ...h("b", 15, 300, TEXT_MUTED), lineHeight: 1.95 }}>
             I also lean heavily into AI tooling — it lets me deliver work at a speed and depth that traditional advisory firms can't match, and I pass that efficiency on to my clients.
           </p></SR>
         </div>
       </div>
-
-      {/* Two column - career detail + cards */}
       <div className="section-pad" style={{ background: NAVY_DEEP }}>
         <div className="grid-about">
           <div>
-            <SR><h3 style={{ ...s("s", 28, 500, TEXT), marginBottom: 24 }}>The Career Path</h3></SR>
-            <SR delay={0.1}><p style={{ ...s("b", 15, 300, TEXT_MUTED), lineHeight: 1.85, marginBottom: 22 }}>
-              I started at one of Australia's top-four banks in the Institutional Division — M&A advisory and leveraged finance, structuring debt facilities for PE sponsors. From there, I moved into the bank's venture arm, working on growth-stage fintech investments from Series A onwards.
-            </p></SR>
-            <SR delay={0.2}><p style={{ ...s("b", 15, 300, TEXT_MUTED), lineHeight: 1.85, marginBottom: 22 }}>
-              Next came a major ASX-listed technology platform, where I evaluated proptech investments and supported corporate development strategy. Then I joined an early-stage venture fund as the founding hire — sole-leading due diligence, running IC approvals, and driving fund capital raising.
-            </p></SR>
-            <SR delay={0.3}><p style={{ ...s("b", 15, 300, TEXT_MUTED), lineHeight: 1.85, marginBottom: 22 }}>
-              Most recently, I was retained by a major Australian family office to lead financial modelling and investment strategy for a new UK-based fund — building the complete fund model, Investment Memorandum, and board-level materials for an institutional equity raise.
-            </p></SR>
-            <SR delay={0.4}>
-              <div style={{ background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, padding: 28, marginTop: 8 }}>
-                <p style={{ ...s("s", 17, 400, TEXT), lineHeight: 1.65, fontStyle: "italic", marginBottom: 12 }}>
-                  "I care about doing good work for good people. If you're building something meaningful and need someone who takes your ambitions as seriously as you do — let's talk."
-                </p>
-                <p style={{ ...s("b", 11, 400, ACCENT, 2, "uppercase") }}>— Amar</p>
-              </div>
-            </SR>
+            <SR><h3 style={{ ...h("s", 30, 400, TEXT), marginBottom: 28 }}>The Career Path</h3></SR>
+            <SR delay={0.1}><p style={{ ...h("b", 15, 300, TEXT_MUTED), lineHeight: 1.9, marginBottom: 24 }}>I started at one of Australia's top-four banks in the Institutional Division — M&A advisory and leveraged finance, structuring debt facilities for PE sponsors. From there, I moved into the bank's venture arm, working on growth-stage fintech investments from Series A onwards.</p></SR>
+            <SR delay={0.2}><p style={{ ...h("b", 15, 300, TEXT_MUTED), lineHeight: 1.9, marginBottom: 24 }}>Next came a major ASX-listed technology platform, where I evaluated proptech investments and supported corporate development strategy. Then I joined an early-stage venture fund as the founding hire — sole-leading due diligence, running IC approvals, and driving fund capital raising.</p></SR>
+            <SR delay={0.3}><p style={{ ...h("b", 15, 300, TEXT_MUTED), lineHeight: 1.9, marginBottom: 28 }}>Most recently, I was retained by a major Australian family office to lead financial modelling and investment strategy for a new UK-based fund — building the complete fund model, Investment Memorandum, and board-level materials for an institutional equity raise.</p></SR>
+            <SR delay={0.4}><div style={{ background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, padding: 32 }}>
+              <p style={{ ...h("s", 18, 400, TEXT), lineHeight: 1.7, fontStyle: "italic", marginBottom: 14 }}>"I care about doing good work for good people. If you're building something meaningful and need someone who takes your ambitions as seriously as you do — let's talk."</p>
+              <p style={{ ...h("b", 10, 500, ACCENT, 2.5, "uppercase") }}>— Amar</p>
+            </div></SR>
           </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-            <SR delay={0.1}><div className="card-glow" style={{ background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, padding: 32 }}>
-              <p style={{ ...s("b", 10, 400, ACCENT, 3, "uppercase"), marginBottom: 14 }}>Who I Work With</p>
-              <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
+            <SR delay={0.1}><div className="card-glow" style={{ background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, padding: 36 }}>
+              <p style={{ ...h("b", 9, 500, ACCENT, 3, "uppercase"), marginBottom: 16 }}>Who I Work With</p>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
                 {["Family Offices", "PE-Backed Platforms", "Seed & Series A Founders", "Franchise Groups", "SMB Operators", "Established Businesses"].map(item => (
-                  <span key={item} className="tag" style={{ ...s("b", 10.5, 300, TEXT_MUTED, 0.5), padding: "6px 12px", border: `1px solid ${NAVY_BORDER}` }}>{item}</span>
+                  <span key={item} className="tag" style={{ ...h("b", 10.5, 300, TEXT_MUTED, 0.5), padding: "7px 14px", border: `1px solid ${NAVY_BORDER}` }}>{item}</span>
                 ))}
               </div>
             </div></SR>
-            <SR delay={0.2}><div className="card-glow" style={{ background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, padding: 32 }}>
-              <p style={{ ...s("b", 10, 400, ACCENT, 3, "uppercase"), marginBottom: 14 }}>Career Heritage</p>
+            <SR delay={0.2}><div className="card-glow" style={{ background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, padding: 36 }}>
+              <p style={{ ...h("b", 9, 500, ACCENT, 3, "uppercase"), marginBottom: 16 }}>Career Heritage</p>
               {["Top-4 Australian Bank — M&A & Leveraged Finance", "Bank Venture Arm — Growth-Stage Tech Investments", "ASX-Listed Platform — Corp Dev & Proptech VC", "Venture Fund — Founding Hire & Fund Operations", "Family Office — Fund Structuring & Strategy"].map((item, i) => (
-                <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: 10, marginBottom: i < 4 ? 12 : 0 }}>
-                  <div style={{ width: 3, height: 3, borderRadius: "50%", background: ACCENT, marginTop: 8, flexShrink: 0 }} />
-                  <p style={{ ...s("b", 12.5, 300, TEXT_MUTED), lineHeight: 1.5 }}>{item}</p>
+                <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: 10, marginBottom: i < 4 ? 14 : 0 }}>
+                  <div style={{ width: 3, height: 3, borderRadius: "50%", background: ACCENT, marginTop: 9, flexShrink: 0 }} />
+                  <p style={{ ...h("b", 12.5, 300, TEXT_MUTED), lineHeight: 1.55 }}>{item}</p>
                 </div>
               ))}
             </div></SR>
-            <SR delay={0.3}><div className="card-glow" style={{ background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, padding: 32 }}>
-              <p style={{ ...s("b", 10, 400, ACCENT, 3, "uppercase"), marginBottom: 14 }}>Sector Exposure</p>
-              <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+            <SR delay={0.3}><div className="card-glow" style={{ background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, padding: 36 }}>
+              <p style={{ ...h("b", 9, 500, ACCENT, 3, "uppercase"), marginBottom: 16 }}>Sector Exposure</p>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
                 {["Fintech", "Proptech", "Health & Wellness", "Sports Technology", "Franchising", "Legaltech", "Building & Construction", "Beauty & Retail"].map(item => (
-                  <span key={item} className="tag" style={{ ...s("b", 10.5, 300, TEXT_MUTED, 0.5), padding: "6px 12px", border: `1px solid ${NAVY_BORDER}` }}>{item}</span>
+                  <span key={item} className="tag" style={{ ...h("b", 10.5, 300, TEXT_MUTED, 0.5), padding: "7px 14px", border: `1px solid ${NAVY_BORDER}` }}>{item}</span>
                 ))}
               </div>
             </div></SR>
-            <SR delay={0.4}><div className="card-glow" style={{ background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, padding: 32 }}>
-              <p style={{ ...s("b", 10, 400, ACCENT, 3, "uppercase"), marginBottom: 14 }}>Education</p>
-              <p style={{ ...s("s", 18, 500, TEXT), marginBottom: 3 }}>University of New South Wales</p>
-              <p style={{ ...s("b", 13, 300, TEXT_MUTED) }}>Bachelor of Commerce — Finance & Information Systems</p>
+            <SR delay={0.4}><div className="card-glow" style={{ background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, padding: 36 }}>
+              <p style={{ ...h("b", 9, 500, ACCENT, 3, "uppercase"), marginBottom: 16 }}>Education</p>
+              <p style={{ ...h("s", 19, 500, TEXT), marginBottom: 4 }}>University of New South Wales</p>
+              <p style={{ ...h("b", 13, 300, TEXT_MUTED) }}>Bachelor of Commerce — Finance & Information Systems</p>
             </div></SR>
           </div>
         </div>
@@ -435,10 +418,10 @@ function ServiceCard({ item, i, activeTab }) {
   const [hov, setHov] = useState(false);
   return (
     <div onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)} className="card-glow"
-      style={{ background: hov ? NAVY_CARD : NAVY_DEEP, padding: 36, cursor: "default", borderLeft: hov ? `2px solid ${ACCENT}` : "2px solid transparent", transition: "all 0.3s" }}>
-      <div style={{ width: 28, height: 28, borderRadius: "50%", border: `1px solid ${ACCENT}`, display: "flex", alignItems: "center", justifyContent: "center", ...s("b", 10, 400, ACCENT), marginBottom: 16, opacity: 0.5 }}>{String(i + 1).padStart(2, "0")}</div>
-      <h4 style={{ ...s("s", 20, 500, TEXT), marginBottom: 10 }}>{item.t}</h4>
-      <p style={{ ...s("b", 13, 300, TEXT_MUTED), lineHeight: 1.8 }}>{item.d}</p>
+      style={{ background: hov ? NAVY_CARD : NAVY_DEEP, padding: 40, cursor: "default", border: `1px solid ${NAVY_BORDER}`, borderLeft: hov ? `2px solid ${ACCENT}` : `1px solid ${NAVY_BORDER}`, transition: "all 0.3s" }}>
+      <div style={{ width: 28, height: 28, borderRadius: "50%", border: `1px solid ${ACCENT}`, display: "flex", alignItems: "center", justifyContent: "center", ...h("b", 10, 400, ACCENT), marginBottom: 18, opacity: 0.4 }}>{String(i + 1).padStart(2, "0")}</div>
+      <h4 style={{ ...h("s", 21, 500, TEXT), marginBottom: 12 }}>{item.t}</h4>
+      <p style={{ ...h("b", 13, 300, TEXT_MUTED), lineHeight: 1.85 }}>{item.d}</p>
     </div>
   );
 }
@@ -494,13 +477,13 @@ function ServicesPage() {
     <>
       <PhotoSection src={PHOTOS.services} overlay={0.88}>
         <div className="section-pad-top">
-          <SR><p style={{ ...s("b", 11, 400, ACCENT, 4, "uppercase"), marginBottom: 16 }}>Services</p></SR>
-          <SR delay={0.1}><h2 style={{ ...s("s", 48, 400, TEXT), marginBottom: 12 }}>How I Help</h2></SR>
-          <SR delay={0.15}><Line style={{ marginBottom: 24 }} /></SR>
-          <SR delay={0.2}><p style={{ ...s("b", 16, 300, SILVER), lineHeight: 1.8, maxWidth: 620, marginBottom: 12 }}>
+          <SR><p style={{ ...h("b", 11, 400, ACCENT, 4, "uppercase"), marginBottom: 16 }}>Services</p></SR>
+          <SR delay={0.1}><h2 style={{ ...h("s", 52, 300, TEXT), marginBottom: 14 }}>How I Help</h2></SR>
+          <SR delay={0.15}><Line style={{ marginBottom: 28 }} /></SR>
+          <SR delay={0.2}><p style={{ ...h("b", 15, 300, SILVER), lineHeight: 1.85, maxWidth: 620, marginBottom: 14 }}>
             I work across the full business lifecycle — from first-time founders building their pitch to family offices structuring multi-jurisdictional funds. Select your profile below.
           </p></SR>
-          <SR delay={0.25}><p style={{ ...s("b", 12, 300, TEXT_MUTED), lineHeight: 1.6, maxWidth: 580, fontStyle: "italic", opacity: 0.6 }}>
+          <SR delay={0.25}><p style={{ ...h("b", 11, 300, TEXT_MUTED), lineHeight: 1.6, maxWidth: 580, fontStyle: "italic", opacity: 0.5 }}>
             Evara Advisory provides commercial and strategic advisory services. We do not provide financial product advice.
           </p></SR>
         </div>
@@ -511,8 +494,8 @@ function ServicesPage() {
             <button key={sg.id} onClick={() => setActiveTab(sg.id)} style={{
               background: activeTab === sg.id ? NAVY_DEEP : "transparent",
               border: "none", borderBottom: activeTab === sg.id ? `2px solid ${ACCENT}` : "2px solid transparent",
-              padding: "16px 22px", cursor: "pointer", transition: "all 0.3s",
-              ...s("b", 11, 400, activeTab === sg.id ? SILVER_LIGHT : TEXT_MUTED, 1.5, "uppercase"),
+              padding: "18px 24px", cursor: "pointer", transition: "all 0.3s",
+              ...h("b", 10, 500, activeTab === sg.id ? SILVER_LIGHT : TEXT_MUTED, 2, "uppercase"),
               whiteSpace: "nowrap",
             }}>{sg.label}</button>
           ))}
@@ -520,11 +503,11 @@ function ServicesPage() {
       </div>
       <div className="section-pad" style={{ background: NAVY_DEEP }} key={activeTab}>
         <div className="page-enter">
-          <div style={{ marginBottom: 36 }}>
-            <h3 style={{ ...s("s", 28, 500, TEXT), marginBottom: 8 }}>{active.label}</h3>
-            <p style={{ ...s("b", 14, 300, TEXT_MUTED), lineHeight: 1.7 }}>{active.sub}</p>
+          <div style={{ marginBottom: 40 }}>
+            <h3 style={{ ...h("s", 30, 400, TEXT), marginBottom: 10 }}>{active.label}</h3>
+            <p style={{ ...h("b", 14, 300, TEXT_MUTED), lineHeight: 1.75 }}>{active.sub}</p>
           </div>
-          <div className={active.items.length > 4 ? "grid-3" : "grid-2"} style={{ background: NAVY_BORDER }}>
+          <div className={active.items.length > 4 ? "grid-3" : "grid-2"} style={{ background: "transparent", gap: 1 }}>
             {active.items.map((item, i) => (
               <ServiceCard key={`${activeTab}-${i}`} item={item} i={i} activeTab={activeTab} />
             ))}
@@ -533,11 +516,11 @@ function ServicesPage() {
       </div>
       {/* AI Section */}
       <div className="section-pad" style={{ background: NAVY, borderTop: `1px solid ${NAVY_BORDER}` }}>
-        <SR><div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 12 }}>
-          <div style={{ width: 40, height: 40, borderRadius: "50%", border: `1px solid ${ACCENT}`, display: "flex", alignItems: "center", justifyContent: "center", ...s("b", 16, 300, ACCENT), opacity: 0.6 }}>⚡</div>
-          <h3 style={{ ...s("s", 28, 500, TEXT) }}>AI Adoption & Automation</h3>
+        <SR><div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 14 }}>
+          <div style={{ width: 40, height: 40, borderRadius: "50%", border: `1px solid ${ACCENT}`, display: "flex", alignItems: "center", justifyContent: "center", ...h("b", 16, 300, ACCENT), opacity: 0.5 }}>⚡</div>
+          <h3 style={{ ...h("s", 28, 400, TEXT) }}>AI Adoption & Automation</h3>
         </div></SR>
-        <SR delay={0.1}><p style={{ ...s("b", 14, 300, TEXT_MUTED), lineHeight: 1.8, maxWidth: 620, marginBottom: 36 }}>
+        <SR delay={0.1}><p style={{ ...h("b", 14, 300, TEXT_MUTED), lineHeight: 1.85, maxWidth: 620, marginBottom: 40 }}>
           Available across all engagements. I help businesses harness AI to work faster, smarter, and leaner — without the enterprise price tag.
         </p></SR>
         <div className="grid-4" style={{ gap: "1px", background: NAVY_BORDER }}>
@@ -547,23 +530,23 @@ function ServicesPage() {
             { t: "AI-Powered Tools & Apps", d: "Bespoke internal tools with AI at their core — dashboards, intelligent document search, proposal generators, pricing engines." },
             { t: "Process Automation", d: "Connecting your existing tools with AI — CRM workflows, invoice processing, lead qualification, content generation." },
           ].map((item, i) => (
-            <SR key={i} delay={i * 0.1}><div className="card-glow" style={{ background: NAVY_DEEP, padding: 28 }}>
-              <h4 style={{ ...s("s", 17, 500, TEXT), marginBottom: 10 }}>{item.t}</h4>
-              <p style={{ ...s("b", 12.5, 300, TEXT_MUTED), lineHeight: 1.75 }}>{item.d}</p>
+            <SR key={i} delay={i * 0.1}><div className="card-glow" style={{ background: NAVY_DEEP, padding: 32 }}>
+              <h4 style={{ ...h("s", 18, 500, TEXT), marginBottom: 12 }}>{item.t}</h4>
+              <p style={{ ...h("b", 12.5, 300, TEXT_MUTED), lineHeight: 1.8 }}>{item.d}</p>
             </div></SR>
           ))}
         </div>
       </div>
       {/* Process */}
       <div className="section-pad" style={{ background: NAVY, borderTop: `1px solid ${NAVY_BORDER}` }}>
-        <SR><p style={{ ...s("b", 11, 400, ACCENT, 4, "uppercase"), marginBottom: 16, textAlign: "center" }}>Process</p></SR>
-        <SR delay={0.1}><h3 style={{ ...s("s", 32, 400, TEXT), textAlign: "center", marginBottom: 48 }}>How Engagements Work</h3></SR>
+        <SR><p style={{ ...h("b", 11, 400, ACCENT, 4, "uppercase"), marginBottom: 16, textAlign: "center" }}>Process</p></SR>
+        <SR delay={0.1}><h3 style={{ ...h("s", 32, 300, TEXT), textAlign: "center", marginBottom: 56 }}>How Engagements Work</h3></SR>
         <div className="process-grid">
           {process.map((p, i) => (
             <SR key={i} delay={i * 0.12}><div style={{ textAlign: "center", padding: "0 16px", position: "relative" }}>
-              <div style={{ width: 36, height: 36, borderRadius: "50%", border: `1px solid ${ACCENT}`, display: "flex", alignItems: "center", justifyContent: "center", ...s("b", 11, 400, ACCENT), margin: "0 auto 16px", background: NAVY, position: "relative", zIndex: 1 }}>{p.step}</div>
-              <h4 style={{ ...s("s", 18, 500, TEXT), marginBottom: 8 }}>{p.title}</h4>
-              <p style={{ ...s("b", 12, 300, TEXT_MUTED), lineHeight: 1.65 }}>{p.desc}</p>
+              <div style={{ width: 36, height: 36, borderRadius: "50%", border: `1px solid ${ACCENT}`, display: "flex", alignItems: "center", justifyContent: "center", ...h("b", 10, 400, ACCENT), margin: "0 auto 18px", background: NAVY, position: "relative", zIndex: 1 }}>{p.step}</div>
+              <h4 style={{ ...h("s", 18, 500, TEXT), marginBottom: 10 }}>{p.title}</h4>
+              <p style={{ ...h("b", 12, 300, TEXT_MUTED), lineHeight: 1.7 }}>{p.desc}</p>
             </div></SR>
           ))}
         </div>
@@ -574,147 +557,112 @@ function ServicesPage() {
 
 function TrackRecordPage({ setPage }) {
   const recent = [
-    { status: "active", sector: "Health & Fitness", client: "Major Australian Family Office", type: "Fund Structuring · Financial Modelling · Investor Materials",
-      detail: "Leading financial modelling and investment strategy for a new UK-based fund. Complete fund model with multi-jurisdiction vehicle structure, capital deployment logic, and waterfall mechanics. Full Investment Memorandum and board-level materials for an institutional equity raise." },
-    { status: "active", sector: "Beauty & Medical", client: "Consumer Business — Founder & CEO", type: "Commercial Agreements · Financial Model · Investor Deck",
-      detail: "Building a comprehensive set of key commercial agreements, financial model, and investor deck to prepare the founder for capital raising conversations. End-to-end investor readiness support from narrative through to data room." },
-    { status: "active", sector: "Legal Technology", client: "Legaltech Platform — Founder", type: "Strategic Advisory · Financial Modelling · Investor Readiness",
-      detail: "Advising the founder of an early-stage legaltech platform on commercial strategy, financial model architecture, and fundraising preparation. Scoping engagement with potential to expand into full investment memorandum and capital raising support." },
+    { sector: "Health & Fitness", client: "Major Australian Family Office", type: "Fund Structuring · Financial Modelling · Investor Materials", detail: "Leading financial modelling and investment strategy for a new UK-based fund. Complete fund model with multi-jurisdiction vehicle structure, capital deployment logic, and waterfall mechanics. Full Investment Memorandum and board-level materials for an institutional equity raise." },
+    { sector: "Beauty & Medical", client: "Consumer Business — Founder & CEO", type: "Commercial Agreements · Financial Model · Investor Deck", detail: "Building a comprehensive set of key commercial agreements, financial model, and investor deck to prepare the founder for capital raising conversations. End-to-end investor readiness support from narrative through to data room." },
+    { sector: "Legal Technology", client: "Legaltech Platform — Founder", type: "Strategic Advisory · Financial Modelling · Investor Readiness", detail: "Advising the founder of an early-stage legaltech platform on commercial strategy, financial model architecture, and fundraising preparation. Scoping engagement with potential to expand into full investment memorandum and capital raising support." },
   ];
   const career = [
-    { period: "2023 — 2025", client: "Early-Stage Venture Capital Fund", type: "Fund Operations · Due Diligence · Capital Raising",
-      detail: "Founding hire alongside the Managing Partner at a Sydney-based venture fund. Sole-led due diligence and Investment Committee approvals. Managed LP communications, fund capital raising, and deal pipeline. End-to-end experience of the full fund lifecycle." },
-    { period: "2022", client: "ASX-Listed Technology Platform", type: "Corporate Development · Proptech Venture Investments",
-      detail: "Evaluated and executed venture investments from Series A onwards across the proptech ecosystem. Supported corporate development strategy during the company's time as a publicly listed business." },
-    { period: "2019 — 2022", client: "Top-4 Australian Bank — Institutional Division", type: "M&A Advisory · Leveraged Finance · Venture Investments",
-      detail: "Three years across the Institutional Bank spanning M&A advisory, leveraged finance — structuring debt facilities for PE sponsors — and growth-stage venture investing through the bank's innovation arm." },
+    { period: "2023 — 2025", client: "Early-Stage Venture Capital Fund", type: "Fund Operations · Due Diligence · Capital Raising", detail: "Founding hire alongside the Managing Partner at a Sydney-based venture fund. Sole-led due diligence and Investment Committee approvals. Managed LP communications, fund capital raising, and deal pipeline. End-to-end experience of the full fund lifecycle." },
+    { period: "2022", client: "ASX-Listed Technology Platform", type: "Corporate Development · Proptech Venture Investments", detail: "Evaluated and executed venture investments from Series A onwards across the proptech ecosystem. Supported corporate development strategy during the company's time as a publicly listed business." },
+    { period: "2019 — 2022", client: "Top-4 Australian Bank — Institutional Division", type: "M&A Advisory · Leveraged Finance · Venture Investments", detail: "Three years across the Institutional Bank spanning M&A advisory, leveraged finance — structuring debt facilities for PE sponsors — and growth-stage venture investing through the bank's innovation arm." },
   ];
   return (
     <>
       <PhotoSection src={PHOTOS.track} overlay={0.86}>
         <div className="section-pad-top">
-          <SR><p style={{ ...s("b", 11, 400, ACCENT, 4, "uppercase"), marginBottom: 16 }}>Track Record</p></SR>
-          <SR delay={0.1}><h2 style={{ ...s("s", 48, 400, TEXT), marginBottom: 12 }}>Select Engagements</h2></SR>
-          <SR delay={0.15}><Line style={{ marginBottom: 24 }} /></SR>
-          <SR delay={0.2}><p style={{ ...s("b", 15, 300, SILVER), lineHeight: 1.8, maxWidth: 600 }}>A selection of current and past mandates. Details shared with discretion; further information available under NDA.</p></SR>
+          <SR><p style={{ ...h("b", 11, 400, ACCENT, 4, "uppercase"), marginBottom: 16 }}>Track Record</p></SR>
+          <SR delay={0.1}><h2 style={{ ...h("s", 52, 300, TEXT), marginBottom: 14 }}>Select Engagements</h2></SR>
+          <SR delay={0.15}><Line style={{ marginBottom: 28 }} /></SR>
+          <SR delay={0.2}><p style={{ ...h("b", 15, 300, SILVER), lineHeight: 1.85, maxWidth: 600 }}>A selection of current and past mandates. Details shared with discretion; further information available under NDA.</p></SR>
         </div>
       </PhotoSection>
-
-      {/* Current & Recent Engagements */}
-      <div style={{ padding: "64px 24px", background: `linear-gradient(180deg, ${NAVY} 0%, ${NAVY_DEEP} 100%)` }}>
-        <SR><div style={{ textAlign: "center", marginBottom: 48 }}>
-          <p style={{ ...s("b", 11, 400, ACCENT, 3, "uppercase"), marginBottom: 12 }}>2026</p>
-          <h3 style={{ ...s("s", 32, 400, TEXT), marginBottom: 8 }}>Current & Recent Engagements</h3>
-          <p style={{ ...s("b", 13, 300, TEXT_MUTED) }}>Three active mandates in the first quarter — across fund structuring, capital raising, and strategic advisory.</p>
+      {/* Current Engagements */}
+      <div style={{ padding: "72px 24px", background: `linear-gradient(180deg, ${NAVY} 0%, ${NAVY_DEEP} 100%)` }}>
+        <SR><div style={{ textAlign: "center", marginBottom: 56 }}>
+          <p style={{ ...h("b", 11, 400, ACCENT, 3, "uppercase"), marginBottom: 14 }}>2026</p>
+          <h3 style={{ ...h("s", 34, 300, TEXT), marginBottom: 10 }}>Current & Recent Engagements</h3>
+          <p style={{ ...h("b", 13, 300, TEXT_MUTED) }}>Three active mandates in the first quarter — across fund structuring, capital raising, and strategic advisory.</p>
         </div></SR>
         <div className="grid-3" style={{ maxWidth: 1000, margin: "0 auto", gap: 20, background: "transparent" }}>
           {recent.map((r, i) => (
             <SR key={i} delay={i * 0.12}>
-              <div className="card-glow" style={{ background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, borderTop: `2px solid ${ACCENT}`, padding: 32, height: "100%" }}>
-                <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 16 }}>
-                  <div style={{ width: 8, height: 8, borderRadius: "50%", background: "#4ADE80", boxShadow: "0 0 8px rgba(74,222,128,0.4)" }} />
-                  <span style={{ ...s("b", 10, 400, "#4ADE80", 1.5, "uppercase") }}>Active</span>
+              <div className="card-glow" style={{ background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, borderTop: `2px solid ${ACCENT}`, padding: 36, height: "100%" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 18 }}>
+                  <div style={{ width: 7, height: 7, borderRadius: "50%", background: GREEN, boxShadow: `0 0 8px rgba(74,222,128,0.4)` }} />
+                  <span style={{ ...h("b", 9, 500, GREEN, 2, "uppercase"), opacity: 0.8 }}>Active</span>
                 </div>
-                <p style={{ ...s("b", 10, 400, ACCENT, 2, "uppercase"), marginBottom: 8 }}>{r.sector}</p>
-                <h4 style={{ ...s("s", 20, 500, TEXT), marginBottom: 6 }}>{r.client}</h4>
-                <p style={{ ...s("b", 11, 300, ACCENT, 1, "uppercase"), marginBottom: 16 }}>{r.type}</p>
-                <div style={{ width: 32, height: 1, background: NAVY_BORDER, marginBottom: 16 }} />
-                <p style={{ ...s("b", 13, 300, TEXT_MUTED), lineHeight: 1.8 }}>{r.detail}</p>
+                <p style={{ ...h("b", 9, 500, ACCENT, 2.5, "uppercase"), marginBottom: 10 }}>{r.sector}</p>
+                <h4 style={{ ...h("s", 21, 500, TEXT), marginBottom: 8 }}>{r.client}</h4>
+                <p style={{ ...h("b", 10, 300, ACCENT, 1.5, "uppercase"), marginBottom: 18 }}>{r.type}</p>
+                <div style={{ width: 32, height: 1, background: NAVY_BORDER, marginBottom: 18 }} />
+                <p style={{ ...h("b", 13, 300, TEXT_MUTED), lineHeight: 1.85 }}>{r.detail}</p>
               </div>
             </SR>
           ))}
         </div>
       </div>
-
       {/* Testimonials */}
-      <div style={{ padding: "64px 24px", background: NAVY, borderTop: `1px solid ${NAVY_BORDER}`, borderBottom: `1px solid ${NAVY_BORDER}` }}>
-        <SR><p style={{ ...s("b", 11, 400, ACCENT, 3, "uppercase"), marginBottom: 12, textAlign: "center" }}>Client Feedback</p></SR>
-        <SR delay={0.05}><h3 style={{ ...s("s", 32, 400, TEXT), textAlign: "center", marginBottom: 48 }}>What Clients Say</h3></SR>
+      <div style={{ padding: "72px 24px", background: NAVY, borderTop: `1px solid ${NAVY_BORDER}`, borderBottom: `1px solid ${NAVY_BORDER}` }}>
+        <SR><p style={{ ...h("b", 11, 400, ACCENT, 3, "uppercase"), marginBottom: 14, textAlign: "center" }}>Client Feedback</p></SR>
+        <SR delay={0.05}><h3 style={{ ...h("s", 34, 300, TEXT), textAlign: "center", marginBottom: 56 }}>What Clients Say</h3></SR>
         <div className="testimonial-grid" style={{ maxWidth: 900, margin: "0 auto" }}>
-          <SR delay={0.1}><div className="card-glow" style={{ background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, padding: 44, height: "100%", borderTop: `2px solid ${ACCENT}` }}>
-            <div style={{ display: "flex", gap: 6, marginBottom: 16 }}>
-              {[1,2,3,4,5].map(i => <span key={i} style={{ color: "#D4AA60", fontSize: 16 }}>★</span>)}
-            </div>
-            <p style={{ ...s("s", 20, 400, TEXT), lineHeight: 1.7, fontStyle: "italic", marginBottom: 28 }}>
-              Amar's modelling skills were of a very high quality. He built a powerful set of supporting documents that gave us real confidence going to market.
-            </p>
-            <div style={{ width: 40, height: 1, background: `linear-gradient(90deg, ${ACCENT}, transparent)`, marginBottom: 16, opacity: 0.5 }} />
-            <p style={{ ...s("b", 13, 500, SILVER_LIGHT, 1, "uppercase") }}>Family Office</p>
-            <p style={{ ...s("b", 12, 300, TEXT_MUTED), marginTop: 4 }}>Health & Fitness Sector</p>
+          <SR delay={0.1}><div className="card-glow" style={{ background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, padding: 48, height: "100%", borderTop: `2px solid ${ACCENT}` }}>
+            <div style={{ display: "flex", gap: 6, marginBottom: 18 }}>{[1,2,3,4,5].map(i => <span key={i} style={{ color: "#D4AA60", fontSize: 15 }}>★</span>)}</div>
+            <p style={{ ...h("s", 20, 400, TEXT), lineHeight: 1.75, fontStyle: "italic", marginBottom: 28 }}>Amar's modelling skills were of a very high quality. He built a powerful set of supporting documents that gave us real confidence going to market.</p>
+            <div style={{ width: 40, height: 1, background: `linear-gradient(90deg, ${ACCENT}, transparent)`, marginBottom: 18, opacity: 0.4 }} />
+            <p style={{ ...h("b", 12, 500, SILVER_LIGHT, 1.5, "uppercase") }}>Family Office</p>
+            <p style={{ ...h("b", 11, 300, TEXT_MUTED), marginTop: 4 }}>Health & Fitness Sector</p>
           </div></SR>
-          <SR delay={0.2}><div className="card-glow" style={{ background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, padding: 44, height: "100%", borderTop: `2px solid ${ACCENT}` }}>
-            <div style={{ display: "flex", gap: 6, marginBottom: 16 }}>
-              {[1,2,3,4,5].map(i => <span key={i} style={{ color: "#D4AA60", fontSize: 16 }}>★</span>)}
-            </div>
-            <p style={{ ...s("s", 20, 400, TEXT), lineHeight: 1.7, fontStyle: "italic", marginBottom: 28 }}>
-              Amar built a robust set of key company agreements, financial model, and investor deck. He was a key part of our team feeling confident approaching investors and being fully prepared.
-            </p>
-            <div style={{ width: 40, height: 1, background: `linear-gradient(90deg, ${ACCENT}, transparent)`, marginBottom: 16, opacity: 0.5 }} />
-            <p style={{ ...s("b", 13, 500, SILVER_LIGHT, 1, "uppercase") }}>Founder & CEO</p>
-            <p style={{ ...s("b", 12, 300, TEXT_MUTED), marginTop: 4 }}>Consumer Business, Medical Sector</p>
+          <SR delay={0.2}><div className="card-glow" style={{ background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, padding: 48, height: "100%", borderTop: `2px solid ${ACCENT}` }}>
+            <div style={{ display: "flex", gap: 6, marginBottom: 18 }}>{[1,2,3,4,5].map(i => <span key={i} style={{ color: "#D4AA60", fontSize: 15 }}>★</span>)}</div>
+            <p style={{ ...h("s", 20, 400, TEXT), lineHeight: 1.75, fontStyle: "italic", marginBottom: 28 }}>Amar built a robust set of key company agreements, financial model, and investor deck. He was a key part of our team feeling confident approaching investors and being fully prepared.</p>
+            <div style={{ width: 40, height: 1, background: `linear-gradient(90deg, ${ACCENT}, transparent)`, marginBottom: 18, opacity: 0.4 }} />
+            <p style={{ ...h("b", 12, 500, SILVER_LIGHT, 1.5, "uppercase") }}>Founder & CEO</p>
+            <p style={{ ...h("b", 11, 300, TEXT_MUTED), marginTop: 4 }}>Consumer Business, Medical Sector</p>
           </div></SR>
         </div>
       </div>
-
       {/* Logo Bar */}
       <div className="section-pad" style={{ background: NAVY_DEEP, borderBottom: `1px solid ${NAVY_BORDER}` }}>
-        <SR><p style={{ ...s("b", 10, 400, TEXT_MUTED, 3, "uppercase"), marginBottom: 28, textAlign: "center" }}>Institutional Heritage</p></SR>
+        <SR><p style={{ ...h("b", 9, 500, TEXT_MUTED, 3, "uppercase"), marginBottom: 32, textAlign: "center" }}>Institutional Heritage</p></SR>
         <SR delay={0.1}><div className="logo-bar">
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 6, opacity: 0.7 }}>
-            <div style={{ ...s("b", 28, 500, SILVER_LIGHT, 6, "uppercase"), lineHeight: 1 }}>ANZ</div>
-            <div style={{ ...s("b", 9, 300, TEXT_MUTED, 2, "uppercase") }}>Institutional Bank</div>
-          </div>
-          <div style={{ width: 1, height: 40, background: NAVY_BORDER }} />
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 6, opacity: 0.7 }}>
-            <div style={{ ...s("b", 28, 500, SILVER_LIGHT, 4, "uppercase"), lineHeight: 1 }}>PEXA</div>
-            <div style={{ ...s("b", 9, 300, TEXT_MUTED, 2, "uppercase") }}>ASX-Listed</div>
-          </div>
-          <div style={{ width: 1, height: 40, background: NAVY_BORDER }} />
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 6, opacity: 0.45 }}>
-            <div style={{ ...s("s", 22, 400, SILVER, 1), lineHeight: 1, fontStyle: "italic" }}>Venture Fund</div>
-            <div style={{ ...s("b", 9, 300, TEXT_MUTED, 2, "uppercase") }}>Private Client</div>
-          </div>
-          <div style={{ width: 1, height: 40, background: NAVY_BORDER }} />
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 6, opacity: 0.45 }}>
-            <div style={{ ...s("s", 22, 400, SILVER, 1), lineHeight: 1, fontStyle: "italic" }}>Family Office</div>
-            <div style={{ ...s("b", 9, 300, TEXT_MUTED, 2, "uppercase") }}>Private Client</div>
-          </div>
-          <div style={{ width: 1, height: 40, background: NAVY_BORDER }} />
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 6, opacity: 0.45 }}>
-            <div style={{ ...s("s", 22, 400, SILVER, 1), lineHeight: 1, fontStyle: "italic" }}>Founders</div>
-            <div style={{ ...s("b", 9, 300, TEXT_MUTED, 2, "uppercase") }}>Multiple Engagements</div>
-          </div>
+          {[["ANZ", "Institutional Bank", 0.7, "b"], ["PEXA", "ASX-Listed", 0.7, "b"], ["Venture Fund", "Private Client", 0.4, "s"], ["Family Office", "Private Client", 0.4, "s"], ["Founders", "Multiple Engagements", 0.4, "s"]].map(([name, sub, op, fam], i) => (
+            <div key={i} style={{ display: "contents" }}>
+              {i > 0 && <div style={{ width: 1, height: 40, background: NAVY_BORDER }} />}
+              <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 6, opacity: op }}>
+                <div style={{ ...h(fam, fam === "b" ? 28 : 22, fam === "b" ? 500 : 400, SILVER_LIGHT, fam === "b" ? 6 : 1, fam === "b" ? "uppercase" : "none"), lineHeight: 1, fontStyle: fam === "s" ? "italic" : "normal" }}>{name}</div>
+                <div style={{ ...h("b", 8, 300, TEXT_MUTED, 2.5, "uppercase") }}>{sub}</div>
+              </div>
+            </div>
+          ))}
         </div></SR>
       </div>
-
       {/* Career History */}
       <div className="section-pad" style={{ background: NAVY_DEEP }}>
-        <SR><div style={{ marginBottom: 40 }}>
-          <p style={{ ...s("b", 11, 400, ACCENT, 3, "uppercase"), marginBottom: 12 }}>2019 — 2025</p>
-          <h3 style={{ ...s("s", 28, 500, TEXT), marginBottom: 8 }}>Career History</h3>
-          <p style={{ ...s("b", 13, 300, TEXT_MUTED) }}>Prior institutional and fund experience before launching Evara Advisory.</p>
+        <SR><div style={{ marginBottom: 44 }}>
+          <p style={{ ...h("b", 11, 400, ACCENT, 3, "uppercase"), marginBottom: 14 }}>2019 — 2025</p>
+          <h3 style={{ ...h("s", 30, 400, TEXT), marginBottom: 10 }}>Career History</h3>
+          <p style={{ ...h("b", 13, 300, TEXT_MUTED) }}>Prior institutional and fund experience before launching Evara Advisory.</p>
         </div></SR>
         <div style={{ maxWidth: 800 }}>
           {career.map((r, i) => (
-            <SR key={i} delay={i * 0.1}><div className="card-glow" style={{ padding: "36px 24px", borderBottom: `1px solid ${NAVY_BORDER}`, marginLeft: -24, marginRight: -24, borderRadius: 2 }}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 8, flexWrap: "wrap", gap: 8 }}>
+            <SR key={i} delay={i * 0.1}><div className="card-glow" style={{ padding: "40px 28px", borderBottom: `1px solid ${NAVY_BORDER}`, marginLeft: -28, marginRight: -28 }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 10, flexWrap: "wrap", gap: 8 }}>
                 <div>
-                  <h3 style={{ ...s("s", 22, 500, TEXT), marginBottom: 4 }}>{r.client}</h3>
-                  <p style={{ ...s("b", 11, 400, ACCENT, 1.5, "uppercase") }}>{r.type}</p>
+                  <h3 style={{ ...h("s", 23, 500, TEXT), marginBottom: 6 }}>{r.client}</h3>
+                  <p style={{ ...h("b", 10, 400, ACCENT, 2, "uppercase") }}>{r.type}</p>
                 </div>
-                <span style={{ ...s("b", 12, 300, TEXT_MUTED, 1.5), background: NAVY_CARD, padding: "4px 12px", border: `1px solid ${NAVY_BORDER}` }}>{r.period}</span>
+                <span style={{ ...h("b", 11, 300, TEXT_MUTED, 1.5), background: NAVY_CARD, padding: "5px 14px", border: `1px solid ${NAVY_BORDER}` }}>{r.period}</span>
               </div>
-              <p style={{ ...s("b", 14, 300, TEXT_MUTED), lineHeight: 1.85, marginTop: 14 }}>{r.detail}</p>
+              <p style={{ ...h("b", 14, 300, TEXT_MUTED), lineHeight: 1.9, marginTop: 16 }}>{r.detail}</p>
             </div></SR>
           ))}
         </div>
-
-        {/* NDA block */}
-        <SR delay={0.3}><div className="card-glow" style={{ marginTop: 48, background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, padding: "32px 40px", display: "flex", gap: 36, alignItems: "center", maxWidth: 800, flexWrap: "wrap" }}>
-          <div style={{ ...s("s", 34, 400, SILVER_LIGHT), flexShrink: 0, opacity: 0.7 }}>NDA</div>
+        <SR delay={0.3}><div className="card-glow" style={{ marginTop: 56, background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, padding: "36px 44px", display: "flex", gap: 40, alignItems: "center", maxWidth: 800, flexWrap: "wrap" }}>
+          <div style={{ ...h("s", 36, 300, SILVER_LIGHT), flexShrink: 0, opacity: 0.6 }}>NDA</div>
           <div style={{ flex: 1, minWidth: 200 }}>
-            <p style={{ ...s("b", 13.5, 300, TEXT), lineHeight: 1.7, marginBottom: 10 }}>Detailed case studies, model samples, and client references available under mutual non-disclosure.</p>
-            <Btn primary onClick={() => setPage("Contact")} style={{ padding: "9px 22px" }}>Request Access</Btn>
+            <p style={{ ...h("b", 13, 300, TEXT), lineHeight: 1.75, marginBottom: 12 }}>Detailed case studies, model samples, and client references available under mutual non-disclosure.</p>
+            <Btn primary onClick={() => setPage("Contact")} style={{ padding: "10px 24px" }}>Request Access</Btn>
           </div>
         </div></SR>
       </div>
@@ -725,8 +673,8 @@ function TrackRecordPage({ setPage }) {
 function ContactPage() {
   const [form, setForm] = useState({ name: "", email: "", company: "", stage: "", service: "", budget: "", timeline: "", message: "" });
   const [status, setStatus] = useState("idle");
-  const inputStyle = { width: "100%", padding: "12px 16px", background: "rgba(14,26,46,0.6)", border: `1px solid ${NAVY_BORDER}`, color: TEXT, ...s("b", 14, 300, TEXT), transition: "border-color 0.3s", borderRadius: 2 };
-  const labelStyle = { ...s("b", 10, 400, ACCENT, 2.5, "uppercase"), marginBottom: 6, display: "block" };
+  const inputStyle = { width: "100%", padding: "13px 18px", background: "rgba(14,26,46,0.5)", border: `1px solid ${NAVY_BORDER}`, color: TEXT, ...h("b", 14, 300, TEXT), transition: "border-color 0.3s", borderRadius: 2 };
+  const labelStyle = { ...h("b", 9, 500, ACCENT, 3, "uppercase"), marginBottom: 8, display: "block" };
   const handleSubmit = async (e) => {
     e.preventDefault(); setStatus("sending");
     try {
@@ -739,42 +687,42 @@ function ContactPage() {
       <div className="section-pad-top">
         <div className="grid-contact">
           <div>
-            <SR><p style={{ ...s("b", 11, 400, ACCENT, 4, "uppercase"), marginBottom: 16 }}>Contact</p></SR>
-            <SR delay={0.1}><h2 style={{ ...s("s", 48, 400, TEXT), marginBottom: 12 }}>Start a Conversation</h2></SR>
-            <SR delay={0.15}><Line style={{ marginBottom: 40 }} /></SR>
-            <SR delay={0.2}><p style={{ ...s("b", 15, 300, SILVER), lineHeight: 1.8, marginBottom: 48 }}>
+            <SR><p style={{ ...h("b", 11, 400, ACCENT, 4, "uppercase"), marginBottom: 16 }}>Contact</p></SR>
+            <SR delay={0.1}><h2 style={{ ...h("s", 48, 300, TEXT), marginBottom: 14 }}>Start a Conversation</h2></SR>
+            <SR delay={0.15}><Line style={{ marginBottom: 44 }} /></SR>
+            <SR delay={0.2}><p style={{ ...h("b", 15, 300, SILVER), lineHeight: 1.85, marginBottom: 52 }}>
               I work with a small number of clients at any given time. Whether you need help with strategy, modelling, investor materials, or preparing for a raise — fill out the form and I'll be in touch within 24 hours.
             </p></SR>
-            <SR delay={0.25}><div style={{ display: "flex", flexDirection: "column", gap: 24, marginBottom: 48 }}>
+            <SR delay={0.25}><div style={{ display: "flex", flexDirection: "column", gap: 28, marginBottom: 52 }}>
               {[["Email", "amar.kashyap095@gmail.com", "mailto:amar.kashyap095@gmail.com"], ["LinkedIn", "linkedin.com/in/amar-kashyap", "https://www.linkedin.com/in/amar-kashyap"], ["Based In", "Sydney, Australia", null]].map(([label, val, href]) => (
                 <div key={label}>
-                  <p style={{ ...s("b", 10, 400, ACCENT, 3, "uppercase"), marginBottom: 4 }}>{label}</p>
-                  {href ? <a href={href} target="_blank" rel="noopener noreferrer" style={{ ...s("b", 15, 300, TEXT), textDecoration: "none" }}>{val}</a> : <p style={{ ...s("b", 15, 300, TEXT) }}>{val}</p>}
+                  <p style={{ ...h("b", 9, 500, ACCENT, 3, "uppercase"), marginBottom: 5 }}>{label}</p>
+                  {href ? <a href={href} target="_blank" rel="noopener noreferrer" style={{ ...h("b", 15, 300, TEXT), textDecoration: "none" }}>{val}</a> : <p style={{ ...h("b", 15, 300, TEXT) }}>{val}</p>}
                 </div>
               ))}
             </div></SR>
-            <SR delay={0.3}><div className="card-glow" style={{ background: "rgba(14,26,46,0.7)", backdropFilter: "blur(16px)", border: `1px solid ${NAVY_BORDER}`, padding: 32 }}>
-              <p style={{ ...s("b", 10, 400, ACCENT, 3, "uppercase"), marginBottom: 14 }}>Typical Engagement</p>
+            <SR delay={0.3}><div className="card-glow" style={{ background: "rgba(14,26,46,0.6)", backdropFilter: "blur(16px)", border: `1px solid ${NAVY_BORDER}`, padding: 36 }}>
+              <p style={{ ...h("b", 9, 500, ACCENT, 3, "uppercase"), marginBottom: 16 }}>Typical Engagement</p>
               {["Initial scoping call — no charge", "Retainer or project-based fee structure", "Deliverable-focused with clear milestones", "NDA executed before any sensitive exchange"].map((item, i) => (
-                <div key={i} style={{ display: "flex", gap: 10, alignItems: "flex-start", marginBottom: i < 3 ? 10 : 0 }}>
-                  <span style={{ color: ACCENT, fontSize: 13, marginTop: 1 }}>→</span>
-                  <p style={{ ...s("b", 13, 300, TEXT_MUTED), lineHeight: 1.55 }}>{item}</p>
+                <div key={i} style={{ display: "flex", gap: 12, alignItems: "flex-start", marginBottom: i < 3 ? 12 : 0 }}>
+                  <span style={{ color: ACCENT, fontSize: 12, marginTop: 2 }}>→</span>
+                  <p style={{ ...h("b", 13, 300, TEXT_MUTED), lineHeight: 1.6 }}>{item}</p>
                 </div>
               ))}
             </div></SR>
           </div>
           <SR delay={0.1}><div>
             {status === "sent" ? (
-              <div style={{ background: "rgba(14,26,46,0.7)", backdropFilter: "blur(16px)", border: `1px solid ${NAVY_BORDER}`, padding: 56, textAlign: "center" }}>
-                <div style={{ ...s("s", 48, 400, SILVER_LIGHT), marginBottom: 16 }}>✓</div>
-                <h3 style={{ ...s("s", 28, 500, TEXT), marginBottom: 12 }}>Request Received</h3>
-                <p style={{ ...s("b", 15, 300, TEXT_MUTED), lineHeight: 1.7 }}>Thank you. I'll be in touch within 24 hours.</p>
+              <div style={{ background: "rgba(14,26,46,0.6)", backdropFilter: "blur(16px)", border: `1px solid ${NAVY_BORDER}`, padding: 64, textAlign: "center" }}>
+                <div style={{ ...h("s", 48, 300, SILVER_LIGHT), marginBottom: 18 }}>✓</div>
+                <h3 style={{ ...h("s", 28, 400, TEXT), marginBottom: 14 }}>Request Received</h3>
+                <p style={{ ...h("b", 15, 300, TEXT_MUTED), lineHeight: 1.75 }}>Thank you. I'll be in touch within 24 hours.</p>
               </div>
             ) : (
-              <div className="card-glow" style={{ background: "rgba(14,26,46,0.7)", backdropFilter: "blur(16px)", border: `1px solid ${NAVY_BORDER}`, padding: "32px" }}>
-                <p style={{ ...s("s", 22, 500, TEXT), marginBottom: 6 }}>Send a Request</p>
-                <p style={{ ...s("b", 13, 300, TEXT_MUTED), marginBottom: 24 }}>All enquiries are treated as confidential.</p>
-                <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
+              <div className="card-glow" style={{ background: "rgba(14,26,46,0.6)", backdropFilter: "blur(16px)", border: `1px solid ${NAVY_BORDER}`, padding: "36px" }}>
+                <p style={{ ...h("s", 24, 400, TEXT), marginBottom: 8 }}>Send a Request</p>
+                <p style={{ ...h("b", 12, 300, TEXT_MUTED), marginBottom: 28 }}>All enquiries are treated as confidential.</p>
+                <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
                   <div className="grid-form-row">
                     <div><label style={labelStyle}>Full Name *</label><input required style={inputStyle} value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} placeholder="Your name" /></div>
                     <div><label style={labelStyle}>Email *</label><input required type="email" style={inputStyle} value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} placeholder="you@company.com" /></div>
@@ -801,19 +749,19 @@ function ContactPage() {
                       {["", "Urgent — this week", "Within 2 weeks", "Within a month", "Flexible / Just exploring"].map(v => <option key={v} value={v} style={{ background: NAVY_CARD }}>{v || "Select..."}</option>)}
                     </select></div>
                   <div><label style={labelStyle}>Tell me about your project *</label>
-                    <textarea required rows={4} style={{ ...inputStyle, resize: "vertical", minHeight: 90 }} value={form.message} onChange={e => setForm({ ...form, message: e.target.value })} placeholder="Brief overview of what you need help with..." /></div>
+                    <textarea required rows={4} style={{ ...inputStyle, resize: "vertical", minHeight: 100 }} value={form.message} onChange={e => setForm({ ...form, message: e.target.value })} placeholder="Brief overview of what you need help with..." /></div>
                   <div style={{ display: "flex", alignItems: "center", gap: 16, flexWrap: "wrap" }}>
                     <Btn primary type="submit" disabled={status === "sending" || !form.name || !form.email || !form.message} onClick={handleSubmit} style={{ padding: "14px 40px" }}>
                       {status === "sending" ? "Sending..." : "Submit Request"}
                     </Btn>
-                    {status === "error" && <p style={{ ...s("b", 13, 300, "#E07070") }}>Something went wrong. Please email directly.</p>}
+                    {status === "error" && <p style={{ ...h("b", 13, 300, "#E07070") }}>Something went wrong. Please email directly.</p>}
                   </div>
-                  <p style={{ ...s("b", 11, 300, TEXT_MUTED), lineHeight: 1.5, fontStyle: "italic", opacity: 0.5 }}>Your information will not be shared. I'll respond within one business day.</p>
+                  <p style={{ ...h("b", 10, 300, TEXT_MUTED), lineHeight: 1.5, fontStyle: "italic", opacity: 0.45 }}>Your information will not be shared. I'll respond within one business day.</p>
                 </div>
               </div>
             )}
-            <div style={{ marginTop: 16, background: "rgba(14,26,46,0.5)", backdropFilter: "blur(8px)", border: `1px solid ${NAVY_BORDER}`, padding: 18, opacity: 0.6 }}>
-              <p style={{ ...s("b", 11, 300, TEXT_MUTED), lineHeight: 1.6, fontStyle: "italic" }}>Evara Advisory provides commercial and strategic advisory services only. We do not provide financial product advice or hold an AFSL.</p>
+            <div style={{ marginTop: 18, background: "rgba(14,26,46,0.4)", backdropFilter: "blur(8px)", border: `1px solid ${NAVY_BORDER}`, padding: 20, opacity: 0.5 }}>
+              <p style={{ ...h("b", 10, 300, TEXT_MUTED), lineHeight: 1.6, fontStyle: "italic" }}>Evara Advisory provides commercial and strategic advisory services only. We do not provide financial product advice or hold an AFSL.</p>
             </div>
           </div></SR>
         </div>
@@ -826,31 +774,31 @@ function Footer({ setPage }) {
   return (
     <footer style={{ borderTop: `1px solid ${NAVY_BORDER}`, background: NAVY_DEEP }}>
       <div className="section-pad">
-        <div className="grid-footer" style={{ marginBottom: 40 }}>
+        <div className="grid-footer" style={{ marginBottom: 48 }}>
           <div>
-            <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 16 }}>
-              <div style={{ width: 32, height: 32, border: `1px solid ${SILVER}`, display: "flex", alignItems: "center", justifyContent: "center", ...s("s", 15, 500, SILVER, 1) }}>E</div>
-              <span style={{ ...s("b", 11, 500, TEXT, 3.5, "uppercase") }}>Evara Advisory</span>
+            <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 20 }}>
+              <div style={{ width: 34, height: 34, border: `1px solid ${SILVER}`, display: "flex", alignItems: "center", justifyContent: "center", ...h("s", 16, 400, SILVER, 1) }}>E</div>
+              <span style={{ ...h("b", 10, 500, TEXT, 4, "uppercase") }}>Evara Advisory</span>
             </div>
-            <p style={{ ...s("b", 13, 300, TEXT_MUTED), lineHeight: 1.7, maxWidth: 320 }}>Strategic advisory, financial modelling, and capital raising support for founders and private capital groups. Founded by Amar Kashyap. Sydney, Australia.</p>
+            <p style={{ ...h("b", 13, 300, TEXT_MUTED), lineHeight: 1.75, maxWidth: 320 }}>Strategic advisory, financial modelling, and capital raising support for founders and private capital groups. Founded by Amar Kashyap. Sydney, Australia.</p>
           </div>
           <div>
-            <p style={{ ...s("b", 10, 400, ACCENT, 2.5, "uppercase"), marginBottom: 16 }}>Navigation</p>
+            <p style={{ ...h("b", 9, 500, ACCENT, 3, "uppercase"), marginBottom: 18 }}>Navigation</p>
             {PAGES.map(p => (
-              <p key={p} onClick={() => setPage(p)} style={{ ...s("b", 13, 300, TEXT_MUTED), marginBottom: 8, cursor: "pointer", transition: "color 0.3s" }}
+              <p key={p} onClick={() => setPage(p)} style={{ ...h("b", 13, 300, TEXT_MUTED), marginBottom: 10, cursor: "pointer", transition: "color 0.3s" }}
                 onMouseEnter={e => e.target.style.color = TEXT} onMouseLeave={e => e.target.style.color = TEXT_MUTED}>{p}</p>
             ))}
           </div>
           <div>
-            <p style={{ ...s("b", 10, 400, ACCENT, 2.5, "uppercase"), marginBottom: 16 }}>Contact</p>
-            <a href="mailto:amar.kashyap095@gmail.com" style={{ ...s("b", 13, 300, TEXT_MUTED), marginBottom: 8, display: "block", textDecoration: "none" }}>amar.kashyap095@gmail.com</a>
-            <a href="https://www.linkedin.com/in/amar-kashyap" target="_blank" rel="noopener noreferrer" style={{ ...s("b", 13, 300, TEXT_MUTED), marginBottom: 8, display: "block", textDecoration: "none" }}>linkedin.com/in/amar-kashyap</a>
-            <p style={{ ...s("b", 13, 300, TEXT_MUTED) }}>Sydney, Australia</p>
+            <p style={{ ...h("b", 9, 500, ACCENT, 3, "uppercase"), marginBottom: 18 }}>Contact</p>
+            <a href="mailto:amar.kashyap095@gmail.com" style={{ ...h("b", 13, 300, TEXT_MUTED), marginBottom: 10, display: "block", textDecoration: "none" }}>amar.kashyap095@gmail.com</a>
+            <a href="https://www.linkedin.com/in/amar-kashyap" target="_blank" rel="noopener noreferrer" style={{ ...h("b", 13, 300, TEXT_MUTED), marginBottom: 10, display: "block", textDecoration: "none" }}>linkedin.com/in/amar-kashyap</a>
+            <p style={{ ...h("b", 13, 300, TEXT_MUTED) }}>Sydney, Australia</p>
           </div>
         </div>
-        <div style={{ borderTop: `1px solid ${NAVY_BORDER}`, paddingTop: 20, display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: 8 }}>
-          <span style={{ ...s("b", 11, 300, TEXT_MUTED, 0.5) }}>© 2026 Evara Advisory. All rights reserved.</span>
-          <span style={{ ...s("b", 11, 300, TEXT_MUTED, 0.5), fontStyle: "italic" }}>Commercial advisory services only. Not financial product advice.</span>
+        <div style={{ borderTop: `1px solid ${NAVY_BORDER}`, paddingTop: 24, display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: 8 }}>
+          <span style={{ ...h("b", 10, 300, TEXT_MUTED, 0.5) }}>© 2026 Evara Advisory. All rights reserved.</span>
+          <span style={{ ...h("b", 10, 300, TEXT_MUTED, 0.5), fontStyle: "italic" }}>Commercial advisory services only. Not financial product advice.</span>
         </div>
       </div>
     </footer>
@@ -859,7 +807,7 @@ function Footer({ setPage }) {
 
 function BackToTop() {
   const [show, setShow] = useState(false);
-  useEffect(() => { const h = () => setShow(window.scrollY > 400); window.addEventListener("scroll", h); return () => window.removeEventListener("scroll", h); }, []);
+  useEffect(() => { const fn = () => setShow(window.scrollY > 400); window.addEventListener("scroll", fn); return () => window.removeEventListener("scroll", fn); }, []);
   return (
     <button className={`back-to-top ${show ? "visible" : ""}`} onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={ACCENT} strokeWidth="2" strokeLinecap="round"><path d="M18 15l-6-6-6 6" /></svg>
@@ -871,7 +819,7 @@ export default function App() {
   const [page, setPage] = useState("Home");
   const [key, setKey] = useState(0);
   const [loaded, setLoaded] = useState(false);
-  useEffect(() => { const t = setTimeout(() => setLoaded(true), 1200); return () => clearTimeout(t); }, []);
+  useEffect(() => { const t = setTimeout(() => setLoaded(true), 1600); return () => clearTimeout(t); }, []);
   const nav = (p) => { setPage(p); setKey(k => k + 1); window.scrollTo({ top: 0, behavior: "instant" }); };
   const pages = { Home: <HomePage setPage={nav} />, About: <AboutPage />, Services: <ServicesPage />, "Track Record": <TrackRecordPage setPage={nav} />, Contact: <ContactPage /> };
   return (
