@@ -76,8 +76,8 @@ function Line({ style }) {
 function Btn({ children, primary, onClick, style: bsx, type, disabled }) {
   const [h, setH] = useState(false);
   const base = primary
-    ? { background: h && !disabled ? SILVER_LIGHT : "transparent", border: `1px solid ${SILVER}`, color: h && !disabled ? NAVY_DEEP : SILVER }
-    : { background: "transparent", border: `1px solid ${h ? TEXT_MUTED : NAVY_BORDER}`, color: h ? TEXT : TEXT_MUTED };
+    ? { background: h && !disabled ? SILVER_LIGHT : SILVER, border: `1px solid ${SILVER}`, color: NAVY_DEEP }
+    : { background: h ? "rgba(255,255,255,0.1)" : "rgba(255,255,255,0.05)", border: `1px solid ${h ? SILVER : "rgba(255,255,255,0.2)"}`, color: h ? TEXT : SILVER };
   return (
     <button type={type} disabled={disabled} onClick={onClick} onMouseEnter={() => setH(true)} onMouseLeave={() => setH(false)}
       style={{ ...base, padding: "13px 32px", ...f("b", 11, 400, null, 2.5, "uppercase"), cursor: disabled ? "not-allowed" : "pointer", transition: "all 0.3s", backdropFilter: "blur(4px)", opacity: disabled ? 0.5 : 1, ...bsx }}>
