@@ -62,7 +62,22 @@ styleEl.textContent = `
   .scroll-reveal.visible { opacity: 1; transform: translateY(0); }
 
   .card-glow { transition: all 0.4s ease; position: relative; }
-  .card-glow:hover { box-shadow: 0 0 40px rgba(143,163,186,0.06), 0 8px 32px rgba(0,0,0,0.3); transform: translateY(-2px); }
+  .card-glow:hover { box-shadow: 0 0 40px rgba(150,171,190,0.08), 0 8px 32px rgba(0,0,0,0.25); transform: translateY(-2px); }
+
+  .tag { transition: all 0.3s ease; cursor: default; }
+  .tag:hover { border-color: ${ACCENT} !important; color: ${TEXT} !important; }
+
+  .page-enter { animation: pageIn 0.5s ease forwards; }
+  @keyframes pageIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+  .back-to-top { position: fixed; bottom: 32px; right: 32px; z-index: 90; width: 44px; height: 44px;
+    border-radius: 50%; border: 1px solid ${NAVY_BORDER}; background: rgba(18,29,46,0.9);
+    backdrop-filter: blur(12px); cursor: pointer; display: flex; align-items: center; justify-content: center;
+    transition: all 0.3s ease; opacity: 0; transform: translateY(10px); pointer-events: none; }
+  .back-to-top.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+  .back-to-top:hover { border-color: ${ACCENT}; background: rgba(18,29,46,1); transform: translateY(-2px); }
+
+  a { color: inherit; }
 
   .nav-link { position: relative; }
   .nav-link::after { content: ''; position: absolute; bottom: -3px; left: 50%; width: 0; height: 1px; background: ${SILVER}; transition: all 0.3s ease; transform: translateX(-50%); }
@@ -220,7 +235,7 @@ function HomePage({ setPage }) {
         </p>
         <div className="fu d6" style={{ display: "flex", gap: 14, marginBottom: 80 }}>
           <Btn primary onClick={() => setPage("Contact")}>Get in Touch</Btn>
-          <Btn onClick={() => setPage("Services")}>View Services</Btn>
+          <Btn primary onClick={() => setPage("Services")}>View Services</Btn>
         </div>
       </div>
       <div className="fu d7" style={{ padding: "36px 80px 52px", borderTop: `1px solid rgba(255,255,255,0.08)`, display: "flex" }}>
@@ -287,7 +302,7 @@ function AboutPage() {
               <p style={{ ...s("b", 10, 400, ACCENT, 3, "uppercase"), marginBottom: 14 }}>Who I Work With</p>
               <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
                 {["Family Offices", "PE-Backed Platforms", "Seed & Series A Founders", "Franchise Groups", "SMB Operators", "Established Businesses"].map(item => (
-                  <span key={item} style={{ ...s("b", 10.5, 300, TEXT_MUTED, 0.5), padding: "6px 12px", border: `1px solid ${NAVY_BORDER}`, transition: "all 0.3s" }}>{item}</span>
+                  <span key={item} style={{ ...s("b", 10.5, 300, TEXT_MUTED, 0.5), padding: "6px 12px", border: `1px solid ${NAVY_BORDER}` }} className="tag">{item}</span>
                 ))}
               </div>
             </div></SR>
@@ -295,7 +310,7 @@ function AboutPage() {
               <p style={{ ...s("b", 10, 400, ACCENT, 3, "uppercase"), marginBottom: 14 }}>Sector Exposure</p>
               <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
                 {["Fintech", "Proptech", "Health & Wellness", "Sports Technology", "Franchising", "Legaltech", "Building & Construction", "Beauty & Retail"].map(item => (
-                  <span key={item} style={{ ...s("b", 10.5, 300, TEXT_MUTED, 0.5), padding: "6px 12px", border: `1px solid ${NAVY_BORDER}`, transition: "all 0.3s" }}>{item}</span>
+                  <span key={item} style={{ ...s("b", 10.5, 300, TEXT_MUTED, 0.5), padding: "6px 12px", border: `1px solid ${NAVY_BORDER}` }} className="tag">{item}</span>
                 ))}
               </div>
             </div></SR>
@@ -521,7 +536,7 @@ function ContactPage() {
               I work with a small number of clients at any given time. Fill out the form and I'll be in touch within 24 hours.
             </p></SR>
             <SR delay={0.25}><div style={{ display: "flex", flexDirection: "column", gap: 24, marginBottom: 48 }}>
-              {[["Email", "amar.kashyap095@gmail.com", "mailto:amar.kashyap095@gmail.com"], ["LinkedIn", "linkedin.com/in/amarkashyap", "https://www.linkedin.com/in/amarkashyap"], ["Based In", "Sydney, Australia", null]].map(([label, val, href]) => (
+              {[["Email", "amar.kashyap095@gmail.com", "mailto:amar.kashyap095@gmail.com"], ["LinkedIn", "linkedin.com/in/amar-kashyap", "https://www.linkedin.com/in/amar-kashyap"], ["Based In", "Sydney, Australia", null]].map(([label, val, href]) => (
                 <div key={label}>
                   <p style={{ ...s("b", 10, 400, ACCENT, 3, "uppercase"), marginBottom: 4 }}>{label}</p>
                   {href ? <a href={href} target="_blank" rel="noopener noreferrer" style={{ ...s("b", 15, 300, TEXT), textDecoration: "none", transition: "color 0.3s" }} onMouseEnter={e => e.target.style.color = ACCENT} onMouseLeave={e => e.target.style.color = TEXT}>{val}</a> : <p style={{ ...s("b", 15, 300, TEXT) }}>{val}</p>}
@@ -624,7 +639,7 @@ function Footer({ setPage }) {
         <div>
           <p style={{ ...s("b", 10, 400, ACCENT, 2.5, "uppercase"), marginBottom: 16 }}>Contact</p>
           <a href="mailto:amar.kashyap095@gmail.com" style={{ ...s("b", 13, 300, TEXT_MUTED), marginBottom: 8, display: "block", textDecoration: "none", transition: "color 0.3s" }} onMouseEnter={e => e.target.style.color = TEXT} onMouseLeave={e => e.target.style.color = TEXT_MUTED}>amar.kashyap095@gmail.com</a>
-          <a href="https://www.linkedin.com/in/amarkashyap" target="_blank" rel="noopener noreferrer" style={{ ...s("b", 13, 300, TEXT_MUTED), marginBottom: 8, display: "block", textDecoration: "none", transition: "color 0.3s" }} onMouseEnter={e => e.target.style.color = TEXT} onMouseLeave={e => e.target.style.color = TEXT_MUTED}>linkedin.com/in/amarkashyap</a>
+          <a href="https://www.linkedin.com/in/amar-kashyap" target="_blank" rel="noopener noreferrer" style={{ ...s("b", 13, 300, TEXT_MUTED), marginBottom: 8, display: "block", textDecoration: "none", transition: "color 0.3s" }} onMouseEnter={e => e.target.style.color = TEXT} onMouseLeave={e => e.target.style.color = TEXT_MUTED}>linkedin.com/in/amar-kashyap</a>
           <p style={{ ...s("b", 13, 300, TEXT_MUTED) }}>Sydney, Australia</p>
         </div>
       </div>
@@ -633,6 +648,18 @@ function Footer({ setPage }) {
         <span style={{ ...s("b", 11, 300, TEXT_MUTED, 0.5), fontStyle: "italic" }}>Commercial advisory services only. Not financial product advice.</span>
       </div>
     </footer>
+  );
+}
+
+function BackToTop() {
+  const [show, setShow] = useState(false);
+  useEffect(() => { const h = () => setShow(window.scrollY > 400); window.addEventListener("scroll", h); return () => window.removeEventListener("scroll", h); }, []);
+  return (
+    <button className={`back-to-top ${show ? "visible" : ""}`} onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={ACCENT} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M18 15l-6-6-6 6" />
+      </svg>
+    </button>
   );
 }
 
@@ -654,8 +681,9 @@ export default function App() {
       <Preloader done={loaded} />
       <div className="grain" />
       <Nav page={page} setPage={nav} />
-      <div key={key} className="fi">{pages[page]}</div>
+      <div key={key} className="page-enter">{pages[page]}</div>
       <Footer setPage={nav} />
+      <BackToTop />
     </div>
   );
 }
