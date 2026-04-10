@@ -340,74 +340,129 @@ function HomePage({ setPage }) {
 }
 
 function AboutPage() {
+  const timeline = [
+    { year: "2019", role: "Institutional Banking", org: "Top-4 Australian Bank", desc: "M&A advisory and leveraged finance — structuring debt facilities for PE sponsors. Transitioned into the bank's venture arm, investing in growth-stage fintech from Series A onwards." },
+    { year: "2022", role: "Corporate Development", org: "ASX-Listed Technology Platform", desc: "Evaluated proptech venture investments and supported corporate development strategy during the company's time as a publicly listed business." },
+    { year: "2023", role: "Founding Hire", org: "Early-Stage Venture Fund", desc: "Sole-led due diligence, managed IC approvals, drove fund capital raising. End-to-end experience of the full fund lifecycle — formation through wind-down." },
+    { year: "2026", role: "Founder", org: "Evara Advisory", desc: "Launched an independent advisory practice. Three active mandates in the first quarter across family offices, founders, and capital raising." },
+  ];
   return (
     <>
-      <PhotoSection src={PHOTOS.about} overlay={0.88}>
+      {/* Hero */}
+      <PhotoSection src={PHOTOS.about} overlay={0.86}>
         <div className="section-pad-top">
-          <SR><p style={{ ...h("b", 11, 400, ACCENT, 4, "uppercase"), marginBottom: 16 }}>About</p></SR>
-          <SR delay={0.1}><h2 style={{ ...h("s", 52, 300, TEXT), marginBottom: 8 }}>Hey, I'm Amar.</h2></SR>
-          <SR delay={0.2}><p style={{ ...h("s", 21, 400, SILVER), lineHeight: 1.65, maxWidth: 640, marginTop: 20, fontStyle: "italic" }}>
-            I started Evara Advisory because I kept seeing the same problem — talented founders and operators with great businesses, but without the financial tools or materials to match.
-          </p></SR>
+          <div className="grid-about" style={{ alignItems: "end" }}>
+            <div>
+              <SR><p style={{ ...h("b", 11, 400, ACCENT, 4, "uppercase"), marginBottom: 16 }}>About</p></SR>
+              <SR delay={0.1}><h2 style={{ ...h("s", 56, 300, TEXT), marginBottom: 10, lineHeight: 1.05 }}>Hey, I'm Amar.</h2></SR>
+              <SR delay={0.2}><p style={{ ...h("s", 20, 400, SILVER), lineHeight: 1.7, maxWidth: 500, marginTop: 20, fontStyle: "italic" }}>
+                I started Evara Advisory because I kept seeing the same problem — talented founders and operators with great businesses, but without the financial tools or materials to match.
+              </p></SR>
+            </div>
+            <SR delay={0.3}><div style={{ textAlign: "right" }}>
+              <div style={{ ...h("s", 120, 300, ACCENT), lineHeight: 1, opacity: 0.12 }}>7+</div>
+              <p style={{ ...h("b", 10, 500, TEXT_MUTED, 3, "uppercase"), marginTop: -8 }}>Years in Private Markets</p>
+            </div></SR>
+          </div>
         </div>
       </PhotoSection>
+
+      {/* Intro — two column with pull quote */}
       <div className="section-pad" style={{ background: NAVY_DEEP, borderBottom: `1px solid ${NAVY_BORDER}` }}>
-        <div style={{ maxWidth: 720 }}>
-          <SR><p style={{ ...h("b", 15, 300, TEXT_MUTED), lineHeight: 1.95, marginBottom: 28 }}>
-            I've spent the past seven years in private markets — starting in institutional banking, then moving through venture capital, corporate development, and family office advisory. Along the way, I've sat in IC meetings, built fund models, led due diligence, and helped founders walk into investor conversations feeling genuinely prepared.
-          </p></SR>
-          <SR delay={0.1}><p style={{ ...h("b", 15, 300, TEXT_MUTED), lineHeight: 1.95, marginBottom: 28 }}>
-            I launched Evara Advisory in early 2026. The firm is new, but the experience behind it isn't. I work with a deliberately small number of clients because I'd rather go deep on a few mandates than spread thin across many. Every engagement gets the same level of rigour I'd bring to a deal at an institutional desk.
-          </p></SR>
-          <SR delay={0.2}><p style={{ ...h("b", 15, 300, TEXT_MUTED), lineHeight: 1.95 }}>
-            I also lean heavily into AI tooling — it lets me deliver work at a speed and depth that traditional advisory firms can't match, and I pass that efficiency on to my clients.
-          </p></SR>
-        </div>
-      </div>
-      <div className="section-pad" style={{ background: NAVY_DEEP }}>
         <div className="grid-about">
           <div>
-            <SR><h3 style={{ ...h("s", 30, 400, TEXT), marginBottom: 28 }}>The Career Path</h3></SR>
-            <SR delay={0.1}><p style={{ ...h("b", 15, 300, TEXT_MUTED), lineHeight: 1.9, marginBottom: 24 }}>I started at one of Australia's top-four banks in the Institutional Division — M&A advisory and leveraged finance, structuring debt facilities for PE sponsors. From there, I moved into the bank's venture arm, working on growth-stage fintech investments from Series A onwards.</p></SR>
-            <SR delay={0.2}><p style={{ ...h("b", 15, 300, TEXT_MUTED), lineHeight: 1.9, marginBottom: 24 }}>Next came a major ASX-listed technology platform, where I evaluated proptech investments and supported corporate development strategy. Then I joined an early-stage venture fund as the founding hire — sole-leading due diligence, running IC approvals, and driving fund capital raising.</p></SR>
-            <SR delay={0.3}><p style={{ ...h("b", 15, 300, TEXT_MUTED), lineHeight: 1.9, marginBottom: 28 }}>Most recently, I was retained by a major Australian family office to lead financial modelling and investment strategy for a new UK-based fund — building the complete fund model, Investment Memorandum, and board-level materials for an institutional equity raise.</p></SR>
-            <SR delay={0.4}><div style={{ background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, padding: 32 }}>
-              <p style={{ ...h("s", 18, 400, TEXT), lineHeight: 1.7, fontStyle: "italic", marginBottom: 14 }}>"I care about doing good work for good people. If you're building something meaningful and need someone who takes your ambitions as seriously as you do — let's talk."</p>
-              <p style={{ ...h("b", 10, 500, ACCENT, 2.5, "uppercase") }}>— Amar</p>
-            </div></SR>
+            <SR><p style={{ ...h("b", 15, 300, TEXT_MUTED), lineHeight: 1.95, marginBottom: 28 }}>
+              I've spent the past seven years in private markets — starting in institutional banking, then moving through venture capital, corporate development, and family office advisory. Along the way, I've sat in IC meetings, built fund models, led due diligence, and helped founders walk into investor conversations feeling genuinely prepared.
+            </p></SR>
+            <SR delay={0.1}><p style={{ ...h("b", 15, 300, TEXT_MUTED), lineHeight: 1.95, marginBottom: 28 }}>
+              I launched Evara Advisory in early 2026. The firm is new, but the experience behind it isn't. I work with a deliberately small number of clients because I'd rather go deep on a few mandates than spread thin across many.
+            </p></SR>
+            <SR delay={0.2}><p style={{ ...h("b", 15, 300, TEXT_MUTED), lineHeight: 1.95 }}>
+              I also lean heavily into AI tooling — it lets me deliver work at a speed and depth that traditional advisory firms can't match, and I pass that efficiency on to my clients.
+            </p></SR>
           </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
-            <SR delay={0.1}><div className="card-glow" style={{ background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, padding: 36 }}>
-              <p style={{ ...h("b", 9, 500, ACCENT, 3, "uppercase"), marginBottom: 16 }}>Who I Work With</p>
-              <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-                {["Family Offices", "PE-Backed Platforms", "Seed & Series A Founders", "Franchise Groups", "SMB Operators", "Established Businesses"].map(item => (
-                  <span key={item} className="tag" style={{ ...h("b", 10.5, 300, TEXT_MUTED, 0.5), padding: "7px 14px", border: `1px solid ${NAVY_BORDER}` }}>{item}</span>
-                ))}
-              </div>
-            </div></SR>
-            <SR delay={0.2}><div className="card-glow" style={{ background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, padding: 36 }}>
-              <p style={{ ...h("b", 9, 500, ACCENT, 3, "uppercase"), marginBottom: 16 }}>Career Heritage</p>
-              {["Top-4 Australian Bank — M&A & Leveraged Finance", "Bank Venture Arm — Growth-Stage Tech Investments", "ASX-Listed Platform — Corp Dev & Proptech VC", "Venture Fund — Founding Hire & Fund Operations", "Family Office — Fund Structuring & Strategy"].map((item, i) => (
-                <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: 10, marginBottom: i < 4 ? 14 : 0 }}>
-                  <div style={{ width: 3, height: 3, borderRadius: "50%", background: ACCENT, marginTop: 9, flexShrink: 0 }} />
-                  <p style={{ ...h("b", 12.5, 300, TEXT_MUTED), lineHeight: 1.55 }}>{item}</p>
+          <SR delay={0.2}><div style={{ display: "flex", alignItems: "center" }}>
+            <div style={{ borderLeft: `2px solid ${ACCENT}`, paddingLeft: 32, opacity: 0.8 }}>
+              <p style={{ ...h("s", 26, 400, TEXT), lineHeight: 1.6, fontStyle: "italic", marginBottom: 16 }}>
+                "I care about doing good work for good people."
+              </p>
+              <p style={{ ...h("b", 10, 500, ACCENT, 2.5, "uppercase") }}>— Amar Kashyap</p>
+            </div>
+          </div></SR>
+        </div>
+      </div>
+
+      {/* Career Timeline — visual */}
+      <div className="section-pad" style={{ background: NAVY }}>
+        <SR><p style={{ ...h("b", 11, 400, ACCENT, 4, "uppercase"), marginBottom: 14, textAlign: "center" }}>Career</p></SR>
+        <SR delay={0.1}><h3 style={{ ...h("s", 34, 300, TEXT), textAlign: "center", marginBottom: 64 }}>The Path Here</h3></SR>
+        <div style={{ maxWidth: 700, margin: "0 auto", position: "relative" }}>
+          {/* Vertical line */}
+          <div style={{ position: "absolute", left: 15, top: 8, bottom: 8, width: 1, background: `linear-gradient(180deg, ${ACCENT}, ${NAVY_BORDER})`, opacity: 0.3 }} />
+          {timeline.map((t, i) => (
+            <SR key={i} delay={i * 0.12}>
+              <div style={{ display: "flex", gap: 36, marginBottom: i < timeline.length - 1 ? 48 : 0, position: "relative" }}>
+                {/* Dot */}
+                <div style={{ flexShrink: 0, width: 32, display: "flex", flexDirection: "column", alignItems: "center", paddingTop: 4 }}>
+                  <div style={{ width: 10, height: 10, borderRadius: "50%", background: i === timeline.length - 1 ? GREEN : ACCENT, border: `2px solid ${NAVY}`, boxShadow: i === timeline.length - 1 ? `0 0 12px rgba(74,222,128,0.4)` : `0 0 8px rgba(150,171,190,0.2)`, position: "relative", zIndex: 1 }} />
                 </div>
+                {/* Content */}
+                <div style={{ flex: 1 }}>
+                  <div style={{ display: "flex", alignItems: "baseline", gap: 16, marginBottom: 6, flexWrap: "wrap" }}>
+                    <span style={{ ...h("s", 28, 300, i === timeline.length - 1 ? GREEN : SILVER_LIGHT), opacity: i === timeline.length - 1 ? 0.9 : 0.6 }}>{t.year}</span>
+                    <span style={{ ...h("b", 10, 500, ACCENT, 2, "uppercase") }}>{t.role}</span>
+                  </div>
+                  <p style={{ ...h("s", 20, 500, TEXT), marginBottom: 8 }}>{t.org}</p>
+                  <p style={{ ...h("b", 13.5, 300, TEXT_MUTED), lineHeight: 1.8 }}>{t.desc}</p>
+                </div>
+              </div>
+            </SR>
+          ))}
+        </div>
+      </div>
+
+      {/* Credential cards — 3 column dynamic */}
+      <div className="section-pad" style={{ background: NAVY_DEEP }}>
+        <div className="grid-3" style={{ gap: 18, background: "transparent" }}>
+          <SR><div className="card-glow" style={{ background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, padding: 36, gridRow: "span 2" }}>
+            <p style={{ ...h("b", 9, 500, ACCENT, 3, "uppercase"), marginBottom: 18 }}>Who I Work With</p>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+              {["Family Offices", "PE-Backed Platforms", "Seed & Series A Founders", "Franchise Groups", "SMB Operators", "Established Businesses"].map(item => (
+                <span key={item} className="tag" style={{ ...h("b", 10.5, 300, TEXT_MUTED, 0.5), padding: "8px 16px", border: `1px solid ${NAVY_BORDER}` }}>{item}</span>
               ))}
-            </div></SR>
-            <SR delay={0.3}><div className="card-glow" style={{ background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, padding: 36 }}>
-              <p style={{ ...h("b", 9, 500, ACCENT, 3, "uppercase"), marginBottom: 16 }}>Sector Exposure</p>
+            </div>
+            <div style={{ marginTop: 28, paddingTop: 24, borderTop: `1px solid ${NAVY_BORDER}` }}>
+              <p style={{ ...h("b", 9, 500, ACCENT, 3, "uppercase"), marginBottom: 18 }}>Sector Exposure</p>
               <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
                 {["Fintech", "Proptech", "Health & Wellness", "Sports Technology", "Franchising", "Legaltech", "Building & Construction", "Beauty & Retail"].map(item => (
-                  <span key={item} className="tag" style={{ ...h("b", 10.5, 300, TEXT_MUTED, 0.5), padding: "7px 14px", border: `1px solid ${NAVY_BORDER}` }}>{item}</span>
+                  <span key={item} className="tag" style={{ ...h("b", 10.5, 300, TEXT_MUTED, 0.5), padding: "8px 16px", border: `1px solid ${NAVY_BORDER}` }}>{item}</span>
                 ))}
               </div>
-            </div></SR>
-            <SR delay={0.4}><div className="card-glow" style={{ background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, padding: 36 }}>
-              <p style={{ ...h("b", 9, 500, ACCENT, 3, "uppercase"), marginBottom: 16 }}>Education</p>
-              <p style={{ ...h("s", 19, 500, TEXT), marginBottom: 4 }}>University of New South Wales</p>
-              <p style={{ ...h("b", 13, 300, TEXT_MUTED) }}>Bachelor of Commerce — Finance & Information Systems</p>
-            </div></SR>
-          </div>
+            </div>
+          </div></SR>
+          <SR delay={0.1}><div className="card-glow" style={{ background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, padding: 36 }}>
+            <p style={{ ...h("b", 9, 500, ACCENT, 3, "uppercase"), marginBottom: 18 }}>Career Heritage</p>
+            {["Top-4 Bank — M&A & Lev Fin", "Bank Ventures — Growth Tech", "ASX Platform — Corp Dev", "VC Fund — Founding Hire", "Family Office — Fund Strategy"].map((item, i) => (
+              <div key={i} style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: i < 4 ? 12 : 0 }}>
+                <div style={{ width: 3, height: 3, borderRadius: "50%", background: ACCENT, flexShrink: 0 }} />
+                <p style={{ ...h("b", 12, 300, TEXT_MUTED), lineHeight: 1.5 }}>{item}</p>
+              </div>
+            ))}
+          </div></SR>
+          <SR delay={0.2}><div className="card-glow" style={{ background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, padding: 36 }}>
+            <p style={{ ...h("b", 9, 500, ACCENT, 3, "uppercase"), marginBottom: 18 }}>Education</p>
+            <p style={{ ...h("s", 18, 500, TEXT), marginBottom: 4 }}>UNSW Sydney</p>
+            <p style={{ ...h("b", 12, 300, TEXT_MUTED), lineHeight: 1.5 }}>B.Com — Finance &<br />Information Systems</p>
+          </div></SR>
+          <SR delay={0.25}><div className="card-glow" style={{ background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, padding: 36 }}>
+            <p style={{ ...h("b", 9, 500, ACCENT, 3, "uppercase"), marginBottom: 18 }}>Approach</p>
+            {["Institutional rigour, boutique delivery", "AI-enhanced speed & depth", "Outcome-scoped, no ambiguity", "NDA-first on sensitive work"].map((item, i) => (
+              <div key={i} style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: i < 3 ? 12 : 0 }}>
+                <span style={{ color: ACCENT, fontSize: 11 }}>→</span>
+                <p style={{ ...h("b", 12, 300, TEXT_MUTED), lineHeight: 1.5 }}>{item}</p>
+              </div>
+            ))}
+          </div></SR>
         </div>
       </div>
     </>
