@@ -228,7 +228,7 @@ function HomePage({ setPage }) {
         </p>
         <Line style={{ marginBottom: 32 }} />
         <p className="fu d4" style={{ ...s("b", 17.5, 300, SILVER), lineHeight: 1.8, maxWidth: 520, marginBottom: 18 }}>
-          Commercial advisory and financial modelling for businesses at every stage — from founders preparing for their first raise to established groups navigating complex growth.
+          Strategic advisory, financial modelling, and capital raising support for businesses at every stage — from founders preparing for their first raise to established groups navigating complex growth.
         </p>
         <p className="fu d5" style={{ ...s("s", 15, 400, TEXT_MUTED), lineHeight: 1.75, maxWidth: 540, marginBottom: 48, fontStyle: "italic", opacity: 0.55 }}>
           Background in institutional banking, venture capital, and private equity.
@@ -252,6 +252,24 @@ function HomePage({ setPage }) {
             <div style={{ ...s("b", 10, 300, TEXT_MUTED, 1.5, "uppercase") }}>{small}</div>
           </div>
         ))}
+      </div>
+      {/* Social proof teaser */}
+      <div className="fu d8" style={{ padding: "32px 80px 48px", display: "flex", gap: 40, alignItems: "center", justifyContent: "center" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+          <div style={{ ...s("s", 24, 300, ACCENT), opacity: 0.4 }}>"</div>
+          <p style={{ ...s("s", 15, 400, TEXT_MUTED), fontStyle: "italic", maxWidth: 340 }}>
+            A key part of our team feeling confident approaching investors.
+          </p>
+          <span style={{ ...s("b", 10, 300, ACCENT, 1.5, "uppercase"), opacity: 0.6 }}>— Founder & CEO</span>
+        </div>
+        <div style={{ width: 1, height: 24, background: NAVY_BORDER }} />
+        <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+          <div style={{ ...s("s", 24, 300, ACCENT), opacity: 0.4 }}>"</div>
+          <p style={{ ...s("s", 15, 400, TEXT_MUTED), fontStyle: "italic", maxWidth: 340 }}>
+            Modelling skills of a very high quality with powerful supporting documents.
+          </p>
+          <span style={{ ...s("b", 10, 300, ACCENT, 1.5, "uppercase"), opacity: 0.6 }}>— Family Office</span>
+        </div>
       </div>
     </PhotoSection>
   );
@@ -317,43 +335,77 @@ function AboutPage() {
           </div>
         </div>
       </div>
-      {/* Philosophy Quote */}
+      {/* Client Testimonials */}
       <div style={{ padding: "80px 80px", background: NAVY, borderTop: `1px solid ${NAVY_BORDER}`, borderBottom: `1px solid ${NAVY_BORDER}` }}>
         <SR>
-          <div style={{ maxWidth: 700, margin: "0 auto", textAlign: "center" }}>
-            <div style={{ ...s("s", 48, 300, SILVER), marginBottom: 20, opacity: 0.2 }}>"</div>
-            <p style={{ ...s("s", 26, 400, TEXT), lineHeight: 1.6, fontStyle: "italic", marginBottom: 24 }}>
-              The quality of your preparation is the signal investors read before they ever open your deck.
-            </p>
-            <div style={{ width: 40, height: 1, background: ACCENT, margin: "0 auto 16px", opacity: 0.4 }} />
-            <p style={{ ...s("b", 11, 400, TEXT_MUTED, 2.5, "uppercase") }}>Amar Kashyap · Founder</p>
-          </div>
+          <p style={{ ...s("b", 10, 400, ACCENT, 3, "uppercase"), marginBottom: 40, textAlign: "center" }}>What Clients Say</p>
         </SR>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 32, maxWidth: 900, margin: "0 auto" }}>
+          <SR delay={0.1}>
+            <div className="card-glow" style={{ background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, padding: 40, height: "100%" }}>
+              <div style={{ ...s("s", 40, 300, ACCENT), marginBottom: 12, opacity: 0.3 }}>"</div>
+              <p style={{ ...s("s", 19, 400, TEXT), lineHeight: 1.7, fontStyle: "italic", marginBottom: 24 }}>
+                Amar's modelling skills were of a very high quality. He built a powerful set of supporting documents that gave us real confidence going to market.
+              </p>
+              <div style={{ width: 32, height: 1, background: ACCENT, marginBottom: 14, opacity: 0.4 }} />
+              <p style={{ ...s("b", 12, 400, SILVER_LIGHT, 1, "uppercase") }}>Family Office</p>
+              <p style={{ ...s("b", 11, 300, TEXT_MUTED), marginTop: 2 }}>Health & Fitness Sector</p>
+            </div>
+          </SR>
+          <SR delay={0.2}>
+            <div className="card-glow" style={{ background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, padding: 40, height: "100%" }}>
+              <div style={{ ...s("s", 40, 300, ACCENT), marginBottom: 12, opacity: 0.3 }}>"</div>
+              <p style={{ ...s("s", 19, 400, TEXT), lineHeight: 1.7, fontStyle: "italic", marginBottom: 24 }}>
+                Amar built a robust set of key company agreements, financial model, and investor deck. He was a key part of our team feeling confident approaching investors and being fully prepared.
+              </p>
+              <div style={{ width: 32, height: 1, background: ACCENT, marginBottom: 14, opacity: 0.4 }} />
+              <p style={{ ...s("b", 12, 400, SILVER_LIGHT, 1, "uppercase") }}>Founder & CEO</p>
+              <p style={{ ...s("b", 11, 300, TEXT_MUTED), marginTop: 2 }}>Consumer Business, Medical Sector</p>
+            </div>
+          </SR>
+        </div>
       </div>
     </>
   );
 }
 
 function ServicesPage() {
-  const sections = [
-    { heading: "For Founders & Early-Stage Ventures", sub: "Getting investor-ready with the right foundations.",
+  const segments = [
+    { id: "founders", label: "Early-Stage Companies", sub: "Pre-seed through Series A+ — building the foundations investors need to see.",
       items: [
-        { n: "01", t: "Financial Modelling", d: "Investor-grade Excel models — unit economics, revenue forecasts, scenario analysis, and cash runway planning. Built to hold up under due diligence and answer the questions investors will actually ask." },
-        { n: "02", t: "Pitch Decks & Investor Materials", d: "Compelling, structured decks and supporting documents that communicate your opportunity clearly. Built from scratch around your story — not recycled templates." },
-        { n: "03", t: "Capital Raising Preparation", d: "End-to-end fundraising readiness — data room build-out, model stress-testing, investor targeting, narrative refinement, and process management." },
-        { n: "04", t: "Investor Readiness Coaching", d: "Sharpen your narrative, pressure-test your assumptions, and rehearse for tough questions. Candid feedback from someone who has sat on both sides of the table." },
+        { t: "Financial Modelling", d: "Unit economics, revenue forecasts, scenario analysis, and cash runway planning. Built to withstand VC due diligence and answer the questions investors will actually ask." },
+        { t: "Pitch Decks & Investor Materials", d: "Compelling, structured decks, one-pagers, and investment teasers that communicate your opportunity with clarity. Built from scratch around your story — not templates." },
+        { t: "Capital Raising Preparation", d: "End-to-end fundraising readiness — data room build-out on DocSend, model stress-testing, investor shortlisting, narrative refinement, and process management through to close." },
+        { t: "Commercial Agreements", d: "Shareholder agreements, ESOP frameworks, key commercial contracts, and term sheet review support. Structured to protect founders while remaining investor-friendly." },
+        { t: "Product Prototyping & MVPs", d: "Functional product prototypes, landing pages, and interactive demos to support investor conversations and early customer validation — built fast with AI-assisted development." },
       ] },
-    { heading: "For Established Businesses & Private Capital", sub: "Institutional rigour applied to complex mandates.",
+    { id: "ceo", label: "Bespoke Founder & CEO Support", sub: "A strategic thought partner for founders navigating high-stakes decisions.",
       items: [
-        { n: "05", t: "Fund Structuring & Modelling", d: "End-to-end fund architecture — vehicle design, capital deployment logic, GP/LP economics, distribution waterfalls, and cross-border structuring across multiple jurisdictions." },
-        { n: "06", t: "Strategic & Commercial Advisory", d: "Revenue diversification, market entry analysis, M&A screening, and operational strategy for family offices, PE-backed platforms, and established operators." },
-        { n: "07", t: "Board & Investor Reporting", d: "Structured board packs, quarterly updates, and management reporting frameworks. Clear, decision-oriented documents that build confidence with stakeholders." },
-        { n: "08", t: "Operational Tooling & Excel Systems", d: "Custom-built Excel tools for pricing, estimating, forecasting, and workflows. For businesses that have outgrown spreadsheets but aren't ready for enterprise software." },
+        { t: "Investor Readiness Coaching", d: "Sharpen your narrative, pressure-test assumptions, and rehearse for tough questions. Candid, structured feedback from someone who has sat on both sides of the table." },
+        { t: "Board & Stakeholder Reporting", d: "Structured board packs, quarterly investor updates, and management reporting frameworks. Decision-oriented documents that build confidence with your stakeholders." },
+        { t: "Strategic Planning & Scenario Analysis", d: "Help thinking through growth options, market entry, pricing strategy, competitive positioning, and key commercial decisions — grounded in financial reality, not theory." },
+        { t: "Operational Tooling", d: "Custom-built Excel systems for pricing, estimating, forecasting, and operational workflows. For businesses that have outgrown spreadsheets but aren't ready for enterprise software." },
       ] },
-    { heading: "AI-Enhanced Delivery", sub: "Modern tooling, institutional standards.",
+    { id: "family", label: "Family Offices", sub: "Institutional-grade modelling and strategy for private capital groups.",
       items: [
-        { n: "09", t: "AI-Assisted Research & Analysis", d: "Advanced AI to compress weeks of market research, competitive analysis, and data synthesis into days — without sacrificing depth. Every insight validated and sourced." },
-        { n: "10", t: "Rapid Prototyping & MVPs", d: "Functional product prototypes, landing pages, and interactive demos built to support investor conversations and early customer validation." },
+        { t: "Fund Structuring & Modelling", d: "End-to-end fund architecture — vehicle design, capital deployment logic, GP/LP economics, distribution waterfalls, and cross-border structuring across Australian and international jurisdictions." },
+        { t: "Investment Memoranda & Fundraising Materials", d: "Institutional-quality IMs, investor presentations, and supporting documentation to the standard expected by sophisticated LPs and co-investors." },
+        { t: "Portfolio Strategy & Diversification", d: "Revenue diversification planning, new sector evaluation, and strategic analysis to help family offices expand beyond core operations into new verticals or asset classes." },
+        { t: "Operational Strategy", d: "M&A screening, bolt-on acquisition analysis, and operational efficiency reviews for portfolio companies and multi-site operating businesses including franchise models." },
+      ] },
+    { id: "invest", label: "Investment Firms & Transaction Support", sub: "Experienced support across the deal lifecycle.",
+      items: [
+        { t: "Financial Model Build & Audit", d: "LBO models, DCF valuations, comparable analysis, and returns modelling. Built to institutional standards with fully documented assumptions and auditable outputs." },
+        { t: "Due Diligence Support", d: "Commercial due diligence workstreams, management presentation preparation, and IC memo drafting. Experience sole-leading DD processes from initial screening to Investment Committee approval." },
+        { t: "Deal Documentation", d: "Information memoranda, confidential teasers, process letters, and data room structuring. Supporting materials that accelerate deal execution and reduce back-and-forth." },
+        { t: "LP Communications & Reporting", d: "Quarterly LP reports, capital call notices, distribution notices, and fund performance reporting. Clear, professional communications that maintain investor confidence." },
+      ] },
+    { id: "smb", label: "Established Businesses & SMBs", sub: "Practical commercial tools and frameworks for businesses ready to scale.",
+      items: [
+        { t: "Commercial Strategy", d: "Market entry analysis, revenue model design, pricing strategy, and growth planning for established operators looking to expand or optimise their core business." },
+        { t: "Financial Systems & Dashboards", d: "Custom Excel models, KPI dashboards, and management reporting tools. Clean, powerful, and built to evolve with your business — delivered at a fraction of the cost of enterprise software." },
+        { t: "Investor & Partner Readiness", d: "Whether you're bringing on a strategic partner, exploring private equity, or preparing for an eventual exit — getting your financials, story, and data room to the standard buyers expect." },
+        { t: "AI-Assisted Research & Analysis", d: "Leveraging advanced AI to compress weeks of market research, competitive analysis, and data synthesis into days — without sacrificing depth or accuracy." },
       ] },
   ];
   const process = [
@@ -362,44 +414,91 @@ function ServicesPage() {
     { step: "03", title: "NDA & Kickoff", desc: "Mutual NDA executed. Access to relevant materials. Engagement begins with a structured kickoff." },
     { step: "04", title: "Delivery & Review", desc: "Iterative delivery with milestone check-ins. Final output to institutional standard, ready for its audience." },
   ];
+  const [activeTab, setActiveTab] = useState("founders");
+  const active = segments.find(sg => sg.id === activeTab);
   return (
     <>
       <PhotoSection src={PHOTOS.services} overlay={0.88} style={{ padding: "150px 80px 80px" }}>
         <SR><p style={{ ...s("b", 11, 400, ACCENT, 4, "uppercase"), marginBottom: 16 }}>Services</p></SR>
         <SR delay={0.1}><h2 style={{ ...s("s", 52, 400, TEXT), marginBottom: 12 }}>How I Help</h2></SR>
         <SR delay={0.15}><Line style={{ marginBottom: 24 }} /></SR>
-        <SR delay={0.2}><p style={{ ...s("b", 16, 300, SILVER), lineHeight: 1.8, maxWidth: 580, marginBottom: 12 }}>
-          Every engagement is scoped around a specific outcome — a model, a document, a decision. I don't bill for ambiguity.
+        <SR delay={0.2}><p style={{ ...s("b", 16, 300, SILVER), lineHeight: 1.8, maxWidth: 620, marginBottom: 12 }}>
+          I work across the full business lifecycle — from first-time founders building their pitch to family offices structuring multi-jurisdictional funds. Select your profile below.
         </p></SR>
         <SR delay={0.25}><p style={{ ...s("b", 12, 300, TEXT_MUTED), lineHeight: 1.6, maxWidth: 580, fontStyle: "italic", opacity: 0.6 }}>
           Evara Advisory provides commercial and strategic advisory services. We do not provide financial product advice.
         </p></SR>
       </PhotoSection>
-      <div style={{ padding: "64px 80px 48px", background: NAVY_DEEP }}>
-        {sections.map((sec, si) => (
-          <div key={si} style={{ marginBottom: si < sections.length - 1 ? 56 : 0 }}>
-            <SR><div style={{ marginBottom: 28 }}>
-              <h3 style={{ ...s("s", 26, 500, TEXT), marginBottom: 6 }}>{sec.heading}</h3>
-              <p style={{ ...s("b", 13, 300, TEXT_MUTED) }}>{sec.sub}</p>
-            </div></SR>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 1, background: NAVY_BORDER }}>
-              {sec.items.map((item, i) => {
-                const [hov, setHov] = useState(false);
-                return (
-                  <SR key={i} delay={i * 0.08}><div onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}
-                    className="card-glow"
-                    style={{ background: hov ? NAVY_CARD : NAVY_DEEP, padding: 36, cursor: "default",
-                      borderLeft: hov ? `2px solid ${ACCENT}` : "2px solid transparent", transition: "all 0.3s" }}>
-                    <span style={{ ...s("s", 26, 400, ACCENT), opacity: 0.25 }}>{item.n}</span>
-                    <h4 style={{ ...s("s", 20, 500, TEXT), margin: "14px 0 10px" }}>{item.t}</h4>
-                    <p style={{ ...s("b", 13, 300, TEXT_MUTED), lineHeight: 1.8 }}>{item.d}</p>
-                  </div></SR>
-                );
-              })}
-            </div>
-          </div>
-        ))}
+
+      {/* Client Segment Tabs */}
+      <div style={{ background: NAVY, borderBottom: `1px solid ${NAVY_BORDER}`, padding: "0 80px", overflowX: "auto" }}>
+        <div style={{ display: "flex", gap: 0 }}>
+          {segments.map(sg => (
+            <button key={sg.id} onClick={() => setActiveTab(sg.id)} style={{
+              background: activeTab === sg.id ? NAVY_DEEP : "transparent",
+              border: "none", borderBottom: activeTab === sg.id ? `2px solid ${ACCENT}` : "2px solid transparent",
+              padding: "18px 28px", cursor: "pointer", transition: "all 0.3s",
+              ...s("b", 11, 400, activeTab === sg.id ? SILVER_LIGHT : TEXT_MUTED, 1.5, "uppercase"),
+              whiteSpace: "nowrap",
+            }}
+              onMouseEnter={e => { if (activeTab !== sg.id) e.target.style.color = TEXT; }}
+              onMouseLeave={e => { if (activeTab !== sg.id) e.target.style.color = TEXT_MUTED; }}
+            >{sg.label}</button>
+          ))}
+        </div>
       </div>
+
+      {/* Active Segment Content */}
+      <div style={{ padding: "56px 80px 48px", background: NAVY_DEEP }} key={activeTab}>
+        <div className="page-enter">
+          <div style={{ marginBottom: 36 }}>
+            <h3 style={{ ...s("s", 30, 500, TEXT), marginBottom: 8 }}>{active.label}</h3>
+            <p style={{ ...s("b", 14, 300, TEXT_MUTED), lineHeight: 1.7 }}>{active.sub}</p>
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: active.items.length > 4 ? "1fr 1fr 1fr" : "1fr 1fr", gap: 1, background: NAVY_BORDER }}>
+            {active.items.map((item, i) => {
+              const [hov, setHov] = useState(false);
+              return (
+                <div key={`${activeTab}-${i}`} onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}
+                  className="card-glow"
+                  style={{ background: hov ? NAVY_CARD : NAVY_DEEP, padding: 36, cursor: "default",
+                    borderLeft: hov ? `2px solid ${ACCENT}` : "2px solid transparent", transition: "all 0.3s" }}>
+                  <div style={{ width: 28, height: 28, borderRadius: "50%", border: `1px solid ${ACCENT}`, display: "flex", alignItems: "center", justifyContent: "center", ...s("b", 10, 400, ACCENT), marginBottom: 16, opacity: 0.5 }}>{String(i + 1).padStart(2, "0")}</div>
+                  <h4 style={{ ...s("s", 20, 500, TEXT), marginBottom: 10 }}>{item.t}</h4>
+                  <p style={{ ...s("b", 13, 300, TEXT_MUTED), lineHeight: 1.8 }}>{item.d}</p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+
+      {/* AI Adoption & Automation - across all clients */}
+      <div style={{ padding: "64px 80px", background: NAVY, borderTop: `1px solid ${NAVY_BORDER}` }}>
+        <SR><div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 12 }}>
+          <div style={{ width: 40, height: 40, borderRadius: "50%", border: `1px solid ${ACCENT}`, display: "flex", alignItems: "center", justifyContent: "center", ...s("b", 16, 300, ACCENT), opacity: 0.6 }}>⚡</div>
+          <h3 style={{ ...s("s", 28, 500, TEXT) }}>AI Adoption & Automation</h3>
+        </div></SR>
+        <SR delay={0.1}><p style={{ ...s("b", 14, 300, TEXT_MUTED), lineHeight: 1.8, maxWidth: 620, marginBottom: 36 }}>
+          Available across all engagements. I help businesses harness AI to work faster, smarter, and leaner — without the enterprise price tag.
+        </p></SR>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr", gap: 1, background: NAVY_BORDER }}>
+          {[
+            { t: "AI Strategy & Readiness", d: "Structured review of your operations to identify where AI delivers the highest impact. Practical roadmap, not buzzwords." },
+            { t: "Custom Workflows & Automations", d: "Purpose-built AI workflows — automated reporting, document generation, data extraction, and client communications. Designed around how your team works." },
+            { t: "AI-Powered Tools & Apps", d: "Bespoke internal tools with AI at their core — dashboards, intelligent document search, proposal generators, pricing engines. Fast to deploy, tailored to you." },
+            { t: "Process Automation & Integration", d: "Connecting your existing tools with AI — CRM workflows, invoice processing, lead qualification, content generation. Less manual work, more growth." },
+          ].map((item, i) => (
+            <SR key={i} delay={i * 0.1}>
+              <div className="card-glow" style={{ background: NAVY_DEEP, padding: 32, transition: "all 0.3s" }}>
+                <h4 style={{ ...s("s", 18, 500, TEXT), marginBottom: 10 }}>{item.t}</h4>
+                <p style={{ ...s("b", 12.5, 300, TEXT_MUTED), lineHeight: 1.75 }}>{item.d}</p>
+              </div>
+            </SR>
+          ))}
+        </div>
+      </div>
+
       {/* Process Timeline */}
       <div style={{ padding: "80px 80px", background: NAVY, borderTop: `1px solid ${NAVY_BORDER}` }}>
         <SR><p style={{ ...s("b", 11, 400, ACCENT, 4, "uppercase"), marginBottom: 16, textAlign: "center" }}>Process</p></SR>
@@ -533,7 +632,7 @@ function ContactPage() {
             <SR delay={0.1}><h2 style={{ ...s("s", 48, 400, TEXT), marginBottom: 12 }}>Start a Conversation</h2></SR>
             <SR delay={0.15}><Line style={{ marginBottom: 40 }} /></SR>
             <SR delay={0.2}><p style={{ ...s("b", 15.5, 300, SILVER), lineHeight: 1.8, marginBottom: 48 }}>
-              I work with a small number of clients at any given time. Fill out the form and I'll be in touch within 24 hours.
+              I work with a small number of clients at any given time. Whether you need help with strategy, modelling, investor materials, or preparing for a raise — fill out the form and I'll be in touch within 24 hours.
             </p></SR>
             <SR delay={0.25}><div style={{ display: "flex", flexDirection: "column", gap: 24, marginBottom: 48 }}>
               {[["Email", "amar.kashyap095@gmail.com", "mailto:amar.kashyap095@gmail.com"], ["LinkedIn", "linkedin.com/in/amar-kashyap", "https://www.linkedin.com/in/amar-kashyap"], ["Based In", "Sydney, Australia", null]].map(([label, val, href]) => (
@@ -626,7 +725,7 @@ function Footer({ setPage }) {
             <span style={{ ...s("b", 11, 500, TEXT, 3.5, "uppercase") }}>Evara Advisory</span>
           </div>
           <p style={{ ...s("b", 13, 300, TEXT_MUTED), lineHeight: 1.7, maxWidth: 320 }}>
-            Commercial advisory and financial modelling. Founded by Amar Kashyap. Sydney, Australia.
+            Strategic advisory, financial modelling, and capital raising support for founders and private capital groups. Founded by Amar Kashyap. Sydney, Australia.
           </p>
         </div>
         <div>
