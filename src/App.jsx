@@ -423,16 +423,36 @@ function AboutPage() {
 
       {/* Credential cards — 3 column dynamic */}
       <div className="section-pad" style={{ background: NAVY_DEEP }}>
-        <div className="grid-3" style={{ gap: 18, background: "transparent" }}>
-          <SR><div className="card-glow" style={{ background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, padding: 36, gridRow: "span 2" }}>
+        <div className="grid-2" style={{ gap: 18, background: "transparent" }}>
+          <SR><div className="card-glow" style={{ background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, padding: 36 }}>
+            <p style={{ ...h("b", 9, 500, ACCENT, 3, "uppercase"), marginBottom: 18 }}>Career Heritage</p>
+            {["Top-4 Australian Bank — M&A & Leveraged Finance", "Bank Venture Arm — Growth-Stage Tech Investments", "ASX-Listed Platform — Corporate Development", "Venture Capital Fund — Founding Hire & Fund Operations", "Family Office — Fund Structuring & Investment Strategy"].map((item, i) => (
+              <div key={i} style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: i < 4 ? 14 : 0 }}>
+                <div style={{ width: 3, height: 3, borderRadius: "50%", background: ACCENT, flexShrink: 0 }} />
+                <p style={{ ...h("b", 12.5, 300, TEXT_MUTED), lineHeight: 1.5 }}>{item}</p>
+              </div>
+            ))}
+          </div></SR>
+          <SR delay={0.1}><div className="card-glow" style={{ background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, padding: 36 }}>
+            <p style={{ ...h("b", 9, 500, ACCENT, 3, "uppercase"), marginBottom: 18 }}>Education</p>
+            <p style={{ ...h("s", 18, 500, TEXT), marginBottom: 2 }}>UNSW Sydney</p>
+            <p style={{ ...h("b", 12, 300, TEXT_MUTED), lineHeight: 1.5, marginBottom: 4 }}>B.Commerce / B.Information Systems</p>
+            <p style={{ ...h("b", 12, 400, SILVER_LIGHT), marginBottom: 20 }}>Graduated with Distinction</p>
+            <div style={{ borderTop: `1px solid ${NAVY_BORDER}`, paddingTop: 16 }}>
+              <p style={{ ...h("s", 16, 500, TEXT), marginBottom: 2 }}>University of Illinois</p>
+              <p style={{ ...h("b", 11, 300, TEXT_MUTED), lineHeight: 1.5 }}>12-month international exchange, 2016</p>
+              <p style={{ ...h("b", 12, 400, SILVER_LIGHT), marginTop: 2 }}>4.0 GPA</p>
+            </div>
+          </div></SR>
+          <SR delay={0.15}><div className="card-glow" style={{ background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, padding: 36 }}>
             <p style={{ ...h("b", 9, 500, ACCENT, 3, "uppercase"), marginBottom: 18 }}>Who I Work With</p>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 24 }}>
               {["Family Offices", "PE-Backed Platforms", "Seed & Series A Founders", "Franchise Groups", "SMB Operators", "Established Businesses"].map(item => (
                 <span key={item} className="tag" style={{ ...h("b", 10.5, 300, TEXT_MUTED, 0.5), padding: "8px 16px", border: `1px solid ${NAVY_BORDER}` }}>{item}</span>
               ))}
             </div>
-            <div style={{ marginTop: 28, paddingTop: 24, borderTop: `1px solid ${NAVY_BORDER}` }}>
-              <p style={{ ...h("b", 9, 500, ACCENT, 3, "uppercase"), marginBottom: 18 }}>Sector Exposure</p>
+            <div style={{ borderTop: `1px solid ${NAVY_BORDER}`, paddingTop: 20 }}>
+              <p style={{ ...h("b", 9, 500, ACCENT, 3, "uppercase"), marginBottom: 14 }}>Sector Exposure</p>
               <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
                 {["Fintech", "Proptech", "Health & Wellness", "Sports Technology", "Franchising", "Legaltech", "Building & Construction", "Beauty & Retail"].map(item => (
                   <span key={item} className="tag" style={{ ...h("b", 10.5, 300, TEXT_MUTED, 0.5), padding: "8px 16px", border: `1px solid ${NAVY_BORDER}` }}>{item}</span>
@@ -440,32 +460,12 @@ function AboutPage() {
               </div>
             </div>
           </div></SR>
-          <SR delay={0.1}><div className="card-glow" style={{ background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, padding: 36 }}>
-            <p style={{ ...h("b", 9, 500, ACCENT, 3, "uppercase"), marginBottom: 18 }}>Career Heritage</p>
-            {["Top-4 Bank — M&A & Lev Fin", "Bank Ventures — Growth Tech", "ASX Platform — Corp Dev", "VC Fund — Founding Hire", "Family Office — Fund Strategy"].map((item, i) => (
-              <div key={i} style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: i < 4 ? 12 : 0 }}>
-                <div style={{ width: 3, height: 3, borderRadius: "50%", background: ACCENT, flexShrink: 0 }} />
-                <p style={{ ...h("b", 12, 300, TEXT_MUTED), lineHeight: 1.5 }}>{item}</p>
-              </div>
-            ))}
-          </div></SR>
           <SR delay={0.2}><div className="card-glow" style={{ background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, padding: 36 }}>
-            <p style={{ ...h("b", 9, 500, ACCENT, 3, "uppercase"), marginBottom: 18 }}>Education</p>
-            <p style={{ ...h("s", 18, 500, TEXT), marginBottom: 2 }}>UNSW Sydney</p>
-            <p style={{ ...h("b", 12, 300, TEXT_MUTED), lineHeight: 1.5, marginBottom: 4 }}>B.Commerce / B.Information Systems</p>
-            <p style={{ ...h("b", 12, 400, SILVER_LIGHT), marginBottom: 16 }}>Graduated with Distinction</p>
-            <div style={{ borderTop: `1px solid ${NAVY_BORDER}`, paddingTop: 14, marginBottom: 14 }}>
-              <p style={{ ...h("s", 16, 500, TEXT), marginBottom: 2 }}>University of Illinois</p>
-              <p style={{ ...h("b", 11, 300, TEXT_MUTED), lineHeight: 1.5 }}>12-month international exchange, 2016</p>
-              <p style={{ ...h("b", 12, 400, SILVER_LIGHT), marginTop: 2 }}>4.0 GPA</p>
-            </div>
-          </div></SR>
-          <SR delay={0.25}><div className="card-glow" style={{ background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, padding: 36 }}>
             <p style={{ ...h("b", 9, 500, ACCENT, 3, "uppercase"), marginBottom: 18 }}>Approach</p>
             {["Institutional rigour, boutique delivery", "AI-enhanced speed & depth", "Outcome-scoped, no ambiguity", "NDA-first on sensitive work"].map((item, i) => (
-              <div key={i} style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: i < 3 ? 12 : 0 }}>
+              <div key={i} style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: i < 3 ? 14 : 0 }}>
                 <span style={{ color: ACCENT, fontSize: 11 }}>→</span>
-                <p style={{ ...h("b", 12, 300, TEXT_MUTED), lineHeight: 1.5 }}>{item}</p>
+                <p style={{ ...h("b", 12.5, 300, TEXT_MUTED), lineHeight: 1.5 }}>{item}</p>
               </div>
             ))}
           </div></SR>
