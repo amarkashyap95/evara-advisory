@@ -755,7 +755,7 @@ function ContactPage() {
               Limited capacity by design. If you're preparing for a raise, structuring a fund, or need institutional-quality materials — reach out below and I'll respond within 24 hours.
             </p></SR>
             <SR delay={0.25}><div style={{ display: "flex", flexDirection: "column", gap: 28, marginBottom: 52 }}>
-              {[["Email", "amar.kashyap095@gmail.com", "mailto:amar.kashyap095@gmail.com"], ["LinkedIn", "linkedin.com/in/amar-kashyap", "https://www.linkedin.com/in/amar-kashyap"], ["Based In", "Sydney, Australia", null]].map(([label, val, href]) => (
+              {[["LinkedIn", "linkedin.com/in/amar-kashyap", "https://www.linkedin.com/in/amar-kashyap"], ["Based In", "Sydney, Australia", null]].map(([label, val, href]) => (
                 <div key={label}>
                   <p style={{ ...h("b", 9, 500, ACCENT, 3, "uppercase"), marginBottom: 5 }}>{label}</p>
                   {href ? <a href={href} target="_blank" rel="noopener noreferrer" style={{ ...h("b", 15, 300, TEXT), textDecoration: "none" }}>{val}</a> : <p style={{ ...h("b", 15, 300, TEXT) }}>{val}</p>}
@@ -852,7 +852,6 @@ function Footer({ setPage }) {
           </div>
           <div>
             <p style={{ ...h("b", 9, 500, ACCENT, 3, "uppercase"), marginBottom: 18 }}>Contact</p>
-            <a href="mailto:amar.kashyap095@gmail.com" style={{ ...h("b", 13, 300, TEXT_MUTED), marginBottom: 10, display: "block", textDecoration: "none" }}>amar.kashyap095@gmail.com</a>
             <a href="https://www.linkedin.com/in/amar-kashyap" target="_blank" rel="noopener noreferrer" style={{ ...h("b", 13, 300, TEXT_MUTED), marginBottom: 10, display: "block", textDecoration: "none" }}>linkedin.com/in/amar-kashyap</a>
             <p style={{ ...h("b", 13, 300, TEXT_MUTED) }}>Sydney, Australia</p>
           </div>
