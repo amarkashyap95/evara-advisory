@@ -222,7 +222,7 @@ function Preloader({ done }) {
 }
 
 function Marquee() {
-  const items = "Financial Modelling · Fund Structuring · Capital Strategy · Investor Materials · Due Diligence · Commercial Agreements · Board Reporting · AI-Enhanced Delivery · ";
+  const items = "Capital Strategy · Fund Structuring · Investor Materials · Transaction Support · Due Diligence · Commercial Agreements · Financial Modelling · Board Reporting · ";
   return (
     <div className="marquee-wrap" style={{ padding: "16px 0", borderTop: `1px solid rgba(255,255,255,0.04)`, borderBottom: `1px solid rgba(255,255,255,0.04)` }}>
       <div className="marquee-inner">
@@ -303,10 +303,10 @@ function HomePage({ setPage }) {
         <p className="fu d3" style={{ ...h("b", 12, 300, TEXT_MUTED, 0.5), marginTop: 10, marginBottom: 14 }}>Founded by Amar Kashyap</p>
         <Line style={{ marginBottom: 36 }} />
         <p className="fu d4" style={{ ...h("b", 16, 300, SILVER), lineHeight: 1.85, maxWidth: 520, marginBottom: 20 }}>
-          Strategic advisory, financial modelling, and capital raising support for businesses at every stage — from founders preparing for their first raise to established groups navigating complex growth.
+          Strategic advisory and transaction support for founders raising capital and private capital groups deploying it.
         </p>
         <p className="fu d5" style={{ ...h("s", 16, 400, TEXT_MUTED), lineHeight: 1.75, maxWidth: 540, marginBottom: 52, fontStyle: "italic", opacity: 0.5 }}>
-          Background in institutional banking, venture capital, and private equity.
+          Institutional banking · Venture capital · Private equity
         </p>
         <div className="fu d6" style={{ display: "flex", gap: 16, marginBottom: 80, flexWrap: "wrap" }}>
           <Btn primary onClick={() => setPage("Contact")}>Get in Touch</Btn>
@@ -341,10 +341,10 @@ function HomePage({ setPage }) {
 
 function AboutPage() {
   const timeline = [
-    { year: "2019", role: "Institutional Banking", org: "Top-4 Australian Bank", desc: "M&A advisory and leveraged finance — structuring debt facilities for PE sponsors. Transitioned into the bank's venture arm, investing in growth-stage fintech from Series A onwards." },
-    { year: "2022", role: "Corporate Development", org: "ASX-Listed Technology Platform", desc: "Evaluated proptech venture investments and supported corporate development strategy during the company's time as a publicly listed business." },
-    { year: "2023", role: "Founding Hire", org: "Early-Stage Venture Fund", desc: "Sole-led due diligence, managed IC approvals, drove fund capital raising. End-to-end experience of the full fund lifecycle — formation through wind-down." },
-    { year: "2026", role: "Founder", org: "Evara Advisory", desc: "Launched an independent advisory practice. Three active mandates in the first quarter across family offices, founders, and capital raising." },
+    { year: "2019", role: "Institutional Banking", org: "Top-4 Australian Bank", desc: "M&A advisory and leveraged finance — structuring and syndicating facilities for PE sponsors. Moved into the bank's venture arm, deploying capital into growth-stage fintech from Series A." },
+    { year: "2022", role: "Corporate Development", org: "ASX-Listed Technology Platform", desc: "Proptech venture investments and corporate development strategy for a major ASX-listed technology platform." },
+    { year: "2023", role: "Founding Hire", org: "Early-Stage Venture Fund", desc: "Sole-led due diligence and IC approvals. Managed LP communications and fund capital raising. Full lifecycle experience — fund formation through to wind-down." },
+    { year: "2026", role: "Founder", org: "Evara Advisory", desc: "Independent advisory practice. Three mandates in the first quarter — fund structuring, investor readiness, and strategic advisory." },
   ];
   return (
     <>
@@ -356,7 +356,7 @@ function AboutPage() {
               <SR><p style={{ ...h("b", 11, 400, ACCENT, 4, "uppercase"), marginBottom: 16 }}>About</p></SR>
               <SR delay={0.1}><h2 style={{ ...h("s", 56, 300, TEXT), marginBottom: 10, lineHeight: 1.05 }}>Hey, I'm Amar.</h2></SR>
               <SR delay={0.2}><p style={{ ...h("s", 20, 400, SILVER), lineHeight: 1.7, maxWidth: 500, marginTop: 20, fontStyle: "italic" }}>
-                I started Evara Advisory because I kept seeing the same problem — talented founders and operators with great businesses, but without the financial tools or materials to match.
+                Evara Advisory exists to give founders and operators access to the same calibre of financial work that institutional firms deliver — without the overhead.
               </p></SR>
             </div>
             <SR delay={0.3}><div style={{ textAlign: "right" }}>
@@ -372,19 +372,19 @@ function AboutPage() {
         <div className="grid-about">
           <div>
             <SR><p style={{ ...h("b", 15, 300, TEXT_MUTED), lineHeight: 1.95, marginBottom: 28 }}>
-              I've spent the past seven years in private markets — starting in institutional banking, then moving through venture capital, corporate development, and family office advisory. Along the way, I've sat in IC meetings, built fund models, led due diligence, and helped founders walk into investor conversations feeling genuinely prepared.
+              Seven years across institutional banking, venture capital, corporate development, and family office advisory. Transaction execution, capital strategy, fund structuring, due diligence, and investor materials — from Series A through to complex multi-jurisdictional mandates.
             </p></SR>
             <SR delay={0.1}><p style={{ ...h("b", 15, 300, TEXT_MUTED), lineHeight: 1.95, marginBottom: 28 }}>
-              I launched Evara Advisory in early 2026. The firm is new, but the experience behind it isn't. I work with a deliberately small number of clients because I'd rather go deep on a few mandates than spread thin across many.
+              I launched Evara Advisory in early 2026 to work directly with founders and capital allocators on the mandates that matter most. Limited capacity by design — every engagement gets full attention.
             </p></SR>
             <SR delay={0.2}><p style={{ ...h("b", 15, 300, TEXT_MUTED), lineHeight: 1.95 }}>
-              I also lean heavily into AI tooling — it lets me deliver work at a speed and depth that traditional advisory firms can't match, and I pass that efficiency on to my clients.
+              I also use advanced AI tooling across my workflow — compressing timelines and deepening analysis in ways that traditional advisory models can't replicate.
             </p></SR>
           </div>
           <SR delay={0.2}><div style={{ display: "flex", alignItems: "center" }}>
             <div style={{ borderLeft: `2px solid ${ACCENT}`, paddingLeft: 32, opacity: 0.8 }}>
               <p style={{ ...h("s", 26, 400, TEXT), lineHeight: 1.6, fontStyle: "italic", marginBottom: 16 }}>
-                "I care about doing good work for good people."
+                "Rigour doesn't require a large team. It requires the right one."
               </p>
               <p style={{ ...h("b", 10, 500, ACCENT, 2.5, "uppercase") }}>— Amar Kashyap</p>
             </div>
@@ -485,7 +485,7 @@ function ServicesPage() {
   const segments = [
     { id: "founders", label: "Early-Stage", sub: "Pre-seed through Series A+ — building the foundations investors need to see.",
       items: [
-        { t: "Financial Modelling", d: "Unit economics, revenue forecasts, scenario analysis, and cash runway planning. Built to withstand VC due diligence and answer the questions investors will actually ask." },
+        { t: "Financial Strategy & Modelling", d: "Unit economics, revenue forecasts, scenario analysis, cash runway, and valuation frameworks. Models built to withstand investor due diligence — not just for the spreadsheet, but for the conversation." },
         { t: "Pitch Decks & Investor Materials", d: "Compelling, structured decks, one-pagers, and investment teasers that communicate your opportunity with clarity. Built from scratch around your story — not templates." },
         { t: "Capital Raising Preparation", d: "End-to-end fundraising readiness — data room build-out on DocSend, model stress-testing, investor shortlisting, narrative refinement, and process management through to close." },
         { t: "Commercial Agreements", d: "Shareholder agreements, ESOP frameworks, key commercial contracts, and term sheet review support. Structured to protect founders while remaining investor-friendly." },
@@ -536,7 +536,7 @@ function ServicesPage() {
           <SR delay={0.1}><h2 style={{ ...h("s", 52, 300, TEXT), marginBottom: 14 }}>How I Help</h2></SR>
           <SR delay={0.15}><Line style={{ marginBottom: 28 }} /></SR>
           <SR delay={0.2}><p style={{ ...h("b", 15, 300, SILVER), lineHeight: 1.85, maxWidth: 620, marginBottom: 14 }}>
-            I work across the full business lifecycle — from first-time founders building their pitch to family offices structuring multi-jurisdictional funds. Select your profile below.
+            Scoped around outcomes, not hours. Whether you're preparing for a first institutional conversation or structuring a cross-border fund — select your profile below.
           </p></SR>
           <SR delay={0.25}><p style={{ ...h("b", 11, 300, TEXT_MUTED), lineHeight: 1.6, maxWidth: 580, fontStyle: "italic", opacity: 0.5 }}>
             Evara Advisory provides commercial and strategic advisory services. We do not provide financial product advice.
@@ -576,7 +576,7 @@ function ServicesPage() {
           <h3 style={{ ...h("s", 28, 400, TEXT) }}>AI Adoption & Automation</h3>
         </div></SR>
         <SR delay={0.1}><p style={{ ...h("b", 14, 300, TEXT_MUTED), lineHeight: 1.85, maxWidth: 620, marginBottom: 40 }}>
-          Available across all engagements. I help businesses harness AI to work faster, smarter, and leaner — without the enterprise price tag.
+          Embedded across all engagements. AI-augmented delivery that compresses timelines without compromising depth.
         </p></SR>
         <div className="grid-4" style={{ gap: "1px", background: NAVY_BORDER }}>
           {[
@@ -636,7 +636,7 @@ function TrackRecordPage({ setPage }) {
         <SR><div style={{ textAlign: "center", marginBottom: 56 }}>
           <p style={{ ...h("b", 11, 400, ACCENT, 3, "uppercase"), marginBottom: 14 }}>2026</p>
           <h3 style={{ ...h("s", 34, 300, TEXT), marginBottom: 10 }}>Current & Recent Engagements</h3>
-          <p style={{ ...h("b", 13, 300, TEXT_MUTED) }}>Three active mandates in the first quarter — across fund structuring, capital raising, and strategic advisory.</p>
+          <p style={{ ...h("b", 13, 300, TEXT_MUTED) }}>Three mandates executed in the first quarter of operations.</p>
         </div></SR>
         <div className="grid-3" style={{ maxWidth: 1000, margin: "0 auto", gap: 20, background: "transparent" }}>
           {recent.map((r, i) => (
@@ -746,7 +746,7 @@ function ContactPage() {
             <SR delay={0.1}><h2 style={{ ...h("s", 48, 300, TEXT), marginBottom: 14 }}>Start a Conversation</h2></SR>
             <SR delay={0.15}><Line style={{ marginBottom: 44 }} /></SR>
             <SR delay={0.2}><p style={{ ...h("b", 15, 300, SILVER), lineHeight: 1.85, marginBottom: 52 }}>
-              I work with a small number of clients at any given time. Whether you need help with strategy, modelling, investor materials, or preparing for a raise — fill out the form and I'll be in touch within 24 hours.
+              Limited capacity by design. If you're preparing for a raise, structuring a fund, or need institutional-quality materials — reach out below and I'll respond within 24 hours.
             </p></SR>
             <SR delay={0.25}><div style={{ display: "flex", flexDirection: "column", gap: 28, marginBottom: 52 }}>
               {[["Email", "amar.kashyap095@gmail.com", "mailto:amar.kashyap095@gmail.com"], ["LinkedIn", "linkedin.com/in/amar-kashyap", "https://www.linkedin.com/in/amar-kashyap"], ["Based In", "Sydney, Australia", null]].map(([label, val, href]) => (
@@ -835,7 +835,7 @@ function Footer({ setPage }) {
               <div style={{ width: 34, height: 34, border: `1px solid ${SILVER}`, display: "flex", alignItems: "center", justifyContent: "center", ...h("s", 16, 400, SILVER, 1) }}>E</div>
               <span style={{ ...h("b", 10, 500, TEXT, 4, "uppercase") }}>Evara Advisory</span>
             </div>
-            <p style={{ ...h("b", 13, 300, TEXT_MUTED), lineHeight: 1.75, maxWidth: 320 }}>Strategic advisory, financial modelling, and capital raising support for founders and private capital groups. Founded by Amar Kashyap. Sydney, Australia.</p>
+            <p style={{ ...h("b", 13, 300, TEXT_MUTED), lineHeight: 1.75, maxWidth: 320 }}>Strategic advisory and transaction support for founders and private capital groups. Founded by Amar Kashyap. Sydney, Australia.</p>
           </div>
           <div>
             <p style={{ ...h("b", 9, 500, ACCENT, 3, "uppercase"), marginBottom: 18 }}>Navigation</p>
