@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 
 const NAVY = "#0A1628";
 const NAVY_DEEP = "#060F1C";
@@ -14,10 +14,17 @@ const PAGES = ["Home", "About", "Services", "Track Record", "Contact"];
 const PHOTOS = {
   hero: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1920&q=80",
   about: "https://images.unsplash.com/photo-1554469384-e58fac16e23a?w=1920&q=80",
-  services: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1920&q=80",
+  services: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1920&q=80",
   track: "https://images.unsplash.com/photo-1444653614773-995cb1ef9efa?w=1920&q=80",
   contact: "https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=1920&q=80",
 };
+
+// IMPORTANT: Replace this with your Formspree endpoint
+// 1. Go to formspree.io and sign up with your Gmail
+// 2. Create a new form
+// 3. Copy the form ID (looks like "xpzvQrLk")
+// 4. Replace "YOUR_FORM_ID" below with your actual form ID
+const FORMSPREE_URL = "https://formspree.io/f/xbdpvgwj";
 
 const fontLink = document.createElement("link");
 fontLink.href = "https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@200;300;400;500&display=swap";
@@ -31,22 +38,23 @@ styleEl.textContent = `
   ::selection { background: ${SILVER}; color: ${NAVY_DEEP}; }
   @keyframes fadeUp { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
   @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-  @keyframes fadeInSlow { from { opacity: 0; } to { opacity: 0.12; } }
   @keyframes lineGrow { from { width: 0; } to { width: 56px; } }
-  @keyframes panSlow { 0% { transform: scale(1.08) translate(0,0); } 100% { transform: scale(1.08) translate(-1%,-1%); } }
+  @keyframes panSlow { 0% { transform: scale(1.05) translate(0,0); } 100% { transform: scale(1.05) translate(-0.5%,-0.5%); } }
   .fu { animation: fadeUp 0.8s ease forwards; opacity: 0; }
   .fi { animation: fadeIn 0.6s ease forwards; opacity: 0; }
   .d1{animation-delay:.1s}.d2{animation-delay:.2s}.d3{animation-delay:.3s}
   .d4{animation-delay:.4s}.d5{animation-delay:.5s}.d6{animation-delay:.6s}
   .photo-bg { position: absolute; inset: 0; background-size: cover; background-position: center;
     animation: panSlow 30s ease-in-out infinite alternate; }
-  .grain { position: fixed; inset: 0; pointer-events: none; z-index: 9999; opacity: 0.035;
+  .grain { position: fixed; inset: 0; pointer-events: none; z-index: 9999; opacity: 0.03;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     background-repeat: repeat; background-size: 200px; }
+  input, textarea, select { font-family: 'DM Sans', sans-serif; }
+  input:focus, textarea:focus, select:focus { outline: none; border-color: ${ACCENT} !important; }
 `;
 document.head.appendChild(styleEl);
 
-const s = (fam, sz, wt, col, ls, tt) => ({
+const f = (fam, sz, wt, col, ls, tt) => ({
   fontFamily: fam === "s" ? "'EB Garamond', serif" : "'DM Sans', sans-serif",
   fontSize: sz, fontWeight: wt, color: col, letterSpacing: ls || 0, textTransform: tt || "none",
 });
@@ -65,21 +73,17 @@ function Line({ style }) {
   return <div style={{ height: 1, background: `linear-gradient(90deg, ${SILVER}, transparent)`, animation: "lineGrow 1s ease forwards", width: 56, opacity: 0.5, ...style }} />;
 }
 
-function Btn({ children, primary, onClick, style: bsx }) {
+function Btn({ children, primary, onClick, style: bsx, type, disabled }) {
   const [h, setH] = useState(false);
   const base = primary
-    ? { background: h ? SILVER_LIGHT : "transparent", border: `1px solid ${SILVER}`, color: h ? NAVY_DEEP : SILVER }
+    ? { background: h && !disabled ? SILVER_LIGHT : "transparent", border: `1px solid ${SILVER}`, color: h && !disabled ? NAVY_DEEP : SILVER }
     : { background: "transparent", border: `1px solid ${h ? TEXT_MUTED : NAVY_BORDER}`, color: h ? TEXT : TEXT_MUTED };
   return (
-    <button onClick={onClick} onMouseEnter={() => setH(true)} onMouseLeave={() => setH(false)}
-      style={{ ...base, padding: "13px 32px", ...s("b", 11, 400, null, 2.5, "uppercase"), cursor: "pointer", transition: "all 0.3s", backdropFilter: "blur(4px)", ...bsx }}>
+    <button type={type} disabled={disabled} onClick={onClick} onMouseEnter={() => setH(true)} onMouseLeave={() => setH(false)}
+      style={{ ...base, padding: "13px 32px", ...f("b", 11, 400, null, 2.5, "uppercase"), cursor: disabled ? "not-allowed" : "pointer", transition: "all 0.3s", backdropFilter: "blur(4px)", opacity: disabled ? 0.5 : 1, ...bsx }}>
       {children}
     </button>
   );
-}
-
-function Divider() {
-  return <div style={{ height: 1, background: `linear-gradient(90deg, transparent, ${NAVY_BORDER}, transparent)`, margin: "0 80px" }} />;
 }
 
 function Nav({ page, setPage }) {
@@ -95,17 +99,17 @@ function Nav({ page, setPage }) {
       transition: "all 0.4s",
     }}>
       <div style={{ display: "flex", alignItems: "center", gap: 14, cursor: "pointer" }} onClick={() => setPage("Home")}>
-        <div style={{ width: 34, height: 34, border: `1px solid ${SILVER}`, display: "flex", alignItems: "center", justifyContent: "center", ...s("s", 16, 500, SILVER, 1), backdropFilter: "blur(8px)" }}>E</div>
+        <div style={{ width: 34, height: 34, border: `1px solid ${SILVER}`, display: "flex", alignItems: "center", justifyContent: "center", ...f("s", 16, 500, SILVER, 1), backdropFilter: "blur(8px)" }}>E</div>
         <div style={{ display: "flex", flexDirection: "column" }}>
-          <span style={{ ...s("b", 11, 500, TEXT, 3.5, "uppercase") }}>Evara</span>
-          <span style={{ ...s("b", 8.5, 300, TEXT_MUTED, 2.5, "uppercase") }}>Advisory</span>
+          <span style={{ ...f("b", 11, 500, TEXT, 3.5, "uppercase") }}>Evara</span>
+          <span style={{ ...f("b", 8.5, 300, TEXT_MUTED, 2.5, "uppercase") }}>Advisory</span>
         </div>
       </div>
       <div style={{ display: "flex", gap: 32 }}>
         {PAGES.map(p => (
           <button key={p} onClick={() => setPage(p)} style={{
             background: "none", border: "none", cursor: "pointer",
-            ...s("b", 10.5, 400, page === p ? SILVER_LIGHT : TEXT_MUTED, 2.5, "uppercase"),
+            ...f("b", 10.5, 400, page === p ? SILVER_LIGHT : TEXT_MUTED, 2.5, "uppercase"),
             transition: "color 0.3s", position: "relative", padding: "4px 0",
           }}>
             {p}
@@ -119,30 +123,31 @@ function Nav({ page, setPage }) {
 
 function HomePage({ setPage }) {
   return (
-    <PhotoSection src={PHOTOS.hero} overlay={0.78} style={{ minHeight: "100vh", display: "flex", flexDirection: "column", justifyContent: "center" }}>
-      <div style={{ padding: "0 80px", position: "relative", maxWidth: 780 }}>
-        <p className="fu d1" style={{ ...s("b", 11, 400, ACCENT, 4, "uppercase"), marginBottom: 28 }}>
+    <PhotoSection src={PHOTOS.hero} overlay={0.78}>
+      <div style={{ padding: "140px 80px 0", maxWidth: 780 }}>
+        <p className="fu d1" style={{ ...f("b", 11, 400, ACCENT, 4, "uppercase"), marginBottom: 28 }}>
           Advisory · Modelling · Capital Strategy
         </p>
-        <h1 className="fu d2" style={{ ...s("s", 76, 400, TEXT), lineHeight: 1.04, marginBottom: 8 }}>
+        <h1 className="fu d2" style={{ ...f("s", 76, 400, TEXT), lineHeight: 1.04, marginBottom: 8 }}>
           Evara<br />Advisory
         </h1>
-        <p className="fu d2" style={{ ...s("b", 13, 300, TEXT_MUTED, 0.5), marginTop: 6, marginBottom: 10 }}>
+        <p className="fu d2" style={{ ...f("b", 13, 300, TEXT_MUTED, 0.5), marginTop: 6, marginBottom: 10 }}>
           Founded by Amar Kashyap
         </p>
         <Line style={{ marginBottom: 32 }} />
-        <p className="fu d3" style={{ ...s("b", 17, 300, SILVER), lineHeight: 1.8, maxWidth: 520, marginBottom: 18 }}>
+        <p className="fu d3" style={{ ...f("b", 17, 300, SILVER), lineHeight: 1.8, maxWidth: 520, marginBottom: 18 }}>
           Commercial advisory and financial modelling for businesses at every stage — from founders preparing for their first raise to established groups navigating complex growth.
         </p>
-        <p className="fu d3" style={{ ...s("s", 15, 400, TEXT_MUTED), lineHeight: 1.75, maxWidth: 540, marginBottom: 48, fontStyle: "italic", opacity: 0.55 }}>
+        <p className="fu d3" style={{ ...f("s", 15, 400, TEXT_MUTED), lineHeight: 1.75, maxWidth: 540, marginBottom: 44, fontStyle: "italic", opacity: 0.55 }}>
           Background in institutional banking, venture capital, and private equity.
         </p>
-        <div className="fu d4" style={{ display: "flex", gap: 14 }}>
+        <div className="fu d4" style={{ display: "flex", gap: 14, marginBottom: 64 }}>
           <Btn primary onClick={() => setPage("Contact")}>Get in Touch</Btn>
           <Btn onClick={() => setPage("Services")}>View Services</Btn>
         </div>
       </div>
-      <div className="fu d5" style={{ position: "absolute", bottom: 56, left: 80, right: 80, display: "flex", borderTop: `1px solid rgba(255,255,255,0.08)`, paddingTop: 32, zIndex: 1 }}>
+      <div className="fu d5" style={{ padding: "32px 80px 48px", borderTop: `1px solid rgba(255,255,255,0.08)`, margin: "0 0 0 0",
+        display: "flex", gap: 0 }}>
         {[
           ["7+", "Years in Private Markets"],
           ["Early Stage → Enterprise", "Across the Business Lifecycle"],
@@ -150,8 +155,8 @@ function HomePage({ setPage }) {
           ["Sydney", "Australia"],
         ].map(([big, small], i) => (
           <div key={i} style={{ flex: 1, borderRight: i < 3 ? `1px solid rgba(255,255,255,0.06)` : "none", paddingRight: 24 }}>
-            <div style={{ ...s("s", 24, 400, SILVER_LIGHT), marginBottom: 6 }}>{big}</div>
-            <div style={{ ...s("b", 10, 300, TEXT_MUTED, 1.5, "uppercase") }}>{small}</div>
+            <div style={{ ...f("s", 24, 400, SILVER_LIGHT), marginBottom: 6 }}>{big}</div>
+            <div style={{ ...f("b", 10, 300, TEXT_MUTED, 1.5, "uppercase") }}>{small}</div>
           </div>
         ))}
       </div>
@@ -163,62 +168,56 @@ function AboutPage() {
   return (
     <>
       <PhotoSection src={PHOTOS.about} overlay={0.88} style={{ padding: "140px 80px 80px" }}>
-        <p className="fu d1" style={{ ...s("b", 11, 400, ACCENT, 4, "uppercase"), marginBottom: 16 }}>About</p>
-        <h2 className="fu d2" style={{ ...s("s", 52, 400, TEXT), marginBottom: 6 }}>The Principal</h2>
-        <p className="fu d2" style={{ ...s("s", 22, 400, SILVER), lineHeight: 1.65, maxWidth: 600, marginTop: 20, fontStyle: "italic" }}>
+        <p className="fu d1" style={{ ...f("b", 11, 400, ACCENT, 4, "uppercase"), marginBottom: 16 }}>About</p>
+        <h2 className="fu d2" style={{ ...f("s", 52, 400, TEXT), marginBottom: 6 }}>The Principal</h2>
+        <p className="fu d2" style={{ ...f("s", 22, 400, SILVER), lineHeight: 1.65, maxWidth: 600, marginTop: 20, fontStyle: "italic" }}>
           I've spent my career on both sides of the table — working with institutions deploying capital and founders raising it.
         </p>
       </PhotoSection>
       <div style={{ padding: "64px 80px 80px", background: NAVY_DEEP }}>
         <div style={{ display: "grid", gridTemplateColumns: "1.2fr 1fr", gap: 72 }}>
           <div className="fu d3">
-            <p style={{ ...s("b", 15, 300, TEXT_MUTED), lineHeight: 1.85, marginBottom: 22 }}>
+            <p style={{ ...f("b", 15, 300, TEXT_MUTED), lineHeight: 1.85, marginBottom: 22 }}>
               My career started in one of Australia's largest institutional banks, working across M&A advisory and leveraged finance — structuring debt facilities for private equity sponsors and advising on complex transactions. I transitioned into the bank's venture investment arm, gaining direct exposure to high-growth technology companies from Series A onwards across the fintech ecosystem.
             </p>
-            <p style={{ ...s("b", 15, 300, TEXT_MUTED), lineHeight: 1.85, marginBottom: 22 }}>
+            <p style={{ ...f("b", 15, 300, TEXT_MUTED), lineHeight: 1.85, marginBottom: 22 }}>
               From there I joined a major ASX-listed technology platform, evaluating proptech venture investments and supporting corporate development strategy. I then became the founding hire at an early-stage venture fund — sole-leading due diligence, managing Investment Committee approvals, and driving fund capital raising and operations.
             </p>
-            <p style={{ ...s("b", 15, 300, TEXT_MUTED), lineHeight: 1.85, marginBottom: 22 }}>
-              Since launching Evara Advisory, I've partnered with family offices on fund structuring and institutional-grade modelling, worked with early-stage founders on investor readiness, and helped established SMBs build the commercial tools and frameworks they need to scale. I also leverage advanced AI tooling to deliver work at a speed and depth that traditional advisory firms can't match.
+            <p style={{ ...f("b", 15, 300, TEXT_MUTED), lineHeight: 1.85, marginBottom: 22 }}>
+              Since launching Evara Advisory in early 2026, I've partnered with family offices on fund structuring and institutional-grade modelling, worked with early-stage founders on investor readiness, and helped established SMBs build the commercial tools and frameworks they need to scale. The firm is new, but the experience behind it isn't — I bring every engagement the same institutional rigour built over seven years in private markets. I also leverage advanced AI tooling to deliver work at a speed and depth that traditional advisory firms can't match.
             </p>
-            <p style={{ ...s("b", 15, 300, TEXT_MUTED), lineHeight: 1.85 }}>
+            <p style={{ ...f("b", 15, 300, TEXT_MUTED), lineHeight: 1.85 }}>
               I'm selective about engagements because depth matters more than volume. Every client gets the same rigour I'd apply to a transaction on an institutional desk.
             </p>
           </div>
           <div className="fu d4" style={{ display: "flex", flexDirection: "column", gap: 16 }}>
             <div style={{ background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, padding: 32 }}>
-              <p style={{ ...s("b", 10, 400, ACCENT, 3, "uppercase"), marginBottom: 14 }}>Education</p>
-              <p style={{ ...s("s", 19, 500, TEXT), marginBottom: 3 }}>University of New South Wales</p>
-              <p style={{ ...s("b", 13, 300, TEXT_MUTED) }}>Bachelor of Commerce — Finance & Information Systems</p>
+              <p style={{ ...f("b", 10, 400, ACCENT, 3, "uppercase"), marginBottom: 14 }}>Education</p>
+              <p style={{ ...f("s", 19, 500, TEXT), marginBottom: 3 }}>University of New South Wales</p>
+              <p style={{ ...f("b", 13, 300, TEXT_MUTED) }}>Bachelor of Commerce — Finance & Information Systems</p>
             </div>
             <div style={{ background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, padding: 32 }}>
-              <p style={{ ...s("b", 10, 400, ACCENT, 3, "uppercase"), marginBottom: 14 }}>Career Heritage</p>
-              {[
-                "Major Australian Bank — M&A Advisory & Leveraged Finance",
-                "Bank Venture Arm — Growth-Stage Technology Investments",
-                "ASX-Listed Technology Platform — Corp Dev & Proptech VC",
-                "Early-Stage Venture Fund — Founding Hire & Fund Operations",
-                "Family Office — Fund Structuring & Investment Strategy",
-              ].map((item, i) => (
+              <p style={{ ...f("b", 10, 400, ACCENT, 3, "uppercase"), marginBottom: 14 }}>Career Heritage</p>
+              {["Major Australian Bank — M&A Advisory & Leveraged Finance", "Bank Venture Arm — Growth-Stage Technology Investments", "ASX-Listed Technology Platform — Corp Dev & Proptech VC", "Early-Stage Venture Fund — Founding Hire & Fund Operations", "Family Office — Fund Structuring & Investment Strategy"].map((item, i) => (
                 <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: 10, marginBottom: i < 4 ? 12 : 0 }}>
                   <div style={{ width: 3, height: 3, borderRadius: "50%", background: ACCENT, marginTop: 8, flexShrink: 0 }} />
-                  <p style={{ ...s("b", 12.5, 300, TEXT_MUTED), lineHeight: 1.5 }}>{item}</p>
+                  <p style={{ ...f("b", 12.5, 300, TEXT_MUTED), lineHeight: 1.5 }}>{item}</p>
                 </div>
               ))}
             </div>
             <div style={{ background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, padding: 32 }}>
-              <p style={{ ...s("b", 10, 400, ACCENT, 3, "uppercase"), marginBottom: 14 }}>Who I Work With</p>
+              <p style={{ ...f("b", 10, 400, ACCENT, 3, "uppercase"), marginBottom: 14 }}>Who I Work With</p>
               <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
                 {["Family Offices", "PE-Backed Platforms", "Seed & Series A Founders", "Franchise Groups", "SMB Operators", "Established Businesses"].map(item => (
-                  <span key={item} style={{ ...s("b", 10.5, 300, TEXT_MUTED, 0.5), padding: "6px 12px", border: `1px solid ${NAVY_BORDER}` }}>{item}</span>
+                  <span key={item} style={{ ...f("b", 10.5, 300, TEXT_MUTED, 0.5), padding: "6px 12px", border: `1px solid ${NAVY_BORDER}` }}>{item}</span>
                 ))}
               </div>
             </div>
             <div style={{ background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, padding: 32 }}>
-              <p style={{ ...s("b", 10, 400, ACCENT, 3, "uppercase"), marginBottom: 14 }}>Sector Exposure</p>
+              <p style={{ ...f("b", 10, 400, ACCENT, 3, "uppercase"), marginBottom: 14 }}>Sector Exposure</p>
               <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
                 {["Fintech", "Proptech", "Health & Wellness", "Sports Technology", "Franchising", "Legaltech", "Building & Construction", "Beauty & Retail"].map(item => (
-                  <span key={item} style={{ ...s("b", 10.5, 300, TEXT_MUTED, 0.5), padding: "6px 12px", border: `1px solid ${NAVY_BORDER}` }}>{item}</span>
+                  <span key={item} style={{ ...f("b", 10.5, 300, TEXT_MUTED, 0.5), padding: "6px 12px", border: `1px solid ${NAVY_BORDER}` }}>{item}</span>
                 ))}
               </div>
             </div>
@@ -263,13 +262,13 @@ function ServicesPage() {
   return (
     <>
       <PhotoSection src={PHOTOS.services} overlay={0.88} style={{ padding: "140px 80px 80px" }}>
-        <p className="fu d1" style={{ ...s("b", 11, 400, ACCENT, 4, "uppercase"), marginBottom: 16 }}>Services</p>
-        <h2 className="fu d2" style={{ ...s("s", 52, 400, TEXT), marginBottom: 12 }}>How I Help</h2>
+        <p className="fu d1" style={{ ...f("b", 11, 400, ACCENT, 4, "uppercase"), marginBottom: 16 }}>Services</p>
+        <h2 className="fu d2" style={{ ...f("s", 52, 400, TEXT), marginBottom: 12 }}>How I Help</h2>
         <Line style={{ marginBottom: 24 }} />
-        <p className="fu d2" style={{ ...s("b", 16, 300, SILVER), lineHeight: 1.8, maxWidth: 580, marginBottom: 12 }}>
+        <p className="fu d2" style={{ ...f("b", 16, 300, SILVER), lineHeight: 1.8, maxWidth: 580, marginBottom: 12 }}>
           Every engagement is scoped around a specific outcome — a model, a document, a decision. I don't bill for ambiguity.
         </p>
-        <p className="fu d3" style={{ ...s("b", 12, 300, TEXT_MUTED), lineHeight: 1.6, maxWidth: 580, fontStyle: "italic", opacity: 0.6 }}>
+        <p className="fu d3" style={{ ...f("b", 12, 300, TEXT_MUTED), lineHeight: 1.6, maxWidth: 580, fontStyle: "italic", opacity: 0.6 }}>
           Evara Advisory provides commercial and strategic advisory services. We do not provide financial product advice.
         </p>
       </PhotoSection>
@@ -277,19 +276,19 @@ function ServicesPage() {
         {sections.map((sec, si) => (
           <div key={si} style={{ marginBottom: si < sections.length - 1 ? 56 : 0 }}>
             <div style={{ marginBottom: 28 }}>
-              <h3 style={{ ...s("s", 26, 500, TEXT), marginBottom: 6 }}>{sec.heading}</h3>
-              <p style={{ ...s("b", 13, 300, TEXT_MUTED) }}>{sec.sub}</p>
+              <h3 style={{ ...f("s", 26, 500, TEXT), marginBottom: 6 }}>{sec.heading}</h3>
+              <p style={{ ...f("b", 13, 300, TEXT_MUTED) }}>{sec.sub}</p>
             </div>
-            <div style={{ display: "grid", gridTemplateColumns: sec.items.length <= 2 ? "1fr 1fr" : "1fr 1fr", gap: 1, background: NAVY_BORDER }}>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 1, background: NAVY_BORDER }}>
               {sec.items.map((item, i) => {
                 const [hov, setHov] = useState(false);
                 return (
                   <div key={i} onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}
                     style={{ background: hov ? NAVY_CARD : NAVY_DEEP, padding: 36, transition: "all 0.3s", cursor: "default",
                       borderLeft: hov ? `2px solid ${ACCENT}` : "2px solid transparent" }}>
-                    <span style={{ ...s("s", 26, 400, ACCENT), opacity: 0.25 }}>{item.n}</span>
-                    <h4 style={{ ...s("s", 20, 500, TEXT), margin: "14px 0 10px" }}>{item.t}</h4>
-                    <p style={{ ...s("b", 13, 300, TEXT_MUTED), lineHeight: 1.8 }}>{item.d}</p>
+                    <span style={{ ...f("s", 26, 400, ACCENT), opacity: 0.25 }}>{item.n}</span>
+                    <h4 style={{ ...f("s", 20, 500, TEXT), margin: "14px 0 10px" }}>{item.t}</h4>
+                    <p style={{ ...f("b", 13, 300, TEXT_MUTED), lineHeight: 1.8 }}>{item.d}</p>
                   </div>
                 );
               })}
@@ -315,13 +314,55 @@ function TrackRecordPage({ setPage }) {
   return (
     <>
       <PhotoSection src={PHOTOS.track} overlay={0.86} style={{ padding: "140px 80px 80px" }}>
-        <p className="fu d1" style={{ ...s("b", 11, 400, ACCENT, 4, "uppercase"), marginBottom: 16 }}>Track Record</p>
-        <h2 className="fu d2" style={{ ...s("s", 52, 400, TEXT), marginBottom: 12 }}>Select Engagements</h2>
+        <p className="fu d1" style={{ ...f("b", 11, 400, ACCENT, 4, "uppercase"), marginBottom: 16 }}>Track Record</p>
+        <h2 className="fu d2" style={{ ...f("s", 52, 400, TEXT), marginBottom: 12 }}>Select Engagements</h2>
         <Line style={{ marginBottom: 24 }} />
-        <p className="fu d2" style={{ ...s("b", 15, 300, SILVER), lineHeight: 1.8, maxWidth: 600 }}>
+        <p className="fu d2" style={{ ...f("b", 15, 300, SILVER), lineHeight: 1.8, maxWidth: 600 }}>
           A selection of mandates across the capital stack. Details shared with discretion; further information available under NDA.
         </p>
       </PhotoSection>
+      {/* Logo Carousel */}
+      <div style={{ padding: "48px 80px", background: NAVY, borderBottom: `1px solid ${NAVY_BORDER}`, overflow: "hidden" }}>
+        <p className="fu d1" style={{ ...f("b", 10, 400, TEXT_MUTED, 3, "uppercase"), marginBottom: 28, textAlign: "center" }}>
+          Institutional Heritage
+        </p>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 64, flexWrap: "wrap" }}>
+          {/* ANZ */}
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 6, opacity: 0.7 }}>
+            <div style={{ ...f("b", 28, 500, SILVER_LIGHT, 6, "uppercase"), lineHeight: 1 }}>ANZ</div>
+            <div style={{ ...f("b", 9, 300, TEXT_MUTED, 2, "uppercase") }}>Institutional Bank</div>
+          </div>
+          {/* Divider */}
+          <div style={{ width: 1, height: 40, background: NAVY_BORDER }} />
+          {/* PEXA */}
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 6, opacity: 0.7 }}>
+            <div style={{ ...f("b", 28, 500, SILVER_LIGHT, 4, "uppercase"), lineHeight: 1 }}>PEXA</div>
+            <div style={{ ...f("b", 9, 300, TEXT_MUTED, 2, "uppercase") }}>ASX-Listed</div>
+          </div>
+          {/* Divider */}
+          <div style={{ width: 1, height: 40, background: NAVY_BORDER }} />
+          {/* Private VC */}
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 6, opacity: 0.45 }}>
+            <div style={{ ...f("s", 22, 400, SILVER, 1), lineHeight: 1, fontStyle: "italic" }}>Venture Fund</div>
+            <div style={{ ...f("b", 9, 300, TEXT_MUTED, 2, "uppercase") }}>Private Client</div>
+          </div>
+          {/* Divider */}
+          <div style={{ width: 1, height: 40, background: NAVY_BORDER }} />
+          {/* Private FO */}
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 6, opacity: 0.45 }}>
+            <div style={{ ...f("s", 22, 400, SILVER, 1), lineHeight: 1, fontStyle: "italic" }}>Family Office</div>
+            <div style={{ ...f("b", 9, 300, TEXT_MUTED, 2, "uppercase") }}>Private Client</div>
+          </div>
+          {/* Divider */}
+          <div style={{ width: 1, height: 40, background: NAVY_BORDER }} />
+          {/* Multiple founders */}
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 6, opacity: 0.45 }}>
+            <div style={{ ...f("s", 22, 400, SILVER, 1), lineHeight: 1, fontStyle: "italic" }}>Founders</div>
+            <div style={{ ...f("b", 9, 300, TEXT_MUTED, 2, "uppercase") }}>Multiple Engagements</div>
+          </div>
+        </div>
+      </div>
+
       <div style={{ padding: "64px 80px 80px", background: NAVY_DEEP }}>
         <div style={{ maxWidth: 800 }}>
           {items.map((r, i) => {
@@ -333,26 +374,26 @@ function TrackRecordPage({ setPage }) {
                   background: hov ? NAVY_CARD : "transparent", marginLeft: -24, marginRight: -24, borderRadius: 2 }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 8 }}>
                   <div>
-                    <h3 style={{ ...s("s", 23, 500, TEXT), marginBottom: 4 }}>{r.client}</h3>
-                    <p style={{ ...s("b", 11, 400, ACCENT, 1.5, "uppercase") }}>{r.type}</p>
+                    <h3 style={{ ...f("s", 23, 500, TEXT), marginBottom: 4 }}>{r.client}</h3>
+                    <p style={{ ...f("b", 11, 400, ACCENT, 1.5, "uppercase") }}>{r.type}</p>
                   </div>
-                  <span style={{ ...s("b", 12, 300, TEXT_MUTED, 1.5), flexShrink: 0, marginLeft: 24, background: NAVY_CARD, padding: "4px 12px", border: `1px solid ${NAVY_BORDER}` }}>{r.period}</span>
+                  <span style={{ ...f("b", 12, 300, TEXT_MUTED, 1.5), flexShrink: 0, marginLeft: 24, background: NAVY_CARD, padding: "4px 12px", border: `1px solid ${NAVY_BORDER}` }}>{r.period}</span>
                 </div>
-                <p style={{ ...s("b", 14, 300, TEXT_MUTED), lineHeight: 1.85, marginTop: 14 }}>{r.detail}</p>
+                <p style={{ ...f("b", 14, 300, TEXT_MUTED), lineHeight: 1.85, marginTop: 14 }}>{r.detail}</p>
               </div>
             );
           })}
         </div>
         <div className="fu d5" style={{ marginTop: 48, background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, padding: "32px 40px", maxWidth: 800 }}>
-          <p style={{ ...s("b", 10, 400, ACCENT, 3, "uppercase"), marginBottom: 12 }}>Independent Advisory Clients</p>
-          <p style={{ ...s("b", 14, 300, TEXT_MUTED), lineHeight: 1.8 }}>
+          <p style={{ ...f("b", 10, 400, ACCENT, 3, "uppercase"), marginBottom: 12 }}>Independent Advisory Clients</p>
+          <p style={{ ...f("b", 14, 300, TEXT_MUTED), lineHeight: 1.8 }}>
             I also work with early-stage founders across legaltech, sports technology, building & construction, and beauty — helping with financial modelling, pitch decks, investor readiness, and operational strategy. Details available on request.
           </p>
         </div>
         <div className="fu d6" style={{ marginTop: 16, background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, padding: "32px 40px", display: "flex", gap: 36, alignItems: "center", maxWidth: 800 }}>
-          <div style={{ ...s("s", 34, 400, SILVER_LIGHT), flexShrink: 0, opacity: 0.7 }}>NDA</div>
+          <div style={{ ...f("s", 34, 400, SILVER_LIGHT), flexShrink: 0, opacity: 0.7 }}>NDA</div>
           <div>
-            <p style={{ ...s("b", 13.5, 300, TEXT), lineHeight: 1.7, marginBottom: 10 }}>
+            <p style={{ ...f("b", 13.5, 300, TEXT), lineHeight: 1.7, marginBottom: 10 }}>
               Detailed case studies, model samples, and client references available under mutual non-disclosure.
             </p>
             <Btn primary onClick={() => setPage("Contact")} style={{ padding: "9px 22px" }}>Request Access</Btn>
@@ -364,54 +405,182 @@ function TrackRecordPage({ setPage }) {
 }
 
 function ContactPage() {
+  const [form, setForm] = useState({ name: "", email: "", company: "", stage: "", service: "", budget: "", timeline: "", message: "" });
+  const [status, setStatus] = useState("idle"); // idle | sending | sent | error
+
+  const inputStyle = {
+    width: "100%", padding: "12px 16px", background: "rgba(14,26,46,0.6)",
+    border: `1px solid ${NAVY_BORDER}`, color: TEXT, ...f("b", 14, 300, TEXT),
+    transition: "border-color 0.3s", borderRadius: 2,
+  };
+  const labelStyle = { ...f("b", 10, 400, ACCENT, 2.5, "uppercase"), marginBottom: 6, display: "block" };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setStatus("sending");
+    try {
+      const res = await fetch(FORMSPREE_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Accept": "application/json" },
+        body: JSON.stringify(form),
+      });
+      if (res.ok) { setStatus("sent"); setForm({ name: "", email: "", company: "", stage: "", service: "", budget: "", timeline: "", message: "" }); }
+      else setStatus("error");
+    } catch { setStatus("error"); }
+  };
+
   return (
-    <PhotoSection src={PHOTOS.contact} overlay={0.88} style={{ minHeight: "100vh", display: "flex", alignItems: "center" }}>
-      <div style={{ padding: "140px 80px 80px", width: "100%" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 80 }}>
+    <PhotoSection src={PHOTOS.contact} overlay={0.9} style={{ minHeight: "100vh" }}>
+      <div style={{ padding: "140px 80px 80px" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1.3fr", gap: 72 }}>
+          {/* Left - Info */}
           <div>
-            <p className="fu d1" style={{ ...s("b", 11, 400, ACCENT, 4, "uppercase"), marginBottom: 16 }}>Contact</p>
-            <h2 className="fu d2" style={{ ...s("s", 48, 400, TEXT), marginBottom: 12 }}>Start a Conversation</h2>
+            <p className="fu d1" style={{ ...f("b", 11, 400, ACCENT, 4, "uppercase"), marginBottom: 16 }}>Contact</p>
+            <h2 className="fu d2" style={{ ...f("s", 48, 400, TEXT), marginBottom: 12 }}>Start a Conversation</h2>
             <Line style={{ marginBottom: 40 }} />
-            <p className="fu d3" style={{ ...s("b", 15.5, 300, SILVER), lineHeight: 1.8, marginBottom: 48 }}>
-              I work with a small number of clients at any given time to ensure depth of engagement. Whether you're a founder preparing for your first raise or a family office navigating a complex transaction — I'd welcome the conversation.
+            <p className="fu d3" style={{ ...f("b", 15.5, 300, SILVER), lineHeight: 1.8, marginBottom: 48 }}>
+              I work with a small number of clients at any given time. Fill out the form and I'll be in touch within 24 hours.
             </p>
-            <div className="fu d4" style={{ display: "flex", flexDirection: "column", gap: 24 }}>
+            <div className="fu d4" style={{ display: "flex", flexDirection: "column", gap: 24, marginBottom: 48 }}>
               {[
                 ["Email", "amar.kashyap095@gmail.com"],
                 ["LinkedIn", "linkedin.com/in/amarkashyap"],
                 ["Based In", "Sydney, Australia"],
               ].map(([label, val]) => (
                 <div key={label}>
-                  <p style={{ ...s("b", 10, 400, ACCENT, 3, "uppercase"), marginBottom: 4 }}>{label}</p>
-                  <p style={{ ...s("b", 15, 300, TEXT) }}>{val}</p>
+                  <p style={{ ...f("b", 10, 400, ACCENT, 3, "uppercase"), marginBottom: 4 }}>{label}</p>
+                  <p style={{ ...f("b", 15, 300, TEXT) }}>{val}</p>
+                </div>
+              ))}
+            </div>
+            <div className="fu d5" style={{ background: "rgba(14,26,46,0.7)", backdropFilter: "blur(16px)", border: `1px solid ${NAVY_BORDER}`, padding: 32 }}>
+              <p style={{ ...f("b", 10, 400, ACCENT, 3, "uppercase"), marginBottom: 14 }}>Typical Engagement</p>
+              {["Initial scoping call — no charge", "Retainer or project-based fee structure", "Deliverable-focused with clear milestones", "NDA executed before any sensitive exchange"].map((item, i) => (
+                <div key={i} style={{ display: "flex", gap: 10, alignItems: "flex-start", marginBottom: i < 3 ? 10 : 0 }}>
+                  <span style={{ color: ACCENT, fontSize: 13, marginTop: 1 }}>→</span>
+                  <p style={{ ...f("b", 13, 300, TEXT_MUTED), lineHeight: 1.55 }}>{item}</p>
                 </div>
               ))}
             </div>
           </div>
-          <div className="fu d4" style={{ display: "flex", flexDirection: "column", gap: 18, justifyContent: "center" }}>
-            <div style={{ background: "rgba(14,26,46,0.8)", backdropFilter: "blur(16px)", border: `1px solid ${NAVY_BORDER}`, padding: 40 }}>
-              <p style={{ ...s("s", 20, 400, TEXT), lineHeight: 1.65, fontStyle: "italic", marginBottom: 18 }}>
-                "The quality of your preparation is the signal investors read before they ever open your deck."
-              </p>
-              <div style={{ height: 1, background: NAVY_BORDER, marginBottom: 18 }} />
-              <p style={{ ...s("b", 11, 400, TEXT_MUTED, 2, "uppercase") }}>Amar Kashyap · Founder</p>
-            </div>
-            <div style={{ background: "rgba(14,26,46,0.8)", backdropFilter: "blur(16px)", border: `1px solid ${NAVY_BORDER}`, padding: 40 }}>
-              <p style={{ ...s("b", 10, 400, ACCENT, 3, "uppercase"), marginBottom: 14 }}>Typical Engagement</p>
-              {[
-                "Initial scoping call — no charge",
-                "Retainer or project-based fee structure",
-                "Deliverable-focused with clear milestones",
-                "NDA executed before any sensitive exchange",
-              ].map((item, i) => (
-                <div key={i} style={{ display: "flex", gap: 10, alignItems: "flex-start", marginBottom: i < 3 ? 10 : 0 }}>
-                  <span style={{ color: ACCENT, fontSize: 13, marginTop: 1 }}>→</span>
-                  <p style={{ ...s("b", 13, 300, TEXT_MUTED), lineHeight: 1.55 }}>{item}</p>
+
+          {/* Right - Form */}
+          <div className="fu d3">
+            {status === "sent" ? (
+              <div style={{ background: "rgba(14,26,46,0.7)", backdropFilter: "blur(16px)", border: `1px solid ${NAVY_BORDER}`, padding: 56, textAlign: "center" }}>
+                <div style={{ ...f("s", 48, 400, SILVER_LIGHT), marginBottom: 16 }}>✓</div>
+                <h3 style={{ ...f("s", 28, 500, TEXT), marginBottom: 12 }}>Request Received</h3>
+                <p style={{ ...f("b", 15, 300, TEXT_MUTED), lineHeight: 1.7 }}>
+                  Thank you for your interest. I'll review your enquiry and be in touch within 24 hours.
+                </p>
+              </div>
+            ) : (
+              <div style={{ background: "rgba(14,26,46,0.7)", backdropFilter: "blur(16px)", border: `1px solid ${NAVY_BORDER}`, padding: 40 }}>
+                <p style={{ ...f("s", 22, 500, TEXT), marginBottom: 6 }}>Send a Request</p>
+                <p style={{ ...f("b", 13, 300, TEXT_MUTED), marginBottom: 28 }}>All enquiries are treated as confidential.</p>
+
+                <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+                  {/* Row 1 */}
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+                    <div>
+                      <label style={labelStyle}>Full Name *</label>
+                      <input required style={inputStyle} value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} placeholder="Your name" />
+                    </div>
+                    <div>
+                      <label style={labelStyle}>Email *</label>
+                      <input required type="email" style={inputStyle} value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} placeholder="you@company.com" />
+                    </div>
+                  </div>
+
+                  {/* Row 2 */}
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+                    <div>
+                      <label style={labelStyle}>Company / Venture</label>
+                      <input style={inputStyle} value={form.company} onChange={e => setForm({ ...form, company: e.target.value })} placeholder="Company name" />
+                    </div>
+                    <div>
+                      <label style={labelStyle}>Business Stage</label>
+                      <select style={{ ...inputStyle, cursor: "pointer", appearance: "none" }} value={form.stage} onChange={e => setForm({ ...form, stage: e.target.value })}>
+                        <option value="" style={{ background: NAVY_CARD }}>Select...</option>
+                        <option value="Pre-seed / Idea" style={{ background: NAVY_CARD }}>Pre-seed / Idea Stage</option>
+                        <option value="Seed" style={{ background: NAVY_CARD }}>Seed</option>
+                        <option value="Series A+" style={{ background: NAVY_CARD }}>Series A+</option>
+                        <option value="Established SMB" style={{ background: NAVY_CARD }}>Established SMB</option>
+                        <option value="Family Office / PE" style={{ background: NAVY_CARD }}>Family Office / PE</option>
+                        <option value="Other" style={{ background: NAVY_CARD }}>Other</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  {/* Row 3 */}
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+                    <div>
+                      <label style={labelStyle}>Service of Interest</label>
+                      <select style={{ ...inputStyle, cursor: "pointer", appearance: "none" }} value={form.service} onChange={e => setForm({ ...form, service: e.target.value })}>
+                        <option value="" style={{ background: NAVY_CARD }}>Select...</option>
+                        <option value="Financial Modelling" style={{ background: NAVY_CARD }}>Financial Modelling</option>
+                        <option value="Pitch Deck / Investor Materials" style={{ background: NAVY_CARD }}>Pitch Deck / Investor Materials</option>
+                        <option value="Capital Raising Preparation" style={{ background: NAVY_CARD }}>Capital Raising Preparation</option>
+                        <option value="Fund Structuring" style={{ background: NAVY_CARD }}>Fund Structuring</option>
+                        <option value="Strategic Advisory" style={{ background: NAVY_CARD }}>Strategic Advisory</option>
+                        <option value="Board Reporting" style={{ background: NAVY_CARD }}>Board Reporting</option>
+                        <option value="Operational Tooling" style={{ background: NAVY_CARD }}>Operational Tooling</option>
+                        <option value="MVP / Prototyping" style={{ background: NAVY_CARD }}>MVP / Prototyping</option>
+                        <option value="Other / Not Sure" style={{ background: NAVY_CARD }}>Other / Not Sure</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label style={labelStyle}>Indicative Budget</label>
+                      <select style={{ ...inputStyle, cursor: "pointer", appearance: "none" }} value={form.budget} onChange={e => setForm({ ...form, budget: e.target.value })}>
+                        <option value="" style={{ background: NAVY_CARD }}>Select...</option>
+                        <option value="< $5,000" style={{ background: NAVY_CARD }}>Under $5,000</option>
+                        <option value="$5,000 - $15,000" style={{ background: NAVY_CARD }}>$5,000 – $15,000</option>
+                        <option value="$15,000 - $50,000" style={{ background: NAVY_CARD }}>$15,000 – $50,000</option>
+                        <option value="$50,000+" style={{ background: NAVY_CARD }}>$50,000+</option>
+                        <option value="Retainer / Ongoing" style={{ background: NAVY_CARD }}>Retainer / Ongoing</option>
+                        <option value="Not sure yet" style={{ background: NAVY_CARD }}>Not sure yet</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  {/* Row 4 */}
+                  <div>
+                    <label style={labelStyle}>Timeline</label>
+                    <select style={{ ...inputStyle, cursor: "pointer", appearance: "none" }} value={form.timeline} onChange={e => setForm({ ...form, timeline: e.target.value })}>
+                      <option value="" style={{ background: NAVY_CARD }}>Select...</option>
+                      <option value="Urgent (this week)" style={{ background: NAVY_CARD }}>Urgent — this week</option>
+                      <option value="Within 2 weeks" style={{ background: NAVY_CARD }}>Within 2 weeks</option>
+                      <option value="Within a month" style={{ background: NAVY_CARD }}>Within a month</option>
+                      <option value="Flexible / Exploring" style={{ background: NAVY_CARD }}>Flexible / Just exploring</option>
+                    </select>
+                  </div>
+
+                  {/* Message */}
+                  <div>
+                    <label style={labelStyle}>Tell me about your project *</label>
+                    <textarea required rows={5} style={{ ...inputStyle, resize: "vertical", minHeight: 100 }} value={form.message}
+                      onChange={e => setForm({ ...form, message: e.target.value })}
+                      placeholder="Brief overview of what you need help with, any context that would be useful..." />
+                  </div>
+
+                  {/* Submit */}
+                  <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+                    <Btn primary type="submit" disabled={status === "sending" || !form.name || !form.email || !form.message}
+                      onClick={handleSubmit}
+                      style={{ padding: "14px 40px" }}>
+                      {status === "sending" ? "Sending..." : "Submit Request"}
+                    </Btn>
+                    {status === "error" && <p style={{ ...f("b", 13, 300, "#E07070") }}>Something went wrong. Please email directly.</p>}
+                  </div>
+
+                  <p style={{ ...f("b", 11, 300, TEXT_MUTED), lineHeight: 1.5, fontStyle: "italic", opacity: 0.5 }}>
+                    Your information will not be shared with any third party. I'll respond within one business day.
+                  </p>
                 </div>
-              ))}
-            </div>
-            <div style={{ background: "rgba(14,26,46,0.6)", backdropFilter: "blur(16px)", border: `1px solid ${NAVY_BORDER}`, padding: 20, opacity: 0.7 }}>
-              <p style={{ ...s("b", 11, 300, TEXT_MUTED), lineHeight: 1.6, fontStyle: "italic" }}>
+              </div>
+            )}
+            <div style={{ marginTop: 16, background: "rgba(14,26,46,0.5)", backdropFilter: "blur(8px)", border: `1px solid ${NAVY_BORDER}`, padding: 18, opacity: 0.6 }}>
+              <p style={{ ...f("b", 11, 300, TEXT_MUTED), lineHeight: 1.6, fontStyle: "italic" }}>
                 Evara Advisory provides commercial and strategic advisory services only. We do not provide financial product advice or hold an AFSL.
               </p>
             </div>
@@ -425,8 +594,8 @@ function ContactPage() {
 function Footer() {
   return (
     <footer style={{ padding: "28px 80px", borderTop: `1px solid ${NAVY_BORDER}`, display: "flex", justifyContent: "space-between", background: NAVY_DEEP }}>
-      <span style={{ ...s("b", 11, 300, TEXT_MUTED, 0.5) }}>© 2026 Evara Advisory. All rights reserved.</span>
-      <span style={{ ...s("b", 11, 300, TEXT_MUTED, 0.5) }}>Sydney, Australia</span>
+      <span style={{ ...f("b", 11, 300, TEXT_MUTED, 0.5) }}>© 2026 Evara Advisory. All rights reserved.</span>
+      <span style={{ ...f("b", 11, 300, TEXT_MUTED, 0.5) }}>Sydney, Australia</span>
     </footer>
   );
 }
