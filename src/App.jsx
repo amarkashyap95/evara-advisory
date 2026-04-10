@@ -354,7 +354,7 @@ function AboutPage() {
           <div className="grid-about" style={{ alignItems: "end" }}>
             <div>
               <SR><p style={{ ...h("b", 11, 400, ACCENT, 4, "uppercase"), marginBottom: 16 }}>About</p></SR>
-              <SR delay={0.1}><h2 style={{ ...h("s", 56, 300, TEXT), marginBottom: 10, lineHeight: 1.05 }}>The Firm</h2></SR>
+              <SR delay={0.1}><h2 style={{ ...h("s", 56, 300, TEXT), marginBottom: 10, lineHeight: 1.05 }}>The Principal</h2></SR>
               <SR delay={0.2}><p style={{ ...h("s", 20, 400, SILVER), lineHeight: 1.7, maxWidth: 500, marginTop: 20, fontStyle: "italic" }}>
                 Evara Advisory was founded to deliver institutional-quality advisory and transaction support directly to founders and capital allocators — without the overhead of a large firm.
               </p></SR>
