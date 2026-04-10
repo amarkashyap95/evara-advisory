@@ -354,9 +354,9 @@ function AboutPage() {
           <div className="grid-about" style={{ alignItems: "end" }}>
             <div>
               <SR><p style={{ ...h("b", 11, 400, ACCENT, 4, "uppercase"), marginBottom: 16 }}>About</p></SR>
-              <SR delay={0.1}><h2 style={{ ...h("s", 56, 300, TEXT), marginBottom: 10, lineHeight: 1.05 }}>Hey, I'm Amar.</h2></SR>
+              <SR delay={0.1}><h2 style={{ ...h("s", 56, 300, TEXT), marginBottom: 10, lineHeight: 1.05 }}>The Firm</h2></SR>
               <SR delay={0.2}><p style={{ ...h("s", 20, 400, SILVER), lineHeight: 1.7, maxWidth: 500, marginTop: 20, fontStyle: "italic" }}>
-                Evara Advisory exists to give founders and operators access to the same calibre of financial work that institutional firms deliver — without the overhead.
+                Evara Advisory was founded to deliver institutional-quality advisory and transaction support directly to founders and capital allocators — without the overhead of a large firm.
               </p></SR>
             </div>
             <SR delay={0.3}><div style={{ textAlign: "right" }}>
@@ -372,19 +372,19 @@ function AboutPage() {
         <div className="grid-about">
           <div>
             <SR><p style={{ ...h("b", 15, 300, TEXT_MUTED), lineHeight: 1.95, marginBottom: 28 }}>
-              Seven years across institutional banking, venture capital, corporate development, and family office advisory. Transaction execution, capital strategy, fund structuring, due diligence, and investor materials — from Series A through to complex multi-jurisdictional mandates.
+              The firm is led by Amar Kashyap, drawing on seven years across institutional banking, venture capital, corporate development, and family office advisory. Transaction execution, capital strategy, fund structuring, due diligence, and investor materials — from Series A through to complex multi-jurisdictional mandates.
             </p></SR>
             <SR delay={0.1}><p style={{ ...h("b", 15, 300, TEXT_MUTED), lineHeight: 1.95, marginBottom: 28 }}>
-              I launched Evara Advisory in early 2026 to work directly with founders and capital allocators on the mandates that matter most. Limited capacity by design — every engagement gets full attention.
+              Established in early 2026 and based in Sydney, Evara Advisory operates with limited capacity by design. A deliberately small client list ensures every engagement receives full attention and institutional-grade delivery.
             </p></SR>
             <SR delay={0.2}><p style={{ ...h("b", 15, 300, TEXT_MUTED), lineHeight: 1.95 }}>
-              I also use advanced AI tooling across my workflow — compressing timelines and deepening analysis in ways that traditional advisory models can't replicate.
+              The firm leverages advanced AI tooling across its workflow — compressing timelines and deepening analysis in ways that traditional advisory models cannot replicate.
             </p></SR>
           </div>
           <SR delay={0.2}><div style={{ display: "flex", alignItems: "center" }}>
             <div style={{ borderLeft: `2px solid ${ACCENT}`, paddingLeft: 32, opacity: 0.8 }}>
               <p style={{ ...h("s", 26, 400, TEXT), lineHeight: 1.6, fontStyle: "italic", marginBottom: 16 }}>
-                "Rigour doesn't require a large team. It requires the right one."
+                "Institutional rigour. Boutique delivery."
               </p>
               <p style={{ ...h("b", 10, 500, ACCENT, 2.5, "uppercase") }}>— Amar Kashyap</p>
             </div>
@@ -395,7 +395,7 @@ function AboutPage() {
       {/* Career Timeline — visual */}
       <div className="section-pad" style={{ background: NAVY }}>
         <SR><p style={{ ...h("b", 11, 400, ACCENT, 4, "uppercase"), marginBottom: 14, textAlign: "center" }}>Career</p></SR>
-        <SR delay={0.1}><h3 style={{ ...h("s", 34, 300, TEXT), textAlign: "center", marginBottom: 64 }}>The Path Here</h3></SR>
+        <SR delay={0.1}><h3 style={{ ...h("s", 34, 300, TEXT), textAlign: "center", marginBottom: 64 }}>Principal Background</h3></SR>
         <div style={{ maxWidth: 700, margin: "0 auto", position: "relative" }}>
           {/* Vertical line */}
           <div style={{ position: "absolute", left: 15, top: 8, bottom: 8, width: 1, background: `linear-gradient(180deg, ${ACCENT}, ${NAVY_BORDER})`, opacity: 0.3 }} />
