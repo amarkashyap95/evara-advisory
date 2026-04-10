@@ -1,14 +1,14 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 
-const NAVY = "#0A1628";
-const NAVY_DEEP = "#060F1C";
-const NAVY_CARD = "#0E1A2E";
-const NAVY_BORDER = "#162036";
-const SILVER = "#B4BCC8";
-const SILVER_LIGHT = "#D6DCE4";
-const TEXT = "#E4E8ED";
-const TEXT_MUTED = "#7A8494";
-const ACCENT = "#8FA3BA";
+const NAVY = "#121D2E";
+const NAVY_DEEP = "#0D1520";
+const NAVY_CARD = "#182840";
+const NAVY_BORDER = "#213350";
+const SILVER = "#B8C4D0";
+const SILVER_LIGHT = "#DAE0E8";
+const TEXT = "#EDF0F4";
+const TEXT_MUTED = "#8494A7";
+const ACCENT = "#96ABBE";
 const PAGES = ["Home", "About", "Services", "Track Record", "Contact"];
 const FORMSPREE_URL = "https://formspree.io/f/xbdpvgwj";
 
@@ -521,10 +521,10 @@ function ContactPage() {
               I work with a small number of clients at any given time. Fill out the form and I'll be in touch within 24 hours.
             </p></SR>
             <SR delay={0.25}><div style={{ display: "flex", flexDirection: "column", gap: 24, marginBottom: 48 }}>
-              {[["Email", "amar.kashyap095@gmail.com"], ["LinkedIn", "linkedin.com/in/amarkashyap"], ["Based In", "Sydney, Australia"]].map(([label, val]) => (
+              {[["Email", "amar.kashyap095@gmail.com", "mailto:amar.kashyap095@gmail.com"], ["LinkedIn", "linkedin.com/in/amarkashyap", "https://www.linkedin.com/in/amarkashyap"], ["Based In", "Sydney, Australia", null]].map(([label, val, href]) => (
                 <div key={label}>
                   <p style={{ ...s("b", 10, 400, ACCENT, 3, "uppercase"), marginBottom: 4 }}>{label}</p>
-                  <p style={{ ...s("b", 15, 300, TEXT) }}>{val}</p>
+                  {href ? <a href={href} target="_blank" rel="noopener noreferrer" style={{ ...s("b", 15, 300, TEXT), textDecoration: "none", transition: "color 0.3s" }} onMouseEnter={e => e.target.style.color = ACCENT} onMouseLeave={e => e.target.style.color = TEXT}>{val}</a> : <p style={{ ...s("b", 15, 300, TEXT) }}>{val}</p>}
                 </div>
               ))}
             </div></SR>
@@ -623,8 +623,8 @@ function Footer({ setPage }) {
         </div>
         <div>
           <p style={{ ...s("b", 10, 400, ACCENT, 2.5, "uppercase"), marginBottom: 16 }}>Contact</p>
-          <p style={{ ...s("b", 13, 300, TEXT_MUTED), marginBottom: 8 }}>amar.kashyap095@gmail.com</p>
-          <p style={{ ...s("b", 13, 300, TEXT_MUTED), marginBottom: 8 }}>linkedin.com/in/amarkashyap</p>
+          <a href="mailto:amar.kashyap095@gmail.com" style={{ ...s("b", 13, 300, TEXT_MUTED), marginBottom: 8, display: "block", textDecoration: "none", transition: "color 0.3s" }} onMouseEnter={e => e.target.style.color = TEXT} onMouseLeave={e => e.target.style.color = TEXT_MUTED}>amar.kashyap095@gmail.com</a>
+          <a href="https://www.linkedin.com/in/amarkashyap" target="_blank" rel="noopener noreferrer" style={{ ...s("b", 13, 300, TEXT_MUTED), marginBottom: 8, display: "block", textDecoration: "none", transition: "color 0.3s" }} onMouseEnter={e => e.target.style.color = TEXT} onMouseLeave={e => e.target.style.color = TEXT_MUTED}>linkedin.com/in/amarkashyap</a>
           <p style={{ ...s("b", 13, 300, TEXT_MUTED) }}>Sydney, Australia</p>
         </div>
       </div>
