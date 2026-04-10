@@ -451,8 +451,17 @@ function AboutPage() {
           </div></SR>
           <SR delay={0.2}><div className="card-glow" style={{ background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, padding: 36 }}>
             <p style={{ ...h("b", 9, 500, ACCENT, 3, "uppercase"), marginBottom: 18 }}>Education</p>
-            <p style={{ ...h("s", 18, 500, TEXT), marginBottom: 4 }}>UNSW Sydney</p>
-            <p style={{ ...h("b", 12, 300, TEXT_MUTED), lineHeight: 1.5 }}>B.Com — Finance &<br />Information Systems</p>
+            <p style={{ ...h("s", 18, 500, TEXT), marginBottom: 2 }}>UNSW Sydney</p>
+            <p style={{ ...h("b", 12, 300, TEXT_MUTED), lineHeight: 1.5, marginBottom: 4 }}>B.Commerce / B.Information Systems</p>
+            <p style={{ ...h("b", 12, 400, SILVER_LIGHT), marginBottom: 16 }}>Graduated with Distinction</p>
+            <div style={{ borderTop: `1px solid ${NAVY_BORDER}`, paddingTop: 14, marginBottom: 14 }}>
+              <p style={{ ...h("s", 16, 500, TEXT), marginBottom: 2 }}>University of Illinois</p>
+              <p style={{ ...h("b", 11, 300, TEXT_MUTED), lineHeight: 1.5 }}>12-month international exchange, 2016</p>
+              <p style={{ ...h("b", 12, 400, SILVER_LIGHT), marginTop: 2 }}>4.0 GPA</p>
+            </div>
+            <div style={{ borderTop: `1px solid ${NAVY_BORDER}`, paddingTop: 14 }}>
+              <p style={{ ...h("b", 11, 300, TEXT_MUTED) }}>ATAR 97+</p>
+            </div>
           </div></SR>
           <SR delay={0.25}><div className="card-glow" style={{ background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, padding: 36 }}>
             <p style={{ ...h("b", 9, 500, ACCENT, 3, "uppercase"), marginBottom: 18 }}>Approach</p>
