@@ -187,11 +187,11 @@ function ParticleNetwork({ style }) {
     let w, ht, particles, raf;
     const resize = () => { w = canvas.width = canvas.offsetWidth; ht = canvas.height = canvas.offsetHeight; };
     resize(); window.addEventListener("resize", resize);
-    const count = 80;
+    const count = 120;
     particles = Array.from({ length: count }, () => ({
       x: Math.random() * w, y: Math.random() * ht,
       vx: (Math.random() - 0.5) * 0.3, vy: (Math.random() - 0.5) * 0.3,
-      r: Math.random() * 1.5 + 0.5,
+      r: Math.random() * 2 + 0.5,
     }));
     const move = (e) => { const r = canvas.getBoundingClientRect(); mouse.current = { x: e.clientX - r.left, y: e.clientY - r.top }; };
     canvas.addEventListener("mousemove", move);
@@ -204,19 +204,19 @@ function ParticleNetwork({ style }) {
         // cursor repulsion
         const dx = p.x - mouse.current.x, dy = p.y - mouse.current.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < 120) { p.x += dx * 0.008; p.y += dy * 0.008; }
+        if (dist < 160) { p.x += dx * 0.005; p.y += dy * 0.005; }
         ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = "rgba(150,171,190,0.3)"; ctx.fill();
+        ctx.fillStyle = "rgba(150,171,190,0.15)"; ctx.fill();
       });
       // connections
       for (let i = 0; i < count; i++) {
         for (let j = i + 1; j < count; j++) {
           const dx = particles[i].x - particles[j].x, dy = particles[i].y - particles[j].y;
           const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 140) {
+          if (dist < 200) {
             ctx.beginPath(); ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.strokeStyle = `rgba(150,171,190,${0.12 * (1 - dist / 140)})`;
+            ctx.strokeStyle = `rgba(150,171,190,${0.06 * (1 - dist / 200)})`;
             ctx.lineWidth = 0.5; ctx.stroke();
           }
         }
