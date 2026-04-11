@@ -433,8 +433,7 @@ function Nav({ page, setPage }) {
 function HomePage({ setPage }) {
   return (
     <PhotoSection src={PHOTOS.hero} overlay={0.76}>
-      <ParticleNetwork />
-      <div className="hero-pad" style={{ maxWidth: 780, position: "relative", zIndex: 2 }}>
+      <div className="hero-pad" style={{ maxWidth: 780 }}>
         <p className="fu d1" style={{ ...h("b", 11, 400, ACCENT, 4, "uppercase"), marginBottom: 28 }}>Advisory · Modelling · Capital Strategy</p>
         <h1 className="fu d3 hero-title" style={{ ...h("s", 84, 300, TEXT), lineHeight: 1.0, marginBottom: 10 }}>
           Evara<br />Advisory
