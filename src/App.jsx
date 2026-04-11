@@ -28,7 +28,7 @@ document.head.appendChild(fontLink);
 
 const styleEl = document.createElement("style");
 styleEl.textContent = `
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+  * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
   body { background: ${NAVY_DEEP}; overflow-x: hidden; }
   ::selection { background: ${SILVER}; color: ${NAVY_DEEP}; }
   html { scroll-behavior: smooth; }
@@ -52,9 +52,21 @@ styleEl.textContent = `
   .photo-bg { position: absolute; inset: 0; background-size: cover; background-position: center;
     animation: panSlow 25s ease-in-out infinite alternate; }
 
-  .grain { position: fixed; inset: 0; pointer-events: none; z-index: 9999; opacity: 0.02;
+  .grain { position: fixed; inset: -4px; pointer-events: none; z-index: 9999; opacity: 0.025;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    background-repeat: repeat; background-size: 200px; }
+    background-repeat: repeat; background-size: 256px;
+    animation: grainShift 0.5s steps(3) infinite; }
+  @keyframes grainShift { 0% { transform: translate(0,0); } 33% { transform: translate(-3px,2px); } 66% { transform: translate(2px,-2px); } 100% { transform: translate(-1px,3px); } }
+
+  .scroll-progress { position: fixed; top: 0; left: 0; height: 2px; z-index: 101;
+    background: linear-gradient(90deg, ${ACCENT}, ${SILVER_LIGHT}); transition: width 0.05s linear; }
+
+  .custom-cursor { position: fixed; width: 20px; height: 20px; border-radius: 50%;
+    border: 1px solid rgba(150,171,190,0.35); pointer-events: none; z-index: 10001;
+    transition: width 0.2s ease, height 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+    transform: translate(-50%, -50%); }
+  .custom-cursor.hovering { width: 48px; height: 48px; border-color: rgba(150,171,190,0.5);
+    background: rgba(150,171,190,0.05); }
 
   input, textarea, select { font-family: 'Manrope', sans-serif; }
   input:focus, textarea:focus, select:focus { outline: none; border-color: ${ACCENT} !important; }
@@ -146,6 +158,8 @@ styleEl.textContent = `
     .logo-bar > div[style*="width: 1px"] { display: none; }
     .process-grid { grid-template-columns: 1fr; gap: 32px; }
     .card-glow:hover { transform: none; }
+    .custom-cursor { display: none !important; }
+    * { cursor: auto !important; }
   }
 `;
 document.head.appendChild(styleEl);
@@ -159,6 +173,130 @@ function useIsMobile() {
   const [m, setM] = useState(window.innerWidth <= 768);
   useEffect(() => { const fn = () => setM(window.innerWidth <= 768); window.addEventListener("resize", fn); return () => window.removeEventListener("resize", fn); }, []);
   return m;
+}
+
+// Particle Network - interactive constellation on hero
+function ParticleNetwork({ style }) {
+  const canvasRef = useRef(null);
+  const mouse = useRef({ x: -1000, y: -1000 });
+  const mob = useIsMobile();
+  useEffect(() => {
+    if (mob) return;
+    const canvas = canvasRef.current; if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    let w, ht, particles, raf;
+    const resize = () => { w = canvas.width = canvas.offsetWidth; ht = canvas.height = canvas.offsetHeight; };
+    resize(); window.addEventListener("resize", resize);
+    const count = 80;
+    particles = Array.from({ length: count }, () => ({
+      x: Math.random() * w, y: Math.random() * ht,
+      vx: (Math.random() - 0.5) * 0.3, vy: (Math.random() - 0.5) * 0.3,
+      r: Math.random() * 1.5 + 0.5,
+    }));
+    const move = (e) => { const r = canvas.getBoundingClientRect(); mouse.current = { x: e.clientX - r.left, y: e.clientY - r.top }; };
+    canvas.addEventListener("mousemove", move);
+    const draw = () => {
+      ctx.clearRect(0, 0, w, ht);
+      particles.forEach(p => {
+        p.x += p.vx; p.y += p.vy;
+        if (p.x < 0 || p.x > w) p.vx *= -1;
+        if (p.y < 0 || p.y > ht) p.vy *= -1;
+        // cursor repulsion
+        const dx = p.x - mouse.current.x, dy = p.y - mouse.current.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 120) { p.x += dx * 0.008; p.y += dy * 0.008; }
+        ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(150,171,190,0.3)"; ctx.fill();
+      });
+      // connections
+      for (let i = 0; i < count; i++) {
+        for (let j = i + 1; j < count; j++) {
+          const dx = particles[i].x - particles[j].x, dy = particles[i].y - particles[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 140) {
+            ctx.beginPath(); ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.strokeStyle = `rgba(150,171,190,${0.12 * (1 - dist / 140)})`;
+            ctx.lineWidth = 0.5; ctx.stroke();
+          }
+        }
+      }
+      raf = requestAnimationFrame(draw);
+    };
+    draw();
+    return () => { cancelAnimationFrame(raf); window.removeEventListener("resize", resize); canvas.removeEventListener("mousemove", move); };
+  }, [mob]);
+  if (mob) return null;
+  return <canvas ref={canvasRef} style={{ position: "absolute", inset: 0, zIndex: 1, pointerEvents: "auto", ...style }} />;
+}
+
+// Custom Cursor
+function CustomCursor() {
+  const ref = useRef(null);
+  const pos = useRef({ x: -100, y: -100 });
+  const target = useRef({ x: -100, y: -100 });
+  const mob = useIsMobile();
+  useEffect(() => {
+    if (mob) return;
+    const move = (e) => { target.current = { x: e.clientX, y: e.clientY }; };
+    const over = () => ref.current?.classList.add("hovering");
+    const out = () => ref.current?.classList.remove("hovering");
+    window.addEventListener("mousemove", move);
+    const loop = () => {
+      pos.current.x += (target.current.x - pos.current.x) * 0.15;
+      pos.current.y += (target.current.y - pos.current.y) * 0.15;
+      if (ref.current) { ref.current.style.left = pos.current.x + "px"; ref.current.style.top = pos.current.y + "px"; }
+      requestAnimationFrame(loop);
+    };
+    loop();
+    const addHover = () => {
+      document.querySelectorAll("button, a, .card-glow, .tag, .nav-link, .nav-mono").forEach(el => {
+        el.addEventListener("mouseenter", over); el.addEventListener("mouseleave", out);
+      });
+    };
+    addHover();
+    const obs = new MutationObserver(addHover);
+    obs.observe(document.body, { childList: true, subtree: true });
+    return () => { window.removeEventListener("mousemove", move); obs.disconnect(); };
+  }, [mob]);
+  if (mob) return null;
+  return <div ref={ref} className="custom-cursor" />;
+}
+
+// Scroll Progress Bar
+function ScrollProgress() {
+  const [width, setWidth] = useState(0);
+  useEffect(() => {
+    const fn = () => {
+      const st = window.scrollY, h = document.documentElement.scrollHeight - window.innerHeight;
+      setWidth(h > 0 ? (st / h) * 100 : 0);
+    };
+    window.addEventListener("scroll", fn); return () => window.removeEventListener("scroll", fn);
+  }, []);
+  return <div className="scroll-progress" style={{ width: `${width}%` }} />;
+}
+
+// Tilt Card - 3D perspective on hover
+function TiltCard({ children, className, style: sx }) {
+  const ref = useRef(null);
+  const mob = useIsMobile();
+  const handleMove = (e) => {
+    if (mob) return;
+    const el = ref.current; if (!el) return;
+    const r = el.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width - 0.5;
+    const y = (e.clientY - r.top) / r.height - 0.5;
+    el.style.transform = `perspective(800px) rotateY(${x * 4}deg) rotateX(${-y * 4}deg) translateY(-2px)`;
+  };
+  const handleLeave = () => {
+    if (ref.current) ref.current.style.transform = "perspective(800px) rotateY(0deg) rotateX(0deg) translateY(0px)";
+  };
+  return (
+    <div ref={ref} className={className} style={{ ...sx, transition: "transform 0.3s ease, box-shadow 0.4s ease", transformStyle: "preserve-3d" }}
+      onMouseMove={handleMove} onMouseLeave={handleLeave}>
+      {children}
+    </div>
+  );
 }
 
 function useScrollReveal() {
@@ -295,7 +433,8 @@ function Nav({ page, setPage }) {
 function HomePage({ setPage }) {
   return (
     <PhotoSection src={PHOTOS.hero} overlay={0.76}>
-      <div className="hero-pad" style={{ maxWidth: 780 }}>
+      <ParticleNetwork />
+      <div className="hero-pad" style={{ maxWidth: 780, position: "relative", zIndex: 2 }}>
         <p className="fu d1" style={{ ...h("b", 11, 400, ACCENT, 4, "uppercase"), marginBottom: 28 }}>Advisory · Modelling · Capital Strategy</p>
         <h1 className="fu d3 hero-title" style={{ ...h("s", 84, 300, TEXT), lineHeight: 1.0, marginBottom: 10 }}>
           Evara<br />Advisory
@@ -343,7 +482,7 @@ function AboutPage() {
   const timeline = [
     { year: "2019", role: "Institutional Banking", org: "ANZ", desc: "M&A advisory and leveraged finance — structuring and syndicating facilities for PE sponsors. Moved into the bank's venture arm, deploying capital into growth-stage fintech from Series A." },
     { year: "2022", role: "Corporate Development", org: "PEXA Group", desc: "Proptech venture investments and corporate development strategy for a major ASX-listed technology platform." },
-    { year: "2023", role: "Founding Hire", org: "Early-Stage Venture Fund", desc: "Sole-led due diligence and IC approvals. Managed LP communications and fund capital raising. Full lifecycle experience — fund formation through to wind-down." },
+    { year: "2023", role: "Founding Hire", org: "Early-Stage Venture Fund", desc: "Sole-led due diligence and IC approvals. Managed LP communications and fund capital raising. Deployed over $10M in equity capital across multiple portfolio companies." },
     { year: "2026", role: "Founder", org: "Evara Advisory", desc: "Independent advisory practice. Three mandates in the first quarter — fund structuring, investor readiness, and strategic advisory." },
   ];
   return (
@@ -478,52 +617,51 @@ function AboutPage() {
 function ServiceCard({ item, i, activeTab }) {
   const [hov, setHov] = useState(false);
   return (
-    <div onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)} className="card-glow"
-      style={{ background: hov ? NAVY_CARD : NAVY_DEEP, padding: 40, cursor: "default", border: `1px solid ${NAVY_BORDER}`, borderLeft: hov ? `2px solid ${ACCENT}` : `1px solid ${NAVY_BORDER}`, transition: "all 0.3s" }}>
-      <div style={{ width: 28, height: 28, borderRadius: "50%", border: `1px solid ${ACCENT}`, display: "flex", alignItems: "center", justifyContent: "center", ...h("b", 10, 400, ACCENT), marginBottom: 18, opacity: 0.4 }}>{String(i + 1).padStart(2, "0")}</div>
-      <h4 style={{ ...h("s", 21, 500, TEXT), marginBottom: 12 }}>{item.t}</h4>
-      <p style={{ ...h("b", 13, 300, TEXT_MUTED), lineHeight: 1.85 }}>{item.d}</p>
-    </div>
+    <TiltCard className="card-glow"
+      style={{ background: hov ? NAVY_CARD : NAVY_DEEP, padding: 40, cursor: "default", border: `1px solid ${NAVY_BORDER}`, borderLeft: hov ? `2px solid ${ACCENT}` : `1px solid ${NAVY_BORDER}` }}
+    >
+      <div onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)} style={{ height: "100%" }}>
+        <div style={{ width: 28, height: 28, borderRadius: "50%", border: `1px solid ${ACCENT}`, display: "flex", alignItems: "center", justifyContent: "center", ...h("b", 10, 400, ACCENT), marginBottom: 18, opacity: 0.4 }}>{String(i + 1).padStart(2, "0")}</div>
+        <h4 style={{ ...h("s", 21, 500, TEXT), marginBottom: 12 }}>{item.t}</h4>
+        <p style={{ ...h("b", 13, 300, TEXT_MUTED), lineHeight: 1.85 }}>{item.d}</p>
+      </div>
+    </TiltCard>
   );
 }
 
 function ServicesPage() {
   const segments = [
-    { id: "founders", label: "Early-Stage", sub: "Pre-seed through Series A+ — building the foundations investors need to see.",
+    { id: "foundations", label: "Building Foundations", sub: "Getting the structure right before you go to market — equity, agreements, and the commercial backbone of your business.",
       items: [
-        { t: "Financial Strategy & Modelling", d: "Unit economics, revenue forecasts, scenario analysis, cash runway, and valuation frameworks. Models built to withstand investor due diligence — not just for the spreadsheet, but for the conversation." },
-        { t: "Pitch Decks & Investor Materials", d: "Compelling, structured decks, one-pagers, and investment teasers that communicate your opportunity with clarity. Built from scratch around your story — not templates." },
-        { t: "Capital Raising Preparation", d: "End-to-end fundraising readiness — data room build-out on DocSend, model stress-testing, investor shortlisting, narrative refinement, and process management through to close." },
-        { t: "Commercial Agreements", d: "Shareholder agreements, ESOP frameworks, key commercial contracts, and term sheet review support. Structured to protect founders while remaining investor-friendly." },
-        { t: "Product Prototyping & MVPs", d: "Functional product prototypes, landing pages, and interactive demos to support investor conversations and early customer validation — built fast with AI-assisted development." },
+        { t: "Equity Structuring & Co-Founder Alignment", d: "Designing fair, defensible equity splits and vesting frameworks that protect all parties and hold up as the business scales. Getting this right early avoids the disputes that derail companies later." },
+        { t: "Shareholder & Commercial Agreements", d: "Drafting shareholder agreements, ESOP frameworks, key commercial contracts, and partnership terms. Structured to protect founders while remaining investor-friendly when the time comes." },
+        { t: "First Financial Model & Business Plan", d: "A clean, credible model that maps your revenue logic, unit economics, and cash runway — the baseline document every serious conversation will reference." },
+        { t: "Entity Structuring", d: "Guidance on company setup, holding structures, and jurisdictional considerations — ensuring your corporate architecture supports future fundraising and growth." },
+        { t: "Product Prototyping & MVPs", d: "Functional prototypes, landing pages, and interactive demos to validate your concept with early customers or support initial investor conversations." },
       ] },
-    { id: "ceo", label: "Founder & CEO", sub: "A strategic thought partner for founders navigating high-stakes decisions.",
+    { id: "raising", label: "Raising Capital", sub: "End-to-end preparation for founders and fund managers raising institutional or private capital.",
       items: [
-        { t: "Investor Readiness Coaching", d: "Sharpen your narrative, pressure-test assumptions, and rehearse for tough questions. Candid, structured feedback from someone who has sat on both sides of the table." },
-        { t: "Board & Stakeholder Reporting", d: "Structured board packs, quarterly investor updates, and management reporting frameworks. Decision-oriented documents that build confidence with your stakeholders." },
-        { t: "Strategic Planning & Scenario Analysis", d: "Help thinking through growth options, market entry, pricing strategy, competitive positioning, and key commercial decisions — grounded in financial reality, not theory." },
-        { t: "Operational Tooling", d: "Custom-built Excel systems for pricing, estimating, forecasting, and operational workflows. For businesses that have outgrown spreadsheets but aren't ready for enterprise software." },
+        { t: "Financial Models & Valuation Frameworks", d: "Unit economics, revenue forecasts, scenario analysis, cash runway, and valuation frameworks. Built to withstand investor due diligence — not just for the spreadsheet, but for the conversation." },
+        { t: "Pitch Decks & Investor Materials", d: "Compelling, structured decks, investment memoranda, one-pagers, and teasers. Built from scratch around your story and your numbers — not templates." },
+        { t: "Data Room & Process Management", d: "Full data room build-out on DocSend, model stress-testing, investor shortlisting, narrative refinement, and end-to-end process management through to close." },
+        { t: "Investor Readiness & Coaching", d: "Sharpen your narrative, pressure-test assumptions, and rehearse for the tough questions. Candid feedback from someone who has sat on both sides of the table." },
+        { t: "Investor Targeting & Introductions", d: "Identifying the right investors for your stage and sector, warm introductions where possible, and strategic sequencing of your outreach." },
       ] },
-    { id: "family", label: "Family Offices", sub: "Institutional-grade modelling and strategy for private capital groups.",
+    { id: "deploying", label: "Deploying Capital", sub: "Transaction support and fund operations for family offices, VC, and PE.",
       items: [
-        { t: "Fund Structuring & Modelling", d: "End-to-end fund architecture — vehicle design, capital deployment logic, GP/LP economics, distribution waterfalls, and cross-border structuring across Australian and international jurisdictions." },
-        { t: "Investment Memoranda & Fundraising Materials", d: "Institutional-quality IMs, investor presentations, and supporting documentation to the standard expected by sophisticated LPs and co-investors." },
-        { t: "Portfolio Strategy & Diversification", d: "Revenue diversification planning, new sector evaluation, and strategic analysis to help family offices expand beyond core operations into new verticals or asset classes." },
-        { t: "Operational Strategy", d: "M&A screening, bolt-on acquisition analysis, and operational efficiency reviews for portfolio companies and multi-site operating businesses including franchise models." },
+        { t: "Fund Structuring & Waterfall Modelling", d: "End-to-end fund architecture — vehicle design, capital deployment logic, GP/LP economics, distribution waterfalls, and cross-border structuring across multiple jurisdictions." },
+        { t: "Due Diligence & IC Support", d: "Commercial due diligence workstreams, management presentation preparation, and IC memo drafting. Experience sole-leading DD from initial screening to Investment Committee approval." },
+        { t: "Deal Documentation", d: "Information memoranda, confidential teasers, process letters, and data room structuring. Materials that accelerate deal execution and reduce back-and-forth." },
+        { t: "LP Communications & Fund Reporting", d: "Quarterly LP reports, capital call notices, distribution notices, and fund performance reporting. Clear, professional communications that maintain investor confidence." },
+        { t: "Portfolio Strategy & M&A Screening", d: "Revenue diversification planning, sector evaluation, bolt-on acquisition analysis, and strategic review for portfolio companies and multi-site operators." },
       ] },
-    { id: "invest", label: "Investment Firms", sub: "Experienced support across the deal lifecycle.",
+    { id: "scaling", label: "Scaling Operations", sub: "Commercial tools, reporting, and strategic advisory for businesses ready to professionalise.",
       items: [
-        { t: "Financial Model Build & Audit", d: "LBO models, DCF valuations, comparable analysis, and returns modelling. Built to institutional standards with fully documented assumptions and auditable outputs." },
-        { t: "Due Diligence Support", d: "Commercial due diligence workstreams, management presentation preparation, and IC memo drafting. Experience sole-leading DD processes from initial screening to Investment Committee approval." },
-        { t: "Deal Documentation", d: "Information memoranda, confidential teasers, process letters, and data room structuring. Supporting materials that accelerate deal execution and reduce back-and-forth." },
-        { t: "LP Communications & Reporting", d: "Quarterly LP reports, capital call notices, distribution notices, and fund performance reporting. Clear, professional communications that maintain investor confidence." },
-      ] },
-    { id: "smb", label: "SMBs", sub: "Practical commercial tools and frameworks for businesses ready to scale.",
-      items: [
-        { t: "Commercial Strategy", d: "Market entry analysis, revenue model design, pricing strategy, and growth planning for established operators looking to expand or optimise their core business." },
-        { t: "Financial Systems & Dashboards", d: "Custom Excel models, KPI dashboards, and management reporting tools. Clean, powerful, and built to evolve with your business — delivered at a fraction of the cost of enterprise software." },
-        { t: "Investor & Partner Readiness", d: "Whether you're bringing on a strategic partner, exploring private equity, or preparing for an eventual exit — getting your financials, story, and data room to the standard buyers expect." },
-        { t: "AI-Assisted Research & Analysis", d: "Leveraging advanced AI to compress weeks of market research, competitive analysis, and data synthesis into days — without sacrificing depth or accuracy." },
+        { t: "Strategic & Commercial Advisory", d: "Market entry analysis, revenue model design, pricing strategy, and growth planning for established operators looking to expand or optimise their core business." },
+        { t: "Board Packs & Stakeholder Reporting", d: "Structured board packs, quarterly updates, and management reporting frameworks. Decision-oriented documents that build confidence with investors and partners." },
+        { t: "Financial Systems & Dashboards", d: "Custom Excel models, KPI dashboards, and operational reporting tools. Clean, powerful, and built to evolve with your business — at a fraction of enterprise software cost." },
+        { t: "Operational Tooling", d: "Custom-built systems for pricing, estimating, forecasting, and workflows. For businesses that have outgrown spreadsheets but aren't ready for enterprise software." },
+        { t: "Exit & Partner Readiness", d: "Whether you're bringing on a strategic partner, exploring private equity, or preparing for an eventual exit — getting your financials, story, and data room to the standard buyers expect." },
       ] },
   ];
   const process = [
@@ -532,7 +670,7 @@ function ServicesPage() {
     { step: "03", title: "NDA & Kickoff", desc: "Mutual NDA executed. Access to materials. Structured kickoff." },
     { step: "04", title: "Delivery & Review", desc: "Iterative delivery with milestone check-ins. Institutional-standard output." },
   ];
-  const [activeTab, setActiveTab] = useState("founders");
+  const [activeTab, setActiveTab] = useState("foundations");
   const active = segments.find(sg => sg.id === activeTab);
   return (
     <>
@@ -542,7 +680,7 @@ function ServicesPage() {
           <SR delay={0.1}><h2 style={{ ...h("s", 52, 300, TEXT), marginBottom: 14 }}>How I Help</h2></SR>
           <SR delay={0.15}><Line style={{ marginBottom: 28 }} /></SR>
           <SR delay={0.2}><p style={{ ...h("b", 15, 300, SILVER), lineHeight: 1.85, maxWidth: 620, marginBottom: 14 }}>
-            Scoped around outcomes, not hours. Whether you're preparing for a first institutional conversation or structuring a cross-border fund — select your profile below.
+            Scoped around outcomes, not hours. Select where you are below.
           </p></SR>
           <SR delay={0.25}><p style={{ ...h("b", 11, 300, TEXT_MUTED), lineHeight: 1.6, maxWidth: 580, fontStyle: "italic", opacity: 0.5 }}>
             Evara Advisory provides commercial and strategic advisory services. We do not provide financial product advice.
@@ -623,7 +761,7 @@ function TrackRecordPage({ setPage }) {
     { sector: "Legal Technology", client: "Legaltech Platform — Founder", type: "Strategic Advisory · Financial Modelling · Investor Readiness", detail: "Advising the founder of an early-stage legaltech platform on commercial strategy, financial model architecture, and fundraising preparation. Scoping engagement with potential to expand into full investment memorandum and capital raising support." },
   ];
   const career = [
-    { period: "2023 — 2025", client: "Early-Stage Venture Capital Fund", type: "Fund Operations · Due Diligence · Capital Raising", detail: "Founding hire alongside the Managing Partner at a Sydney-based venture fund. Sole-led due diligence and Investment Committee approvals. Managed LP communications, fund capital raising, and deal pipeline. End-to-end experience of the full fund lifecycle." },
+    { period: "2023 — 2025", client: "Early-Stage Venture Capital Fund", type: "Fund Operations · Due Diligence · Capital Raising", detail: "Founding hire alongside the Managing Partner at a Sydney-based venture fund. Sole-led due diligence and Investment Committee approvals. Managed LP communications, fund capital raising, and deal pipeline. Deployed over $10M in equity capital across multiple portfolio companies." },
     { period: "2022", client: "ASX-Listed Technology Platform", type: "Corporate Development · Proptech Venture Investments", detail: "Evaluated and executed venture investments from Series A onwards across the proptech ecosystem. Supported corporate development strategy during the company's time as a publicly listed business." },
     { period: "2019 — 2022", client: "Top-4 Australian Bank — Institutional Division", type: "M&A Advisory · Leveraged Finance · Venture Investments", detail: "Three years across the Institutional Bank spanning M&A advisory, leveraged finance — structuring debt facilities for PE sponsors — and growth-stage venture investing through the bank's innovation arm." },
   ];
@@ -647,7 +785,7 @@ function TrackRecordPage({ setPage }) {
         <div className="grid-3" style={{ maxWidth: 1000, margin: "0 auto", gap: 20, background: "transparent" }}>
           {recent.map((r, i) => (
             <SR key={i} delay={i * 0.12}>
-              <div className="card-glow" style={{ background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, borderTop: `2px solid ${ACCENT}`, padding: 36, height: "100%" }}>
+              <TiltCard className="card-glow" style={{ background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, borderTop: `2px solid ${ACCENT}`, padding: 36, height: "100%" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 18 }}>
                   <div style={{ width: 7, height: 7, borderRadius: "50%", background: GREEN, boxShadow: `0 0 8px rgba(74,222,128,0.4)` }} />
                   <span style={{ ...h("b", 9, 500, GREEN, 2, "uppercase"), opacity: 0.8 }}>Active</span>
@@ -657,7 +795,7 @@ function TrackRecordPage({ setPage }) {
                 <p style={{ ...h("b", 10, 300, ACCENT, 1.5, "uppercase"), marginBottom: 18 }}>{r.type}</p>
                 <div style={{ width: 32, height: 1, background: NAVY_BORDER, marginBottom: 18 }} />
                 <p style={{ ...h("b", 13, 300, TEXT_MUTED), lineHeight: 1.85 }}>{r.detail}</p>
-              </div>
+              </TiltCard>
             </SR>
           ))}
         </div>
@@ -667,20 +805,20 @@ function TrackRecordPage({ setPage }) {
         <SR><p style={{ ...h("b", 11, 400, ACCENT, 3, "uppercase"), marginBottom: 14, textAlign: "center" }}>Client Feedback</p></SR>
         <SR delay={0.05}><h3 style={{ ...h("s", 34, 300, TEXT), textAlign: "center", marginBottom: 56 }}>What Clients Say</h3></SR>
         <div className="testimonial-grid" style={{ maxWidth: 900, margin: "0 auto" }}>
-          <SR delay={0.1}><div className="card-glow" style={{ background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, padding: 48, height: "100%", borderTop: `2px solid ${ACCENT}` }}>
+          <SR delay={0.1}><TiltCard className="card-glow" style={{ background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, padding: 48, height: "100%", borderTop: `2px solid ${ACCENT}` }}>
             <div style={{ display: "flex", gap: 6, marginBottom: 18 }}>{[1,2,3,4,5].map(i => <span key={i} style={{ color: "#D4AA60", fontSize: 15 }}>★</span>)}</div>
             <p style={{ ...h("s", 20, 400, TEXT), lineHeight: 1.75, fontStyle: "italic", marginBottom: 28 }}>Amar's modelling skills were of a very high quality. He built a powerful set of supporting documents that gave us real confidence going to market.</p>
             <div style={{ width: 40, height: 1, background: `linear-gradient(90deg, ${ACCENT}, transparent)`, marginBottom: 18, opacity: 0.4 }} />
             <p style={{ ...h("b", 12, 500, SILVER_LIGHT, 1.5, "uppercase") }}>Family Office</p>
             <p style={{ ...h("b", 11, 300, TEXT_MUTED), marginTop: 4 }}>Health & Fitness Sector</p>
-          </div></SR>
-          <SR delay={0.2}><div className="card-glow" style={{ background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, padding: 48, height: "100%", borderTop: `2px solid ${ACCENT}` }}>
+          </TiltCard></SR>
+          <SR delay={0.2}><TiltCard className="card-glow" style={{ background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, padding: 48, height: "100%", borderTop: `2px solid ${ACCENT}` }}>
             <div style={{ display: "flex", gap: 6, marginBottom: 18 }}>{[1,2,3,4,5].map(i => <span key={i} style={{ color: "#D4AA60", fontSize: 15 }}>★</span>)}</div>
             <p style={{ ...h("s", 20, 400, TEXT), lineHeight: 1.75, fontStyle: "italic", marginBottom: 28 }}>Amar built a robust set of key company agreements, financial model, and investor deck. He was a key part of our team feeling confident approaching investors and being fully prepared.</p>
             <div style={{ width: 40, height: 1, background: `linear-gradient(90deg, ${ACCENT}, transparent)`, marginBottom: 18, opacity: 0.4 }} />
             <p style={{ ...h("b", 12, 500, SILVER_LIGHT, 1.5, "uppercase") }}>Founder & CEO</p>
             <p style={{ ...h("b", 11, 300, TEXT_MUTED), marginTop: 4 }}>Consumer Business, Medical Sector</p>
-          </div></SR>
+          </TiltCard></SR>
         </div>
       </div>
       {/* Logo Bar */}
@@ -798,7 +936,7 @@ function ContactPage() {
                   <div className="grid-form-row">
                     <div><label style={labelStyle}>Service of Interest</label>
                       <select style={{ ...inputStyle, cursor: "pointer", appearance: "none" }} value={form.service} onChange={e => setForm({ ...form, service: e.target.value })}>
-                        {["", "Financial Modelling", "Pitch Deck / Investor Materials", "Capital Raising Preparation", "Fund Structuring", "Strategic Advisory", "Board Reporting", "Operational Tooling", "MVP / Prototyping", "AI Adoption & Automation", "Other / Not Sure"].map(v => <option key={v} value={v} style={{ background: NAVY_CARD }}>{v || "Select..."}</option>)}
+                        {["", "Building Foundations (Structure, Agreements, First Model)", "Raising Capital (Models, Decks, Data Room, Coaching)", "Deploying Capital (Fund Structuring, DD, Deal Docs)", "Scaling Operations (Strategy, Reporting, Tooling)", "AI Adoption & Automation", "Other / Not Sure"].map(v => <option key={v} value={v} style={{ background: NAVY_CARD }}>{v || "Select..."}</option>)}
                       </select></div>
                     <div><label style={labelStyle}>Indicative Budget</label>
                       <select style={{ ...inputStyle, cursor: "pointer", appearance: "none" }} value={form.budget} onChange={e => setForm({ ...form, budget: e.target.value })}>
@@ -886,6 +1024,8 @@ export default function App() {
     <div style={{ background: NAVY_DEEP, color: TEXT, minHeight: "100vh" }}>
       <Preloader done={loaded} />
       <div className="grain" />
+      <CustomCursor />
+      <ScrollProgress />
       <Nav page={page} setPage={nav} />
       <div key={key} className="page-enter">{pages[page]}</div>
       <Footer setPage={nav} />
