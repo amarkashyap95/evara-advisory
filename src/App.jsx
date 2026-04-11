@@ -341,8 +341,8 @@ function HomePage({ setPage }) {
 
 function AboutPage() {
   const timeline = [
-    { year: "2019", role: "Institutional Banking", org: "Top-4 Australian Bank", desc: "M&A advisory and leveraged finance — structuring and syndicating facilities for PE sponsors. Moved into the bank's venture arm, deploying capital into growth-stage fintech from Series A." },
-    { year: "2022", role: "Corporate Development", org: "ASX-Listed Technology Platform", desc: "Proptech venture investments and corporate development strategy for a major ASX-listed technology platform." },
+    { year: "2019", role: "Institutional Banking", org: "ANZ", desc: "M&A advisory and leveraged finance — structuring and syndicating facilities for PE sponsors. Moved into the bank's venture arm, deploying capital into growth-stage fintech from Series A." },
+    { year: "2022", role: "Corporate Development", org: "PEXA Group", desc: "Proptech venture investments and corporate development strategy for a major ASX-listed technology platform." },
     { year: "2023", role: "Founding Hire", org: "Early-Stage Venture Fund", desc: "Sole-led due diligence and IC approvals. Managed LP communications and fund capital raising. Full lifecycle experience — fund formation through to wind-down." },
     { year: "2026", role: "Founder", org: "Evara Advisory", desc: "Independent advisory practice. Three mandates in the first quarter — fund structuring, investor readiness, and strategic advisory." },
   ];
@@ -426,7 +426,7 @@ function AboutPage() {
         <div className="grid-2" style={{ gap: 18, background: "transparent" }}>
           <SR><div className="card-glow" style={{ background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, padding: 36 }}>
             <p style={{ ...h("b", 9, 500, ACCENT, 3, "uppercase"), marginBottom: 18 }}>Career Heritage</p>
-            {["Top-4 Australian Bank — M&A & Leveraged Finance", "Bank Venture Arm — Growth-Stage Tech Investments", "ASX-Listed Platform — Corporate Development", "Venture Capital Fund — Founding Hire & Fund Operations", "Family Office — Fund Structuring & Investment Strategy"].map((item, i) => (
+            {["ANZ — M&A & Leveraged Finance", "Bank Venture Arm — Growth-Stage Tech Investments", "PEXA Group — Corporate Development", "Venture Capital Fund — Founding Hire & Fund Operations", "Family Office — Fund Structuring & Investment Strategy"].map((item, i) => (
               <div key={i} style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: i < 4 ? 14 : 0 }}>
                 <div style={{ width: 3, height: 3, borderRadius: "50%", background: ACCENT, flexShrink: 0 }} />
                 <p style={{ ...h("b", 12.5, 300, TEXT_MUTED), lineHeight: 1.5 }}>{item}</p>
@@ -584,14 +584,14 @@ function ServicesPage() {
         <SR delay={0.1}><p style={{ ...h("b", 14, 300, TEXT_MUTED), lineHeight: 1.85, maxWidth: 620, marginBottom: 40 }}>
           Embedded across all engagements. AI-augmented delivery that compresses timelines without compromising depth.
         </p></SR>
-        <div className="grid-4" style={{ gap: "1px", background: NAVY_BORDER }}>
+        <div className="grid-4" style={{ gap: "1px", background: NAVY_BORDER, alignItems: "stretch" }}>
           {[
             { t: "AI Strategy & Readiness", d: "Structured review of your operations to identify where AI delivers the highest impact. Practical roadmap, not buzzwords." },
             { t: "Custom Workflows & Automations", d: "Purpose-built AI workflows — automated reporting, document generation, data extraction, and client communications." },
             { t: "AI-Powered Tools & Apps", d: "Bespoke internal tools with AI at their core — dashboards, intelligent document search, proposal generators, pricing engines." },
             { t: "Process Automation", d: "Connecting your existing tools with AI — CRM workflows, invoice processing, lead qualification, content generation." },
           ].map((item, i) => (
-            <SR key={i} delay={i * 0.1}><div className="card-glow" style={{ background: NAVY_DEEP, padding: 32 }}>
+            <SR key={i} delay={i * 0.1} style={{ display: "flex" }}><div className="card-glow" style={{ background: NAVY_DEEP, padding: 32, flex: 1 }}>
               <h4 style={{ ...h("s", 18, 500, TEXT), marginBottom: 12 }}>{item.t}</h4>
               <p style={{ ...h("b", 12.5, 300, TEXT_MUTED), lineHeight: 1.8 }}>{item.d}</p>
             </div></SR>
