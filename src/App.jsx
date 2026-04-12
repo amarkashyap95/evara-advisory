@@ -466,12 +466,7 @@ function HomePage({ setPage }) {
           <p style={{ ...h("s", 15, 400, TEXT_MUTED), fontStyle: "italic", maxWidth: 340 }}>A key part of our team feeling confident approaching investors.</p>
           <span style={{ ...h("b", 9, 300, ACCENT, 2, "uppercase"), opacity: 0.5 }}>— Founder & CEO</span>
         </div>
-        <div style={{ width: 1, height: 24, background: NAVY_BORDER }} />
-        <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-          <div style={{ ...h("s", 28, 300, ACCENT), opacity: 0.3 }}>"</div>
-          <p style={{ ...h("s", 15, 400, TEXT_MUTED), fontStyle: "italic", maxWidth: 340 }}>Modelling skills of a very high quality with powerful supporting documents.</p>
-          <span style={{ ...h("b", 9, 300, ACCENT, 2, "uppercase"), opacity: 0.5 }}>— Family Office</span>
-        </div>
+
       </div>
     </PhotoSection>
   );
@@ -755,7 +750,7 @@ function ServicesPage() {
 
 function TrackRecordPage({ setPage }) {
   const recent = [
-    { sector: "Health & Fitness", client: "Major Australian Family Office", type: "Fund Structuring · Financial Modelling · Investor Materials", detail: "Leading financial modelling and investment strategy for a new UK-based fund. Complete fund model with multi-jurisdiction vehicle structure, capital deployment logic, and waterfall mechanics. Full Investment Memorandum and board-level materials for an institutional equity raise." },
+    { sector: "Health & Fitness", client: "Private Franchise Group", type: "Fund Structuring · Financial Modelling · Investor Materials", detail: "Leading financial modelling and investment strategy for a new fund vehicle. Complete fund model with multi-jurisdiction vehicle structure, capital deployment logic, and waterfall mechanics. Full Investment Memorandum and board-level materials for an institutional equity raise." },
     { sector: "Beauty & Medical", client: "Consumer Business — Founder & CEO", type: "Commercial Agreements · Financial Model · Investor Deck", detail: "Building a comprehensive set of key commercial agreements, financial model, and investor deck to prepare the founder for capital raising conversations. End-to-end investor readiness support from narrative through to data room." },
     { sector: "Legal Technology", client: "Legaltech Platform — Founder", type: "Strategic Advisory · Financial Modelling · Investor Readiness", detail: "Advising the founder of an early-stage legaltech platform on commercial strategy, financial model architecture, and fundraising preparation. Scoping engagement with potential to expand into full investment memorandum and capital raising support." },
   ];
@@ -803,15 +798,8 @@ function TrackRecordPage({ setPage }) {
       <div style={{ padding: "72px 24px", background: NAVY, borderTop: `1px solid ${NAVY_BORDER}`, borderBottom: `1px solid ${NAVY_BORDER}` }}>
         <SR><p style={{ ...h("b", 11, 400, ACCENT, 3, "uppercase"), marginBottom: 14, textAlign: "center" }}>Client Feedback</p></SR>
         <SR delay={0.05}><h3 style={{ ...h("s", 34, 300, TEXT), textAlign: "center", marginBottom: 56 }}>What Clients Say</h3></SR>
-        <div className="testimonial-grid" style={{ maxWidth: 900, margin: "0 auto" }}>
+        <div style={{ maxWidth: 600, margin: "0 auto" }}>
           <SR delay={0.1}><TiltCard className="card-glow" style={{ background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, padding: 48, height: "100%", borderTop: `2px solid ${ACCENT}` }}>
-            <div style={{ display: "flex", gap: 6, marginBottom: 18 }}>{[1,2,3,4,5].map(i => <span key={i} style={{ color: "#D4AA60", fontSize: 15 }}>★</span>)}</div>
-            <p style={{ ...h("s", 20, 400, TEXT), lineHeight: 1.75, fontStyle: "italic", marginBottom: 28 }}>Amar's modelling skills were of a very high quality. He built a powerful set of supporting documents that gave us real confidence going to market.</p>
-            <div style={{ width: 40, height: 1, background: `linear-gradient(90deg, ${ACCENT}, transparent)`, marginBottom: 18, opacity: 0.4 }} />
-            <p style={{ ...h("b", 12, 500, SILVER_LIGHT, 1.5, "uppercase") }}>Family Office</p>
-            <p style={{ ...h("b", 11, 300, TEXT_MUTED), marginTop: 4 }}>Health & Fitness Sector</p>
-          </TiltCard></SR>
-          <SR delay={0.2}><TiltCard className="card-glow" style={{ background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, padding: 48, height: "100%", borderTop: `2px solid ${ACCENT}` }}>
             <div style={{ display: "flex", gap: 6, marginBottom: 18 }}>{[1,2,3,4,5].map(i => <span key={i} style={{ color: "#D4AA60", fontSize: 15 }}>★</span>)}</div>
             <p style={{ ...h("s", 20, 400, TEXT), lineHeight: 1.75, fontStyle: "italic", marginBottom: 28 }}>Amar built a robust set of key company agreements, financial model, and investor deck. He was a key part of our team feeling confident approaching investors and being fully prepared.</p>
             <div style={{ width: 40, height: 1, background: `linear-gradient(90deg, ${ACCENT}, transparent)`, marginBottom: 18, opacity: 0.4 }} />
