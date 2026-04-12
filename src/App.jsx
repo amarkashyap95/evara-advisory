@@ -466,6 +466,12 @@ function HomePage({ setPage }) {
           <p style={{ ...h("s", 15, 400, TEXT_MUTED), fontStyle: "italic", maxWidth: 340 }}>A key part of our team feeling confident approaching investors.</p>
           <span style={{ ...h("b", 9, 300, ACCENT, 2, "uppercase"), opacity: 0.5 }}>— Founder & CEO</span>
         </div>
+        <div style={{ width: 1, height: 24, background: NAVY_BORDER }} />
+        <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+          <div style={{ ...h("s", 28, 300, ACCENT), opacity: 0.3 }}>"</div>
+          <p style={{ ...h("s", 15, 400, TEXT_MUTED), fontStyle: "italic", maxWidth: 340 }}>Understood our business quickly and delivered exactly what we needed.</p>
+          <span style={{ ...h("b", 9, 300, ACCENT, 2, "uppercase"), opacity: 0.5 }}>— Legaltech Founder</span>
+        </div>
 
       </div>
     </PhotoSection>
@@ -798,13 +804,20 @@ function TrackRecordPage({ setPage }) {
       <div style={{ padding: "72px 24px", background: NAVY, borderTop: `1px solid ${NAVY_BORDER}`, borderBottom: `1px solid ${NAVY_BORDER}` }}>
         <SR><p style={{ ...h("b", 11, 400, ACCENT, 3, "uppercase"), marginBottom: 14, textAlign: "center" }}>Client Feedback</p></SR>
         <SR delay={0.05}><h3 style={{ ...h("s", 34, 300, TEXT), textAlign: "center", marginBottom: 56 }}>What Clients Say</h3></SR>
-        <div style={{ maxWidth: 600, margin: "0 auto" }}>
+        <div className="testimonial-grid" style={{ maxWidth: 900, margin: "0 auto" }}>
           <SR delay={0.1}><TiltCard className="card-glow" style={{ background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, padding: 48, height: "100%", borderTop: `2px solid ${ACCENT}` }}>
             <div style={{ display: "flex", gap: 6, marginBottom: 18 }}>{[1,2,3,4,5].map(i => <span key={i} style={{ color: "#D4AA60", fontSize: 15 }}>★</span>)}</div>
             <p style={{ ...h("s", 20, 400, TEXT), lineHeight: 1.75, fontStyle: "italic", marginBottom: 28 }}>Amar built a robust set of key company agreements, financial model, and investor deck. He was a key part of our team feeling confident approaching investors and being fully prepared.</p>
             <div style={{ width: 40, height: 1, background: `linear-gradient(90deg, ${ACCENT}, transparent)`, marginBottom: 18, opacity: 0.4 }} />
             <p style={{ ...h("b", 12, 500, SILVER_LIGHT, 1.5, "uppercase") }}>Founder & CEO</p>
             <p style={{ ...h("b", 11, 300, TEXT_MUTED), marginTop: 4 }}>Consumer Business, Medical Sector</p>
+          </TiltCard></SR>
+          <SR delay={0.2}><TiltCard className="card-glow" style={{ background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, padding: 48, height: "100%", borderTop: `2px solid ${ACCENT}` }}>
+            <div style={{ display: "flex", gap: 6, marginBottom: 18 }}>{[1,2,3,4,5].map(i => <span key={i} style={{ color: "#D4AA60", fontSize: 15 }}>★</span>)}</div>
+            <p style={{ ...h("s", 20, 400, TEXT), lineHeight: 1.75, fontStyle: "italic", marginBottom: 28 }}>Amar's knowledge across commercial agreements and financial modelling gave us a real sense of confidence. He understood our business quickly and delivered exactly what we needed to move forward.</p>
+            <div style={{ width: 40, height: 1, background: `linear-gradient(90deg, ${ACCENT}, transparent)`, marginBottom: 18, opacity: 0.4 }} />
+            <p style={{ ...h("b", 12, 500, SILVER_LIGHT, 1.5, "uppercase") }}>Founder</p>
+            <p style={{ ...h("b", 11, 300, TEXT_MUTED), marginTop: 4 }}>Legaltech Platform</p>
           </TiltCard></SR>
         </div>
       </div>
