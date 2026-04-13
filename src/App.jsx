@@ -739,13 +739,43 @@ function ServicesPage() {
       {/* Process */}
       <div className="section-pad" style={{ background: NAVY, borderTop: `1px solid ${NAVY_BORDER}` }}>
         <SR><p style={{ ...h("b", 11, 400, ACCENT, 4, "uppercase"), marginBottom: 16, textAlign: "center" }}>Process</p></SR>
-        <SR delay={0.1}><h3 style={{ ...h("s", 32, 300, TEXT), textAlign: "center", marginBottom: 56 }}>How Engagements Work</h3></SR>
-        <div className="process-grid">
+        <SR delay={0.1}><h3 style={{ ...h("s", 32, 300, TEXT), textAlign: "center", marginBottom: 64 }}>How Engagements Work</h3></SR>
+        {/* Desktop: horizontal connected timeline */}
+        <div className="desktop-only" style={{ maxWidth: 1000, margin: "0 auto", position: "relative", flexDirection: "column" }}>
+          {/* Connecting line */}
+          <div style={{ position: "absolute", top: 18, left: "calc(12.5% + 18px)", right: "calc(12.5% + 18px)", height: 1, background: `linear-gradient(90deg, ${ACCENT}, ${SILVER}, ${ACCENT})`, opacity: 0.2, zIndex: 0 }} />
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr", gap: 0 }}>
+            {process.map((p, i) => (
+              <SR key={i} delay={i * 0.12}><div style={{ display: "flex", flexDirection: "column", alignItems: "center", position: "relative" }}>
+                {/* Circle on the line */}
+                <div style={{ width: 38, height: 38, borderRadius: "50%", border: `1px solid ${ACCENT}`, display: "flex", alignItems: "center", justifyContent: "center", ...h("b", 10, 500, ACCENT), background: NAVY, position: "relative", zIndex: 1, marginBottom: 24, boxShadow: `0 0 16px rgba(150,171,190,0.08)` }}>{p.step}</div>
+                {/* Card */}
+                <div className="card-glow" style={{ background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, padding: "32px 24px", width: "100%", position: "relative", overflow: "hidden", textAlign: "center" }}>
+                  {/* Watermark number */}
+                  <div style={{ position: "absolute", top: -8, right: 8, ...h("s", 72, 300, ACCENT), opacity: 0.04, lineHeight: 1, pointerEvents: "none" }}>{p.step}</div>
+                  <h4 style={{ ...h("s", 19, 500, TEXT), marginBottom: 12, position: "relative" }}>{p.title}</h4>
+                  <p style={{ ...h("b", 12.5, 300, TEXT_MUTED), lineHeight: 1.75, position: "relative" }}>{p.desc}</p>
+                </div>
+              </div></SR>
+            ))}
+          </div>
+        </div>
+        {/* Mobile: vertical connected timeline */}
+        <div className="mobile-only" style={{ flexDirection: "column", maxWidth: 500, margin: "0 auto", position: "relative" }}>
+          {/* Vertical line */}
+          <div style={{ position: "absolute", left: 18, top: 19, bottom: 19, width: 1, background: `linear-gradient(180deg, ${ACCENT}, ${SILVER}, ${ACCENT})`, opacity: 0.2, zIndex: 0 }} />
           {process.map((p, i) => (
-            <SR key={i} delay={i * 0.12}><div style={{ textAlign: "center", padding: "0 16px", position: "relative" }}>
-              <div style={{ width: 36, height: 36, borderRadius: "50%", border: `1px solid ${ACCENT}`, display: "flex", alignItems: "center", justifyContent: "center", ...h("b", 10, 400, ACCENT), margin: "0 auto 18px", background: NAVY, position: "relative", zIndex: 1 }}>{p.step}</div>
-              <h4 style={{ ...h("s", 18, 500, TEXT), marginBottom: 10 }}>{p.title}</h4>
-              <p style={{ ...h("b", 12, 300, TEXT_MUTED), lineHeight: 1.7 }}>{p.desc}</p>
+            <SR key={i} delay={i * 0.1}><div style={{ display: "flex", gap: 24, marginBottom: i < process.length - 1 ? 24 : 0, position: "relative" }}>
+              {/* Circle */}
+              <div style={{ flexShrink: 0 }}>
+                <div style={{ width: 38, height: 38, borderRadius: "50%", border: `1px solid ${ACCENT}`, display: "flex", alignItems: "center", justifyContent: "center", ...h("b", 10, 500, ACCENT), background: NAVY, position: "relative", zIndex: 1, boxShadow: `0 0 16px rgba(150,171,190,0.08)` }}>{p.step}</div>
+              </div>
+              {/* Card */}
+              <div className="card-glow" style={{ background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, padding: "24px 20px", flex: 1, position: "relative", overflow: "hidden" }}>
+                <div style={{ position: "absolute", top: -6, right: 8, ...h("s", 56, 300, ACCENT), opacity: 0.04, lineHeight: 1, pointerEvents: "none" }}>{p.step}</div>
+                <h4 style={{ ...h("s", 18, 500, TEXT), marginBottom: 8, position: "relative" }}>{p.title}</h4>
+                <p style={{ ...h("b", 12.5, 300, TEXT_MUTED), lineHeight: 1.75, position: "relative" }}>{p.desc}</p>
+              </div>
             </div></SR>
           ))}
         </div>
@@ -831,15 +861,19 @@ function TrackRecordPage({ setPage }) {
           ))}
         </div></SR>
       </div>
-      <div className="section-pad" style={{ background: NAVY_DEEP }}>
-        <SR delay={0.3}><div className="card-glow" style={{ background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, padding: "36px 44px", display: "flex", gap: 40, alignItems: "center", maxWidth: 800, flexWrap: "wrap" }}>
-          <div style={{ ...h("s", 36, 300, SILVER_LIGHT), flexShrink: 0, opacity: 0.6 }}>NDA</div>
-          <div style={{ flex: 1, minWidth: 200 }}>
-            <p style={{ ...h("b", 13, 300, TEXT), lineHeight: 1.75, marginBottom: 12 }}>Detailed case studies, model samples, and client references available under mutual non-disclosure.</p>
-            <Btn primary onClick={() => setPage("Contact")} style={{ padding: "10px 24px" }}>Request Access</Btn>
-          </div>
-        </div></SR>
-      </div>
+      {/* NDA — understated closing banner */}
+      <SR><div style={{ borderTop: `1px solid ${NAVY_BORDER}`, background: NAVY_DEEP, padding: "56px 24px", textAlign: "center" }}>
+        <div style={{ width: 36, height: 36, borderRadius: "50%", border: `1px solid ${ACCENT}`, display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 20px", opacity: 0.35 }}>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={ACCENT} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+            <path d="M7 11V7a5 5 0 0110 0v4" />
+          </svg>
+        </div>
+        <p style={{ ...h("s", 18, 400, TEXT_MUTED), fontStyle: "italic", maxWidth: 480, margin: "0 auto 24px", lineHeight: 1.7, opacity: 0.7 }}>
+          Detailed case studies, model samples, and client references available under mutual non-disclosure.
+        </p>
+        <Btn primary onClick={() => setPage("Contact")} style={{ padding: "12px 32px" }}>Request Access</Btn>
+      </div></SR>
     </>
   );
 }
