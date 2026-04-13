@@ -936,7 +936,7 @@ function ContactPage() {
                     <div><label style={labelStyle}>Company / Venture</label><input style={inputStyle} value={form.company} onChange={e => setForm({ ...form, company: e.target.value })} placeholder="Company name" /></div>
                     <div><label style={labelStyle}>Business Stage</label>
                       <select style={{ ...inputStyle, cursor: "pointer", appearance: "none" }} value={form.stage} onChange={e => setForm({ ...form, stage: e.target.value })}>
-                        {["", "Pre-seed / Idea", "Seed", "Series A+", "Established SMB", "Family Office / PE", "Other"].map(v => <option key={v} value={v} style={{ background: NAVY_CARD }}>{v || "Select..."}</option>)}
+                        {["", "Pre-seed / Idea", "Seed", "Series A+", "Established Business", "Franchise / Multi-Site Operator", "Angel Investor", "Fund Manager / GP", "Family Office", "Corporate / Corp Dev", "Other"].map(v => <option key={v} value={v} style={{ background: NAVY_CARD }}>{v || "Select..."}</option>)}
                       </select></div>
                   </div>
                   <div className="grid-form-row">
