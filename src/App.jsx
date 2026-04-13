@@ -482,7 +482,7 @@ function AboutPage() {
   const timeline = [
     { year: "2019", role: "Institutional Banking", org: "ANZ", desc: "M&A advisory and leveraged finance — structuring and syndicating facilities for PE sponsors. Moved into the bank's venture arm, deploying capital into growth-stage fintech from Series A." },
     { year: "2022", role: "Corporate Development", org: "PEXA Group", desc: "Proptech venture investments and corporate development strategy for a major ASX-listed technology platform." },
-    { year: "2023", role: "Founding Hire", org: "Early-Stage Venture Fund", desc: "Sole-led due diligence and IC approvals. Managed LP communications and fund capital raising. Deployed over $10M in equity capital across multiple portfolio companies." },
+    { year: "2023", role: "Founding Hire", org: "Institutional Venture Fund", desc: "Founding hire at an institutional venture fund backed by one of Australia's largest health insurance groups. Sole-led due diligence and IC approvals. Managed LP communications and fund capital raising. Deployed over $10M in equity capital across multiple portfolio companies." },
     { year: "2026", role: "Founder", org: "Evara Advisory", desc: "Independent advisory practice. Three mandates in the first quarter — fund structuring, investor readiness, and strategic advisory." },
   ];
   return (
@@ -565,7 +565,7 @@ function AboutPage() {
         <div className="grid-2" style={{ gap: 18, background: "transparent" }}>
           <SR><div className="card-glow" style={{ background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, padding: 36 }}>
             <p style={{ ...h("b", 9, 500, ACCENT, 3, "uppercase"), marginBottom: 18 }}>Career Heritage</p>
-            {["ANZ — M&A & Leveraged Finance", "Bank Venture Arm — Growth-Stage Tech Investments", "PEXA Group — Corporate Development", "Venture Capital Fund — Founding Hire & Fund Operations", "Family Office — Fund Structuring & Investment Strategy"].map((item, i) => (
+            {["ANZ — M&A & Leveraged Finance", "Bank Venture Arm — Growth-Stage Tech Investments", "PEXA Group — Corporate Development", "Institutional Venture Fund — Founding Hire & Fund Operations", "Family Office — Fund Structuring & Investment Strategy"].map((item, i) => (
               <div key={i} style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: i < 4 ? 14 : 0 }}>
                 <div style={{ width: 3, height: 3, borderRadius: "50%", background: ACCENT, flexShrink: 0 }} />
                 <p style={{ ...h("b", 12.5, 300, TEXT_MUTED), lineHeight: 1.5 }}>{item}</p>
@@ -847,7 +847,7 @@ function TrackRecordPage({ setPage }) {
       <div className="section-pad" style={{ background: NAVY_DEEP, borderBottom: `1px solid ${NAVY_BORDER}` }}>
         <SR><p style={{ ...h("b", 9, 500, TEXT_MUTED, 3, "uppercase"), marginBottom: 32, textAlign: "center" }}>Institutional Heritage</p></SR>
         <SR delay={0.1}><div className="logo-bar">
-          {[["ANZ", "Institutional Bank", 0.7, "b"], ["PEXA", "ASX-Listed", 0.7, "b"], ["Venture Fund", "Private Client", 0.4, "s"], ["Family Office", "Private Client", 0.4, "s"], ["Founders", "Multiple Engagements", 0.4, "s"]].map(([name, sub, op, fam], i) => (
+          {[["ANZ", "Institutional Bank", 0.7, "b"], ["PEXA", "ASX-Listed", 0.7, "b"], ["Venture Fund", "Institutional LP-Backed", 0.4, "s"], ["Family Office", "Private Client", 0.4, "s"], ["Founders", "Multiple Engagements", 0.4, "s"]].map(([name, sub, op, fam], i) => (
             <div key={i} style={{ display: "contents" }}>
               {i > 0 && <div style={{ width: 1, height: 40, background: NAVY_BORDER }} />}
               <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 6, opacity: op }}>
