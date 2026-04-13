@@ -15,10 +15,10 @@ const FORMSPREE_URL = "https://formspree.io/f/xbdpvgwj";
 
 const PHOTOS = {
   hero: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1920&q=80",
-  about: "https://images.unsplash.com/photo-1554469384-e58fac16e23a?w=1920&q=80",
-  services: "https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?w=1920&q=80",
+  about: "https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?w=1920&q=80",
+  services: "https://images.unsplash.com/photo-1514395462725-fb4566210144?w=1920&q=80",
   track: "https://images.unsplash.com/photo-1546636889-ba9fdd63583e?w=1920&q=80",
-  contact: "https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=1920&q=80",
+  contact: "https://images.unsplash.com/photo-1524293581917-878a6d017c71?w=1920&q=80",
 };
 
 const fontLink = document.createElement("link");
