@@ -579,7 +579,7 @@ function AboutPage() {
             <p style={{ ...h("b", 12, 400, SILVER_LIGHT), marginBottom: 20 }}>Graduated with Distinction</p>
             <div style={{ borderTop: `1px solid ${NAVY_BORDER}`, paddingTop: 16 }}>
               <p style={{ ...h("s", 16, 500, TEXT), marginBottom: 2 }}>University of Illinois</p>
-              <p style={{ ...h("b", 11, 300, TEXT_MUTED), lineHeight: 1.5 }}>12-month international exchange, 2016</p>
+              <p style={{ ...h("b", 11, 300, TEXT_MUTED), lineHeight: 1.5 }}>12-month international exchange</p>
               <p style={{ ...h("b", 12, 400, SILVER_LIGHT), marginTop: 2 }}>4.0 GPA</p>
             </div>
           </div></SR>
