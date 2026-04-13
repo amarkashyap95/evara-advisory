@@ -756,9 +756,9 @@ function ServicesPage() {
 
 function TrackRecordPage({ setPage }) {
   const recent = [
-    { sector: "Health & Fitness", client: "Private Franchise Group", type: "Fund Structuring · Financial Modelling · Investor Materials", detail: "Managed initial legal structuring and fund establishment in coordination with external legal counsel. Developed the complete fund model — vehicle architecture, capital deployment logic, distribution waterfall mechanics, and scenario analysis. Produced the full Investment Memorandum and board-level presentation materials for an institutional equity raise." },
-    { sector: "Beauty & Medical", client: "Consumer Business — Founder & CEO", type: "Commercial Agreements · Financial Model · Investor Deck", detail: "Building a comprehensive set of key commercial agreements, financial model, and investor deck to prepare the founder for capital raising conversations. End-to-end investor readiness support from narrative through to data room." },
-    { sector: "Legal Technology", client: "Legaltech Platform — Founder", type: "Strategic Advisory · Financial Modelling · Investor Readiness", detail: "Advising the founder of an early-stage legaltech platform on commercial strategy, financial model architecture, and fundraising preparation. Scoping engagement with potential to expand into full investment memorandum and capital raising support." },
+    { status: "active", sector: "Health & Fitness", client: "Private Franchise Group", type: "Fund Structuring · Financial Modelling · Investor Materials", detail: "Managed initial legal structuring and fund establishment in coordination with external legal counsel. Developed the complete fund model — vehicle architecture, capital deployment logic, distribution waterfall mechanics, and scenario analysis. Produced the full Investment Memorandum and board-level presentation materials for an institutional equity raise." },
+    { status: "active", sector: "Beauty & Medical", client: "Consumer Business — Founder & CEO", type: "Commercial Agreements · Financial Model · Investor Deck", detail: "Building a comprehensive set of key commercial agreements, financial model, and investor deck to prepare the founder for capital raising conversations. End-to-end investor readiness support from narrative through to data room." },
+    { status: "active", sector: "Legal Technology", client: "Legaltech Platform — Founder", type: "Strategic Advisory · Financial Modelling · Investor Readiness", detail: "Ongoing founder coaching, full investor deck development, multi-scenario financial model, and fundraising support." },
   ];
   const career = [
     { period: "2023 — 2025", client: "Early-Stage Venture Capital Fund", type: "Fund Operations · Due Diligence · Capital Raising", detail: "Founding hire alongside the Managing Partner at a Sydney-based venture fund. Sole-led due diligence and Investment Committee approvals. Managed LP communications, fund capital raising, and deal pipeline. Deployed over $10M in equity capital across multiple portfolio companies." },
@@ -787,8 +787,8 @@ function TrackRecordPage({ setPage }) {
             <SR key={i} delay={i * 0.12}>
               <TiltCard className="card-glow" style={{ background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, borderTop: `2px solid ${ACCENT}`, padding: 36, height: "100%" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 18 }}>
-                  <div style={{ width: 7, height: 7, borderRadius: "50%", background: GREEN, boxShadow: `0 0 8px rgba(74,222,128,0.4)` }} />
-                  <span style={{ ...h("b", 9, 500, GREEN, 2, "uppercase"), opacity: 0.8 }}>Active</span>
+                  <div style={{ width: 7, height: 7, borderRadius: "50%", background: r.status === "active" ? GREEN : SILVER, boxShadow: r.status === "active" ? `0 0 8px rgba(74,222,128,0.4)` : "none" }} />
+                  <span style={{ ...h("b", 9, 500, r.status === "active" ? GREEN : SILVER, 2, "uppercase"), opacity: 0.8 }}>{r.status === "active" ? "Active" : "Completed"}</span>
                 </div>
                 <p style={{ ...h("b", 9, 500, ACCENT, 2.5, "uppercase"), marginBottom: 10 }}>{r.sector}</p>
                 <h4 style={{ ...h("s", 21, 500, TEXT), marginBottom: 8 }}>{r.client}</h4>
