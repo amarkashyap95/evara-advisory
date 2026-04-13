@@ -746,15 +746,13 @@ function ServicesPage() {
           <div style={{ position: "absolute", top: 18, left: "calc(12.5% + 18px)", right: "calc(12.5% + 18px)", height: 1, background: `linear-gradient(90deg, ${ACCENT}, ${SILVER}, ${ACCENT})`, opacity: 0.2, zIndex: 0 }} />
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr", gap: 0 }}>
             {process.map((p, i) => (
-              <SR key={i} delay={i * 0.12}><div style={{ display: "flex", flexDirection: "column", alignItems: "center", position: "relative" }}>
+              <SR key={i} delay={i * 0.12} style={{ display: "flex", flexDirection: "column" }}><div style={{ display: "flex", flexDirection: "column", alignItems: "center", flex: 1 }}>
                 {/* Circle on the line */}
                 <div style={{ width: 38, height: 38, borderRadius: "50%", border: `1px solid ${ACCENT}`, display: "flex", alignItems: "center", justifyContent: "center", ...h("b", 10, 500, ACCENT), background: NAVY, position: "relative", zIndex: 1, marginBottom: 24, boxShadow: `0 0 16px rgba(150,171,190,0.08)` }}>{p.step}</div>
                 {/* Card */}
-                <div className="card-glow" style={{ background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, padding: "32px 24px", width: "100%", position: "relative", overflow: "hidden", textAlign: "center" }}>
-                  {/* Watermark number */}
-                  <div style={{ position: "absolute", top: -8, right: 8, ...h("s", 72, 300, ACCENT), opacity: 0.04, lineHeight: 1, pointerEvents: "none" }}>{p.step}</div>
-                  <h4 style={{ ...h("s", 19, 500, TEXT), marginBottom: 12, position: "relative" }}>{p.title}</h4>
-                  <p style={{ ...h("b", 12.5, 300, TEXT_MUTED), lineHeight: 1.75, position: "relative" }}>{p.desc}</p>
+                <div className="card-glow" style={{ background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, padding: "32px 24px", width: "100%", textAlign: "center", flex: 1 }}>
+                  <h4 style={{ ...h("s", 19, 500, TEXT), marginBottom: 12 }}>{p.title}</h4>
+                  <p style={{ ...h("b", 12.5, 300, TEXT_MUTED), lineHeight: 1.75 }}>{p.desc}</p>
                 </div>
               </div></SR>
             ))}
@@ -771,10 +769,9 @@ function ServicesPage() {
                 <div style={{ width: 38, height: 38, borderRadius: "50%", border: `1px solid ${ACCENT}`, display: "flex", alignItems: "center", justifyContent: "center", ...h("b", 10, 500, ACCENT), background: NAVY, position: "relative", zIndex: 1, boxShadow: `0 0 16px rgba(150,171,190,0.08)` }}>{p.step}</div>
               </div>
               {/* Card */}
-              <div className="card-glow" style={{ background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, padding: "24px 20px", flex: 1, position: "relative", overflow: "hidden" }}>
-                <div style={{ position: "absolute", top: -6, right: 8, ...h("s", 56, 300, ACCENT), opacity: 0.04, lineHeight: 1, pointerEvents: "none" }}>{p.step}</div>
-                <h4 style={{ ...h("s", 18, 500, TEXT), marginBottom: 8, position: "relative" }}>{p.title}</h4>
-                <p style={{ ...h("b", 12.5, 300, TEXT_MUTED), lineHeight: 1.75, position: "relative" }}>{p.desc}</p>
+              <div className="card-glow" style={{ background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, padding: "24px 20px", flex: 1 }}>
+                <h4 style={{ ...h("s", 18, 500, TEXT), marginBottom: 8 }}>{p.title}</h4>
+                <p style={{ ...h("b", 12.5, 300, TEXT_MUTED), lineHeight: 1.75 }}>{p.desc}</p>
               </div>
             </div></SR>
           ))}
