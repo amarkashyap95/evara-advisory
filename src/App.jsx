@@ -760,11 +760,6 @@ function TrackRecordPage({ setPage }) {
     { status: "active", sector: "Beauty & Medical", client: "Consumer Business — Founder & CEO", type: "Commercial Agreements · Financial Model · Investor Deck", detail: "Engaged by the founder of a consumer business in the beauty and medical space to prepare the company for its first capital raise. Scope includes drafting key commercial agreements, building the financial model, and developing the full investor deck. End-to-end investor readiness support — from narrative refinement and data room build-out through to investor targeting." },
     { status: "active", sector: "Legal Technology", client: "Legaltech Platform — Founder", type: "Strategic Advisory · Financial Modelling · Investor Readiness", detail: "Engaged as a strategic advisor to the founder of an early-stage legaltech platform. Scope includes ongoing founder coaching, development of the full investor deck and multi-scenario financial model, and end-to-end fundraising preparation. Supporting the founder through commercial positioning, investor narrative, and capital strategy as the business moves toward its first institutional raise." },
   ];
-  const career = [
-    { period: "2023 — 2025", client: "Early-Stage Venture Capital Fund", type: "Fund Operations · Due Diligence · Capital Raising", detail: "Founding hire alongside the Managing Partner at a Sydney-based venture fund. Sole-led due diligence and Investment Committee approvals. Managed LP communications, fund capital raising, and deal pipeline. Deployed over $10M in equity capital across multiple portfolio companies." },
-    { period: "2022", client: "ASX-Listed Technology Platform", type: "Corporate Development · Proptech Venture Investments", detail: "Evaluated and executed venture investments from Series A onwards across the proptech ecosystem. Supported corporate development strategy during the company's time as a publicly listed business." },
-    { period: "2019 — 2022", client: "Top-4 Australian Bank — Institutional Division", type: "M&A Advisory · Leveraged Finance · Venture Investments", detail: "Three years across the Institutional Bank spanning M&A advisory, leveraged finance — structuring debt facilities for PE sponsors — and growth-stage venture investing through the bank's innovation arm." },
-  ];
   return (
     <>
       <PhotoSection src={PHOTOS.track} overlay={0.86}>
@@ -836,28 +831,8 @@ function TrackRecordPage({ setPage }) {
           ))}
         </div></SR>
       </div>
-      {/* Career History */}
       <div className="section-pad" style={{ background: NAVY_DEEP }}>
-        <SR><div style={{ marginBottom: 44 }}>
-          <p style={{ ...h("b", 11, 400, ACCENT, 3, "uppercase"), marginBottom: 14 }}>2019 — 2025</p>
-          <h3 style={{ ...h("s", 30, 400, TEXT), marginBottom: 10 }}>Career History</h3>
-          <p style={{ ...h("b", 13, 300, TEXT_MUTED) }}>Prior institutional and fund experience before launching Evara Advisory.</p>
-        </div></SR>
-        <div style={{ maxWidth: 800 }}>
-          {career.map((r, i) => (
-            <SR key={i} delay={i * 0.1}><div className="card-glow" style={{ padding: "40px 28px", borderBottom: `1px solid ${NAVY_BORDER}`, marginLeft: -28, marginRight: -28 }}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 10, flexWrap: "wrap", gap: 8 }}>
-                <div>
-                  <h3 style={{ ...h("s", 23, 500, TEXT), marginBottom: 6 }}>{r.client}</h3>
-                  <p style={{ ...h("b", 10, 400, ACCENT, 2, "uppercase") }}>{r.type}</p>
-                </div>
-                <span style={{ ...h("b", 11, 300, TEXT_MUTED, 1.5), background: NAVY_CARD, padding: "5px 14px", border: `1px solid ${NAVY_BORDER}` }}>{r.period}</span>
-              </div>
-              <p style={{ ...h("b", 14, 300, TEXT_MUTED), lineHeight: 1.9, marginTop: 16 }}>{r.detail}</p>
-            </div></SR>
-          ))}
-        </div>
-        <SR delay={0.3}><div className="card-glow" style={{ marginTop: 56, background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, padding: "36px 44px", display: "flex", gap: 40, alignItems: "center", maxWidth: 800, flexWrap: "wrap" }}>
+        <SR delay={0.3}><div className="card-glow" style={{ background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, padding: "36px 44px", display: "flex", gap: 40, alignItems: "center", maxWidth: 800, flexWrap: "wrap" }}>
           <div style={{ ...h("s", 36, 300, SILVER_LIGHT), flexShrink: 0, opacity: 0.6 }}>NDA</div>
           <div style={{ flex: 1, minWidth: 200 }}>
             <p style={{ ...h("b", 13, 300, TEXT), lineHeight: 1.75, marginBottom: 12 }}>Detailed case studies, model samples, and client references available under mutual non-disclosure.</p>
