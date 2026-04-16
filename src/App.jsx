@@ -444,7 +444,7 @@ function HomePage({ setPage }) {
           Strategic advisory and transaction support for founders raising capital and private capital groups deploying it.
         </p>
         <p className="fu d5" style={{ ...h("s", 16, 400, TEXT_MUTED), lineHeight: 1.75, maxWidth: 540, marginBottom: 52, fontStyle: "italic", opacity: 0.5 }}>
-          Institutional banking · Venture capital · AI-augmented delivery
+          Institutional banking · Venture capital · Private equity · AI-augmented delivery
         </p>
         <div className="fu d6" style={{ display: "flex", gap: 16, marginBottom: 80, flexWrap: "wrap" }}>
           <Btn primary onClick={() => setPage("Contact")}>Get in Touch</Btn>
@@ -714,7 +714,7 @@ function ServicesPage() {
         </div>
       </div>
       {/* AI Section */}
-      <div className="section-pad" style={{ background: NAVY, borderTop: `2px solid transparent`, borderImage: `linear-gradient(90deg, ${NAVY}, ${ACCENT}, ${NAVY}) 1`, position: "relative" }}>
+      <div className="section-pad" style={{ background: NAVY, borderTop: `2px solid transparent`, borderImage: `linear-gradient(90deg, ${NAVY}, ${ACCENT}, ${NAVY}) 1`, position: "relative", paddingBottom: 40 }}>
         <SR><div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 14 }}>
           <div style={{ width: 40, height: 40, borderRadius: "50%", border: `1px solid ${ACCENT}`, display: "flex", alignItems: "center", justifyContent: "center", ...h("b", 16, 300, ACCENT), opacity: 0.5 }}>⚡</div>
           <h3 style={{ ...h("s", 28, 400, TEXT) }}>AI Adoption & Automation</h3>
@@ -736,7 +736,7 @@ function ServicesPage() {
           ))}
         </div>
         {/* Tools strip */}
-        <SR delay={0.5}><div style={{ marginTop: 40, padding: "28px 0", borderTop: `1px solid ${NAVY_BORDER}` }}>
+        <SR delay={0.5}><div style={{ marginTop: 32, padding: "20px 0 0", borderTop: `1px solid ${NAVY_BORDER}` }}>
           <p style={{ ...h("b", 9, 500, TEXT_MUTED, 3, "uppercase"), marginBottom: 20, textAlign: "center", opacity: 0.4 }}>Built With</p>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 36, flexWrap: "wrap" }}>
             {["Claude", "ChatGPT", "Cursor", "Make.com", "Zapier", "Python", "Vercel", "n8n"].map((tool, i) => (
