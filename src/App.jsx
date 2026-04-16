@@ -736,8 +736,8 @@ function ServicesPage() {
           ))}
         </div>
         {/* Tools strip */}
-        <SR delay={0.5}><div style={{ marginTop: 32, padding: "20px 0 0", borderTop: `1px solid ${NAVY_BORDER}` }}>
-          <p style={{ ...h("b", 9, 500, TEXT_MUTED, 3, "uppercase"), marginBottom: 20, textAlign: "center", opacity: 0.4 }}>Built With</p>
+        <SR delay={0.5}><div style={{ marginTop: 32 }}>
+          <p style={{ ...h("b", 9, 500, TEXT_MUTED, 3, "uppercase"), marginBottom: 16, textAlign: "center", opacity: 0.4 }}>Built With</p>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 36, flexWrap: "wrap" }}>
             {["Claude", "ChatGPT", "Cursor", "Make.com", "Zapier", "Python", "Vercel", "n8n"].map((tool, i) => (
               <span key={i} style={{ ...h("b", 11, 300, TEXT_MUTED, 1.5), opacity: 0.45, transition: "opacity 0.3s" }}
