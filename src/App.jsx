@@ -360,7 +360,7 @@ function Preloader({ done }) {
 }
 
 function Marquee() {
-  const items = "Capital Strategy · Fund Structuring · Investor Materials · Transaction Support · Due Diligence · Commercial Agreements · Financial Modelling · Board Reporting · ";
+  const items = "Capital Strategy · Fund Structuring · Investor Materials · Transaction Support · Due Diligence · Commercial Agreements · Financial Modelling · AI Automation · Board Reporting · ";
   return (
     <div className="marquee-wrap" style={{ padding: "16px 0", borderTop: `1px solid rgba(255,255,255,0.04)`, borderBottom: `1px solid rgba(255,255,255,0.04)` }}>
       <div className="marquee-inner">
@@ -444,7 +444,7 @@ function HomePage({ setPage }) {
           Strategic advisory and transaction support for founders raising capital and private capital groups deploying it.
         </p>
         <p className="fu d5" style={{ ...h("s", 16, 400, TEXT_MUTED), lineHeight: 1.75, maxWidth: 540, marginBottom: 52, fontStyle: "italic", opacity: 0.5 }}>
-          Institutional banking · Venture capital · Private equity
+          Institutional banking · Venture capital · AI-augmented delivery
         </p>
         <div className="fu d6" style={{ display: "flex", gap: 16, marginBottom: 80, flexWrap: "wrap" }}>
           <Btn primary onClick={() => setPage("Contact")}>Get in Touch</Btn>
@@ -452,7 +452,7 @@ function HomePage({ setPage }) {
         </div>
       </div>
       <div className="fu d7 stats-bar" style={{ padding: "40px 100px 36px", borderTop: "1px solid rgba(255,255,255,0.06)" }}>
-        {[[7, "+", "Years in Private Markets"], [null, "Early Stage → Enterprise", "Across the Business Lifecycle"], [null, "Modelling · Strategy · Capital", "Core Competencies"], [null, "Sydney", "Australia"]].map(([num, big, small], i) => (
+        {[[7, "+", "Years in Private Markets"], [null, "Early Stage → Enterprise", "Across the Business Lifecycle"], [null, "AI-Native Workflow", "Claude · GPT · Make · Cursor"], [null, "Sydney", "Australia"]].map(([num, big, small], i) => (
           <div key={i} style={{ flex: 1, borderRight: i < 3 ? "1px solid rgba(255,255,255,0.05)" : "none", paddingRight: 28 }}>
             <div style={{ ...h("s", 24, 300, SILVER_LIGHT), marginBottom: 8 }}>{num !== null ? <Counter end={num} suffix={big} /> : big}</div>
             <div style={{ ...h("b", 9, 300, TEXT_MUTED, 2, "uppercase") }}>{small}</div>
@@ -517,7 +517,7 @@ function AboutPage() {
               Established in early 2026 and based in Sydney, Evara Advisory operates with limited capacity by design. A deliberately small client list ensures every engagement receives full attention and institutional-grade delivery.
             </p></SR>
             <SR delay={0.2}><p style={{ ...h("b", 15, 300, TEXT_MUTED), lineHeight: 1.95 }}>
-              The firm leverages advanced AI tooling across its workflow — compressing timelines and deepening analysis in ways that traditional advisory models cannot replicate.
+              The firm is built on AI-native workflows — Claude, GPT, Cursor, and custom automation pipelines are embedded across every engagement. Financial models are built faster, investor materials are drafted and iterated in compressed cycles, and due diligence workstreams are augmented with AI-assisted analysis. The result is institutional-grade output delivered at a speed and price point traditional advisory cannot match.
             </p></SR>
           </div>
           <SR delay={0.2}><div style={{ display: "flex", alignItems: "center" }}>
@@ -601,7 +601,7 @@ function AboutPage() {
           </div></SR>
           <SR delay={0.2}><div className="card-glow" style={{ background: NAVY_CARD, border: `1px solid ${NAVY_BORDER}`, padding: 36 }}>
             <p style={{ ...h("b", 9, 500, ACCENT, 3, "uppercase"), marginBottom: 18 }}>Approach</p>
-            {["Institutional rigour, boutique delivery", "AI-enhanced speed & depth", "Outcome-scoped, no ambiguity", "NDA-first on sensitive work"].map((item, i) => (
+            {["Institutional rigour, boutique delivery", "AI-native — Claude, GPT, Make, Cursor", "Outcome-scoped, no ambiguity", "NDA-first on sensitive work"].map((item, i) => (
               <div key={i} style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: i < 3 ? 14 : 0 }}>
                 <span style={{ color: ACCENT, fontSize: 11 }}>→</span>
                 <p style={{ ...h("b", 12.5, 300, TEXT_MUTED), lineHeight: 1.5 }}>{item}</p>
@@ -714,20 +714,20 @@ function ServicesPage() {
         </div>
       </div>
       {/* AI Section */}
-      <div className="section-pad" style={{ background: NAVY, borderTop: `1px solid ${NAVY_BORDER}` }}>
+      <div className="section-pad" style={{ background: NAVY, borderTop: `2px solid transparent`, borderImage: `linear-gradient(90deg, ${NAVY}, ${ACCENT}, ${NAVY}) 1`, position: "relative" }}>
         <SR><div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 14 }}>
           <div style={{ width: 40, height: 40, borderRadius: "50%", border: `1px solid ${ACCENT}`, display: "flex", alignItems: "center", justifyContent: "center", ...h("b", 16, 300, ACCENT), opacity: 0.5 }}>⚡</div>
           <h3 style={{ ...h("s", 28, 400, TEXT) }}>AI Adoption & Automation</h3>
         </div></SR>
-        <SR delay={0.1}><p style={{ ...h("b", 14, 300, TEXT_MUTED), lineHeight: 1.85, maxWidth: 620, marginBottom: 40 }}>
-          Embedded across all engagements. AI-augmented delivery that compresses timelines without compromising depth.
+        <SR delay={0.1}><p style={{ ...h("b", 14, 300, TEXT_MUTED), lineHeight: 1.85, maxWidth: 680, marginBottom: 40 }}>
+          AI isn't an add-on — it's embedded across every engagement. From financial model builds to investor decks to automated reporting pipelines, AI-augmented workflows compress timelines and deepen analysis at every step.
         </p></SR>
         <div className="grid-4" style={{ gap: "1px", background: NAVY_BORDER, alignItems: "stretch" }}>
           {[
-            { t: "AI Strategy & Readiness", d: "Structured review of your operations to identify where AI delivers the highest impact. Practical roadmap, not buzzwords." },
-            { t: "Custom Workflows & Automations", d: "Purpose-built AI workflows — automated reporting, document generation, data extraction, and client communications." },
-            { t: "AI-Powered Tools & Apps", d: "Bespoke internal tools with AI at their core — dashboards, intelligent document search, proposal generators, pricing engines." },
-            { t: "Process Automation", d: "Connecting your existing tools with AI — CRM workflows, invoice processing, lead qualification, content generation." },
+            { t: "AI Strategy & Readiness", d: "Structured review of your operations to identify where AI delivers the highest impact. Practical roadmap with tool recommendations, implementation priorities, and ROI benchmarks." },
+            { t: "Custom Workflows & Automations", d: "End-to-end automation pipelines using Make.com, Zapier, and n8n — automated reporting, document generation, CRM workflows, invoice processing, and client communications." },
+            { t: "AI-Powered Tools & Apps", d: "Bespoke internal tools built with Claude, GPT, and Python — intelligent document search, proposal generators, pricing engines, dashboards, and internal copilots tailored to your business." },
+            { t: "Process Integration", d: "Connecting your existing stack with AI — turning manual workflows into automated pipelines. From lead qualification to board reporting to contract analysis." },
           ].map((item, i) => (
             <SR key={i} delay={i * 0.1} style={{ display: "flex" }}><div className="card-glow" style={{ background: NAVY_DEEP, padding: 32, flex: 1 }}>
               <h4 style={{ ...h("s", 18, 500, TEXT), marginBottom: 12 }}>{item.t}</h4>
@@ -735,6 +735,16 @@ function ServicesPage() {
             </div></SR>
           ))}
         </div>
+        {/* Tools strip */}
+        <SR delay={0.5}><div style={{ marginTop: 40, padding: "28px 0", borderTop: `1px solid ${NAVY_BORDER}` }}>
+          <p style={{ ...h("b", 9, 500, TEXT_MUTED, 3, "uppercase"), marginBottom: 20, textAlign: "center", opacity: 0.4 }}>Built With</p>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 36, flexWrap: "wrap" }}>
+            {["Claude", "ChatGPT", "Cursor", "Make.com", "Zapier", "Python", "Vercel", "n8n"].map((tool, i) => (
+              <span key={i} style={{ ...h("b", 11, 300, TEXT_MUTED, 1.5), opacity: 0.45, transition: "opacity 0.3s" }}
+                onMouseEnter={e => e.target.style.opacity = 0.9} onMouseLeave={e => e.target.style.opacity = 0.45}>{tool}</span>
+            ))}
+          </div>
+        </div></SR>
       </div>
       {/* Process */}
       <div className="section-pad" style={{ background: NAVY, borderTop: `1px solid ${NAVY_BORDER}` }}>
@@ -783,8 +793,8 @@ function ServicesPage() {
 
 function TrackRecordPage({ setPage }) {
   const recent = [
-    { status: "active", sector: "Health & Fitness", client: "Private Franchise Group — Board Engagement", type: "Fund Structuring · Financial Modelling · Investor Materials", detail: "Managed initial legal structuring and fund establishment in coordination with external legal counsel. Developed the complete fund model — vehicle architecture, capital deployment logic, distribution waterfall mechanics, and scenario analysis. Produced the full Investment Memorandum and board-level presentation materials for an institutional equity raise." },
-    { status: "active", sector: "Beauty & Medical", client: "Consumer Business — Founder & CEO", type: "Commercial Agreements · Financial Model · Investor Deck", detail: "Engaged by the founder of a consumer business in the beauty and medical space to prepare the company for its first capital raise. Scope includes drafting key commercial agreements, building the financial model, and developing the full investor deck. End-to-end investor readiness support — from narrative refinement and data room build-out through to investor targeting." },
+    { status: "active", sector: "Health & Fitness", client: "Private Franchise Group — Board Engagement", type: "Fund Structuring · Financial Modelling · Investor Materials", detail: "Managed initial legal structuring and fund establishment in coordination with external legal counsel. Developed the complete fund model — vehicle architecture, capital deployment logic, distribution waterfall mechanics, and scenario analysis. Produced the full Investment Memorandum and board-level presentation materials for an institutional equity raise. AI-augmented workflows used across model construction and document generation." },
+    { status: "active", sector: "Beauty & Medical", client: "Consumer Business — Founder & CEO", type: "Commercial Agreements · Financial Model · Investor Deck", detail: "Engaged by the founder of a consumer business in the beauty and medical space to prepare the company for its first capital raise. Scope includes drafting key commercial agreements, building the financial model, and developing the full investor deck. End-to-end investor readiness support — from narrative refinement and data room build-out through to investor targeting. Delivered on compressed timelines using AI-assisted drafting and modelling." },
     { status: "active", sector: "Legal Technology", client: "Legaltech Platform — Founder", type: "Strategic Advisory · Financial Modelling · Investor Readiness", detail: "Engaged as a strategic advisor to the founder of an early-stage legaltech platform. Scope includes ongoing founder coaching, development of the full investor deck and multi-scenario financial model, and end-to-end fundraising preparation. Supporting the founder through commercial positioning, investor narrative, and capital strategy as the business moves toward its first institutional raise." },
   ];
   return (
